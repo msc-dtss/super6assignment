@@ -1,5 +1,8 @@
-# super6assignment
-First Assignment for the 2019 MSc for Digital &amp; Technology Solutions Specialist
+# Super 6 Rugby
+This is for the First Assignment for the 2019 MSc for Digital &amp; Technology Solutions Specialist.
+
+## Why Rugby?
+The day we started brainstorming our plan together, it was the start of the 2019 Rugby World Cup, so why not?
 
 # Group:
 * [Chris](https://github.com/TheQuietPotato)
