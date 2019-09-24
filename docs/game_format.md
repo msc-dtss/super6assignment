@@ -24,7 +24,7 @@
 * Each group has 5 teams therefore a round is 2.5 fixtures * 4 groups = 10 fixtures
 * Because of scheduling one round has 11 and one round has 9 fixtures, this has no effect on the game
 * A team could appear more than once but this would have no effect on the game
-* The rounds are determined as follows
+* The rounds are determined as follows (fixtures here - https://www.rugbyworldcup.com/matches)
     * 20th Sept - 25th Sept (10 fixtures)
     * 26th Sept - 2nd October (10 fixtures)
     * 3rd October - 8th Oct (9 fixtures)
