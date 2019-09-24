@@ -7,6 +7,9 @@ The day we started brainstorming our plan together, it was the start of the 2019
 ## Game Format
 See [Game Format](docs/game_format.md)
 
+## Technical Documentation
+* [User Interface Views](docs/ui_views.md)
+
 ## Get Started
 1. <details><summary>Clone this repository from github</summary>`git clone https://github.com/msc-dtss/super6assignment.git`</details>
 2. <details><summary>Navigate into the folder</summary>`cd super6assignment`</details>
