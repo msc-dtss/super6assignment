@@ -1,4 +1,4 @@
-# Sky Super 6 (Football) = Original Game
+# Sky Super 6 (Football) - Original Game
 * For each game round 6 fixtures are selected by the organisers from the 10 fixtures available
 * Each user has the ability to predict the following elements of the result for each of the 6 fixtures
     * The score for each side
