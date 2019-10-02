@@ -9,6 +9,7 @@ See [Game Format](docs/game_format.md)
 
 ## Technical Documentation
 * [User Interface Views](docs/ui_views.md)
+* [Module Breakdown](docs/code_modules.md)
 
 ## Get Started
 On a terminal (cmd), follow these steps:
