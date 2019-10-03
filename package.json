@@ -1,26 +1,33 @@
 {
   "name": "super6assignment",
   "version": "1.0.0",
+  "private": true,
   "description": "Rugby World Cup Super 6",
   "main": "app.js",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
+    "start": "node ./bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/msc-dtss/super6assignment.git"
   },
-  "author": "",
+  "author": "Chris Smith, Mike Keightley, Millan Martin, Neil Musgrove, Tiago Correia",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/msc-dtss/super6assignment/issues"
   },
   "homepage": "https://github.com/msc-dtss/super6assignment#readme",
   "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "ejs": "~2.6.1",
     "express": "^4.17.1",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
     "mongodb": "^3.3.2"
   }
 }
