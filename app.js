@@ -38,4 +38,10 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+// MongoDB client connecting to default port and db name of super6db.
+// Available across the system with req.app.get('super6db')
+var MongoClient = require('mongodb').MongoClient
+MongoClient.connect('mongodb://localhost:27017', {
+  useNewUrlParser: true, useUnifiedTopology: true }, (err,client) => app.set('super6db', client.db('super6db')));
+
 module.exports = app;
