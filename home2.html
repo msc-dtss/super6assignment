@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="home2.css" type="text/css" rel="stylesheet" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title></title>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <a id="home" href="">HOME</a>
+        <a id="play" href="">PLAY SUPER 6</a>
+        <a id="about" href="">ABOUT</a>
+        <a id="retults" href="">RETULTS</a>
+        <a id="leader" href="">LEADERBOARD</a>    
+        <label id= "username" class="navright">User name </label>     
+    </div>
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<div class="login">
+            
+    <a button class="open-button" onclick="openForm()">LOG IN</a></button>
+    
+    <div class="form-popup" id="myForm">
+      <form  class="form-container">
+        <h1>Login</h1>
+    
+        <label for="email"><b>Email</b></label>
+        <input type="text" placeholder="Enter Email" name="email" required>
+    
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="psw" required>
+    
+        <button type="submit" class="btn">Login</button>
+        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+      </form>
+    </div>
+    <br/>
+    <br/>
+    <a button class="open-button" onclick="openRegister()">REGISTER</a></button>
+    <div class="form-popup" id="myRegister">
+        <form  class="form-container">
+          <h1>Register</h1>
+      
+          <label for="email"><b>Email</b></label>
+          <input type="text" placeholder="Enter Email" name="email" required>
+      
+          <label for="psw"><b>Password</b></label>
+          <input type="password" placeholder="Enter Password" name="psw" required>
+          
+          <label for="psw"><b>Repeat Password</b></label>
+          <input type="password" placeholder="Enter Password" name="psw" required>
+
+          <button type="submit" class="btn">Register</button>
+          <button type="button" class="btn cancel" onclick="closeRegister()">Close</button>
+        </form>
+      </div>
+    <script>
+    function openForm() {
+      document.getElementById("myForm").style.display = "block";
+    }
+    
+    function closeForm() {
+      document.getElementById("myForm").style.display = "none";
+    }
+    </script>
+    <script>
+        function openRegister() {
+          document.getElementById("myRegister").style.display = "block";
+        }
+        
+        function closeForm() {
+          document.getElementById("myRegister").style.display = "none";
+        }
+        </script>
+
+</div>
+</body>
