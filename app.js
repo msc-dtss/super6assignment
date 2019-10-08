@@ -38,8 +38,18 @@ app.use(function(err, req, res, next) {
 
 // MongoDB client connecting to default port and db name of super6db.
 // Available across the system with req.app.get('super6db')
-const MongoClient = require('mongodb').MongoClient
+const MongoClient = require('mongodb').MongoClient;
 MongoClient.connect('mongodb://localhost:27017', {
-  useNewUrlParser: true, useUnifiedTopology: true }, (err,client) => app.set('super6db', client.db('super6db')));
+  useNewUrlParser: true, useUnifiedTopology: true }, function(err,client){
+  app.set('super6db', client.db('super6db'));
+  //startUpDataChecks(); - not yet enabled
+});
+
+
+function startUpDataChecks(){
+  // Add required data to db when it does not exist
+  usersModule.createUser(app.get('super6db'), 'test@test.com', 'password', function () {
+  });
+}
 
 module.exports = app;
