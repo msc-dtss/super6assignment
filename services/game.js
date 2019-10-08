@@ -2,28 +2,29 @@
  * Fetch games matching a given criteria
  * @param {*} app The express app
  * @param {*} criteria An object with the criteria to find the games
- * @return {Game}
+ * @return {Promise} A promise with an array
  */
-const fetchGames = (app, criteria) => {
-    const db = app.get(super6db)
-    return db.collection('games')
-        .find(criteria);
+const fetch = (app, criteria) => {
+    const db = app.get('super6db')
+    return db
+        .collection('games')
+        .find()
+        .toArray();
 }
 
 /**
  * Fetch games that have not happened yet
  * @param {*} app The express app
- * @param {*} criteria An object with the criteria to find the games
- * @return {Game}
+ * @return {Promise} A promise with an array
  */
-const fetchFutureGames = (app) => {
+const fetchFuture = (app) => {
     const now = new Date();
-    return fetchGames(app, {
+    return fetch(app, {
         gameDate: { $gt: now }
     });
 }
 
 module.exports = {
-    fetch: fetchGames,
-    fetchFuture: fetchFutureGames
+    fetch,
+    fetchFuture
 }
