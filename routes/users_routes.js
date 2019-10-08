@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcrypt');
+const users = require('../modules/users');
 
-/* GET users listing. */
 router.get('/', function(req, res, next) {
+  // List all users - NO AUTH AT PRESENT
   let db = req.app.get('super6db');
   let collection = db.collection('users');
   let items = collection.find({}).toArray(function (err, docs) {
@@ -15,21 +15,13 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function (request, response, next) {
+  // Save a user - NO AUTH AT PRESENT
   let email = request.body.email;
   let password = request.body.password;
-  let userId = createUser(request, response, email, password, function (error, result) {
+  let userId = users.createUser(request.app.get('super6db'), email, password, function (error, result) {
     response.json(result.ops[0]);
   });
 
 });
-
-function getHashedPassword(password){
-  let hash = bcrypt.hashSync(password, 10);
-  return hash;
-}
-
-function createUser(req, res, email, plainTextPassword, postCreate){
-  let id = req.app.get('super6db').collection('users').insertOne({ email: email, password: getHashedPassword(plainTextPassword)}, postCreate);
-}
 
 module.exports = router;

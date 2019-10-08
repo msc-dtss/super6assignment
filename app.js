@@ -5,7 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var usersRouter = require('./routes/users_routes');
+var usersModule = require('./modules/users');
 
 var app = express();
 
@@ -40,8 +41,18 @@ app.use(function(err, req, res, next) {
 
 // MongoDB client connecting to default port and db name of super6db.
 // Available across the system with req.app.get('super6db')
-var MongoClient = require('mongodb').MongoClient
+var MongoClient = require('mongodb').MongoClient;
 MongoClient.connect('mongodb://localhost:27017', {
-  useNewUrlParser: true, useUnifiedTopology: true }, (err,client) => app.set('super6db', client.db('super6db')));
+  useNewUrlParser: true, useUnifiedTopology: true }, function(err,client){
+  app.set('super6db', client.db('super6db'));
+  //startUpDataChecks(); - not yet enabled
+});
+
+
+function startUpDataChecks(){
+  // Add required data to db when it does not exist
+  usersModule.createUser(app.get('super6db'), 'test@test.com', 'password', function () {
+  });
+}
 
 module.exports = app;
