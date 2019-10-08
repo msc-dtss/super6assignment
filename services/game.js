@@ -22,3 +22,8 @@ const fetchFutureGames = (app) => {
         gameDate: { $gt: now }
     });
 }
+
+module.exports = {
+    fetch: fetchGames,
+    fetchFuture: fetchFutureGames
+}

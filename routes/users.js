@@ -1,6 +1,7 @@
 const express = require('express');
+const userService = require('../services/users');
+
 const router = express.Router();
-const users = require('../modules/users');
 
 router.get('/', function(req, res, next) {
   // List all users - NO AUTH AT PRESENT
@@ -18,7 +19,7 @@ router.post('/', function (request, response, next) {
   // Save a user - NO AUTH AT PRESENT
   let email = request.body.email;
   let password = request.body.password;
-  let userId = users.createUser(request.app.get('super6db'), email, password, function (error, result) {
+  let userId = userService.createUser(request.app.get('super6db'), email, password, function (error, result) {
     response.json(result.ops[0]);
   });
 
