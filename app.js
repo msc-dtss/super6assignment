@@ -49,7 +49,7 @@ MongoClient.connect('mongodb://localhost:27017', {
 
 const startUpDataChecks = () => {
   // Add required data to db when it does not exist
-  usersModule.createUser(app.get('super6db'), 'test@test.com', 'password', function () {
+  usersModule.createUser(app.get('super6db'), 'admin@super6.com', 'password', true, function () {
   });
 }
 

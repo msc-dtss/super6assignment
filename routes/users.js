@@ -15,12 +15,15 @@ router.get('/', function(req, res, next) {
   });
 });
 
-router.post('/', function (request, response, next) {
+router.post('/', function (req, res, next) {
   // Save a user - NO AUTH AT PRESENT
-  let email = request.body.email;
-  let password = request.body.password;
-  let userId = userService.createUser(request.app.get('super6db'), email, password, function (error, result) {
-    response.json(result.ops[0]);
+  let email = req.body.email;
+  let password = req.body.password;
+  let userId = userService.createUser(req.app.get('super6db'), email, password, false, function (error, result) {
+    res.json(result.ops[0]);
+  }, function() {
+    res.statusCode = 500;
+    res.send('Error adding user');
   });
 
 });

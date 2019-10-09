@@ -7,10 +7,27 @@ function getHashedPassword(password){
     return hash;
 }
 
-function createUser(db, email, plainTextPassword, onCreate){
+async function createUser(db, email, plainTextPassword, isAdmin, onCreate, onFail){
     // Save a new user to the database
     // Using email as identifier so ensure it doesn't exist before saving - to do
-    let id = db.collection('users').insertOne({ email: email, password: getHashedPassword(plainTextPassword)}, onCreate);
+
+    let exists = await userExists(db, email);
+
+    if(!exists)
+    {
+        let id = db.collection('users').insertOne({ email: email, password: getHashedPassword(plainTextPassword), isAdmin: isAdmin}, onCreate);
+    }else{
+        onFail();
+    }
+}
+
+async function userExists(db, email){
+    let user = await db.collection('users').findOne({email: email});
+    return user != null;
+}
+
+function adminExists(){
+    // Does any admin user exist (to check if we need to create one)
 }
 
 function login(){
