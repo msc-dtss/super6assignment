@@ -1,9 +1,17 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const gameService = require('../services/game');
+
+const router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  gameService.fetchFuture(req.app).then((games) => {
+    console.log(games)
+    res.render('index', { title: 'Super6 Rugby', games: games});
+  }, 
+  (reason) => {
+    console.log(reason)
+  });
 });
 
 module.exports = router;
