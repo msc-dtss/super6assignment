@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <link href="home2.css" type="text/css" rel="stylesheet" />
+    <link href="home2.css" type="text/css" rel="stylesheet" media="only screen and (min-width : 740px)" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -16,71 +16,295 @@
         <a id="play" href="">PLAY SUPER 6</a>
         <a id="about" href="">ABOUT</a>
         <a id="retults" href="">RETULTS</a>
-        <a id="leader" href="">LEADERBOARD</a>    
-        <label id= "username" class="navright">User name </label>     
+        <a id="leader" href="">LEADERBOARD</a>
+        <label class="navright">USER: JHON ERWIN</label>
     </div>
-
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<div class="login">
+ 
+    <div class="head-image">
+         <div class="head-grad">
             
-    <a button class="open-button" onclick="openForm()">LOG IN</a></button>
+            <button class="open-button" onclick="openLogin()">LOGIN</button>
+            <br/>
+            <br/>
+            <button class="open-button button-margin-bottom" onclick="openForm2()">REGISTER</button>
+
+         </div>
+
+
+         <div class="form-popup" id="myForm">
+                <form action="/action_page.php" class="form-container">
+                    <h1>Login</h1>    
+                    <label for="email"><b>Email</b></label>
+                    <input type="text" placeholder="Enter Email" name="email" required>
+                    <label for="psw"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="psw" required>
+            
+                    <button type="submit" class="btn">Login</button>
+                    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                </form>
+            
+            </div>
+
+        <!--<div class="form-popup" id="myForm2">
+  <form action="/action_page.php" class="form-container">
+    <h1>Login</h1>
+
+    <label for="email"><b>Email</b></label>
+    <input type="text" placeholder="Enter Email" name="email" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="psw" required>
     
-    <div class="form-popup" id="myForm">
-      <form  class="form-container">
-        <h1>Login</h1>
-    
-        <label for="email"><b>Email</b></label>
-        <input type="text" placeholder="Enter Email" name="email" required>
-    
-        <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" required>
-    
-        <button type="submit" class="btn">Login</button>
-        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-      </form>
+    <label for="psw"><b>Confirm Password</b></label>
+    <input type="password" placeholder="Enter Password" name="psw" required>
+
+
+
+    <button type="submit" class="btn">Register</button>
+    <button type="button" class="btn cancel" onclick="closeForm2()">Close</button>
+  </form>
+  
+</div>-->
+
     </div>
-    <br/>
-    <br/>
-    <a button class="open-button" onclick="openRegister()">REGISTER</a></button>
-    <div class="form-popup" id="myRegister">
-        <form  class="form-container">
-          <h1>Register</h1>
-      
-          <label for="email"><b>Email</b></label>
-          <input type="text" placeholder="Enter Email" name="email" required>
-      
-          <label for="psw"><b>Password</b></label>
-          <input type="password" placeholder="Enter Password" name="psw" required>
-          
-          <label for="psw"><b>Repeat Password</b></label>
-          <input type="password" placeholder="Enter Password" name="psw" required>
+    <div class="content-middle">
+        <div class="col1">
+            <div class="col-title">
+                <div class="col-title-grad">
+                    <span class="col-title-span">Upcoming Fixtures</span>
+                </div>
+            </div>
+            <div class="col-fixtures">
+                    <table valign="top" class="col-fix-right">
+                        <tr>
+                            <td>
+                                <img class="item-img" src="https://d1si3tbndbzwz9.cloudfront.net/soccer/team/147/logo.png"
+                                    alt="One rugby logo">
+                            </td>
+                            <td>
+                                England
+                            </td>
+                            <td rowspan="2">
+                                <span>Sat, 12/10</span>
+                                <br />
+                                <span>09:15</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img class="item-img" src="http://icons.iconarchive.com/icons/wikipedia/flags/256/FR-France-Flag-icon.png"
+                                    alt="One rugby logo">
+                            </td>
+                            <td>
+                                France
+                            </td>
+                    
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <br />
+                                <br />
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td>
+                                <img class="item-img" src="https://d1si3tbndbzwz9.cloudfront.net/soccer/team/147/logo.png"
+                                    alt="One rugby logo">
+                            </td>
+                            <td>
+                                England
+                            </td>
+                            <td rowspan="2">
+                                <span>Sat, 12/10</span>
+                                <br />
+                                <span>09:15</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img class="item-img" src="http://icons.iconarchive.com/icons/wikipedia/flags/256/FR-France-Flag-icon.png"
+                                    alt="One rugby logo">
+                            </td>
+                            <td>
+                                France
+                            </td>
+                    
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <br />
+                                <br />
+                            </td>
+                        </tr>
+                    
+                    
+                        <tr>
+                            <td>
+                                <img class="item-img" src="https://d1si3tbndbzwz9.cloudfront.net/soccer/team/147/logo.png"
+                                    alt="One rugby logo">
+                            </td>
+                            <td>
+                                England
+                            </td>
+                            <td rowspan="2">
+                                <span>Sat, 12/10</span>
+                                <br />
+                                <span>09:15</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img class="item-img" src="http://icons.iconarchive.com/icons/wikipedia/flags/256/FR-France-Flag-icon.png"
+                                    alt="One rugby logo">
+                            </td>
+                            <td>
+                                France
+                            </td>
+                    
+                        </tr>
+                    
+                    </table>
+                    
+                    <table valign="top" class="col-fix-right">
+                        <tr>
+                            <td>
+                                <img class="item-img" src="https://d1si3tbndbzwz9.cloudfront.net/soccer/team/147/logo.png"
+                                    alt="One rugby logo">
+                            </td>
+                            <td>
+                                England
+                            </td>
+                            <td rowspan="2">
+                                <span>Sat, 12/10</span>
+                                <br />
+                                <span>09:15</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img class="item-img" src="http://icons.iconarchive.com/icons/wikipedia/flags/256/FR-France-Flag-icon.png"
+                                    alt="One rugby logo">
+                            </td>
+                            <td>
+                                France
+                            </td>
+                    
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <br />
+                                <br />
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td>
+                                <img class="item-img" src="https://d1si3tbndbzwz9.cloudfront.net/soccer/team/147/logo.png"
+                                    alt="One rugby logo">
+                            </td>
+                            <td>
+                                England
+                            </td>
+                            <td rowspan="2">
+                                <span>Sat, 12/10</span>
+                                <br />
+                                <span>09:15</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img class="item-img" src="http://icons.iconarchive.com/icons/wikipedia/flags/256/FR-France-Flag-icon.png"
+                                    alt="One rugby logo">
+                            </td>
+                            <td>
+                                France
+                            </td>
+                    
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <br />
+                                <br />
+                            </td>
+                        </tr>
+                    
+                    
+                        <tr>
+                            <td>
+                                <img class="item-img" src="https://d1si3tbndbzwz9.cloudfront.net/soccer/team/147/logo.png"
+                                    alt="One rugby logo">
+                            </td>
+                            <td>
+                                England
+                            </td>
+                            <td rowspan="2">
+                                <span>Sat, 12/10</span>
+                                <br />
+                                <span>09:15</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img class="item-img" src="http://icons.iconarchive.com/icons/wikipedia/flags/256/FR-France-Flag-icon.png"
+                                    alt="One rugby logo">
+                            </td>
+                            <td>
+                                France
+                            </td>
+                    
+                        </tr>
+                    
+                    </table>
+            </div>
+        </div>
 
-          <button type="submit" class="btn">Register</button>
-          <button type="button" class="btn cancel" onclick="closeRegister()">Close</button>
-        </form>
-      </div>
-    <script>
-    function openForm() {
-      document.getElementById("myForm").style.display = "block";
-    }
-    
-    function closeForm() {
-      document.getElementById("myForm").style.display = "none";
-    }
-    </script>
-    <script>
-        function openRegister() {
-          document.getElementById("myRegister").style.display = "block";
-        }
+        <div class="col2">
+            <div class="col-title-grad">
+                <span class="col-title-span">how to play</span>
+            </div>
+            <div class="col-text">
+                <p> blablabbbbbbbbbbbbbbbbbbbb bbbbbbbbbbbbbbbbbbbbbbb bbbbbbbbbbbbbbbbbb bbbbbbbbbbb bbbbbb bbbbbbbbbbb
+                    bbbbbb bbbbbbbbbbbb bbbbbbbbbbbbb bbbbbbbbbbbbbbb bbbbbbbbbbbbbb bbbbbbbbbbbbbb bbbbbbbbbbbbb
+                    bbbbbbbbbbbbb
+                    bbbbbbbbbb b bbbbbbbbbbbbbbbbbbbb</p>
         
-        function closeForm() {
-          document.getElementById("myRegister").style.display = "none";
-        }
-        </script>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
 
-</div>
+
+
+
+    <div class="footer-text">
+        <a id="Terms & Conditions" href="">Terms & Conditions</a>
+        <a id="Privacy" href="">Privacy and Cookie Notice</a>
+        <a id="Accesibility" href="">Accesibility</a>
+        <a id="Contact us" href="">Contact us</a>
+    </div>
+
+    <script>
+        function openLogin() {
+            document.getElementById("myForm").classList.add("show-form");
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+        function openForm2() {
+            document.getElementById("myForm2").style.display = "block";
+        }
+
+        function closeForm2() {
+            document.getElementById("myForm2").style.display = "none";
+        }
+
+
+
+    </script>
+
 </body>
