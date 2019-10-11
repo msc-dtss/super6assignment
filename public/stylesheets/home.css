@@ -244,3 +244,35 @@ body{
     left: 40%;
     top:25%;
 }
+
+.game-fixture {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding:8px;
+  margin-right:64px;
+}
+
+.fixture-teams {
+  margin-right:16px;
+}
+
+.flag {
+  margin-right:16px;
+}
+
+.flag img {
+  width: 50px;
+  border: 1px solid black;
+}
+
+.team {
+  display: flex;
+  padding:8px;
+}
+
+.fixture-date {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
