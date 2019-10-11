@@ -1,53 +1,14 @@
-< !DOCTYPE html > <html lang="en">
+<!DOCTYPE html >
+<html lang="en">
 
     <head>
-        <link href="/stylesheets/home.css" media="only screen and (min-width : 740px)" rel="stylesheet" type="text/css"/>
-        <meta charset="UTF-8"/>
-        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-        <meta content="ie=edge" http-equiv="X-UA-Compatible"/>
-        <title></title>
+        <%- include common/head-items.ejs %>
+        <title>Super6 Rugby</title>
     </head>
 
     <body>
+        <%- include common/header.ejs %>
 
-        <div class="navbar">
-            <a href="" id="home">HOME</a>
-            <a href="" id="play">PLAY SUPER 6</a>
-            <a href="" id="about">ABOUT</a>
-            <a href="" id="retults">RETULTS</a>
-            <a href="" id="leader">LEADERBOARD</a>
-            <label class="navright">USER: JHON ERWIN</label>
-        </div>
-
-        <div class="head-image">
-            <div class="head-grad">
-
-                <button class="open-button" onclick="openLogin()">LOGIN</button>
-                <br/>
-                <br/>
-                <button class="open-button button-margin-bottom" onclick="openForm2()">REGISTER</button>
-
-            </div>
-
-
-            <div class="form-popup" id="myForm">
-                <form action="/users/login" class="form-container">
-                    <h1>Login</h1>
-                    <label for="email">
-                        <b>Email</b>
-                    </label>
-                    <input name="email" placeholder="Enter Email" required type="text">
-                    <label for="psw">
-                        <b>Password</b>
-                    </label>
-                    <input name="psw" placeholder="Enter Password" required type="password">
-
-                    <button class="btn" type="submit">Login</button>
-                    <button class="btn cancel" onclick="closeForm()" type="button">Close</button>
-                </form>
-            </div>
-
-        </div>
         <div class="content-middle">
             <div class="col1">
                 <div class="col-title">
@@ -90,18 +51,8 @@
                 </div>
             </div>
         </div>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
 
-
-        <div class="footer-text">
-            <a href="" id="Terms & Conditions">Terms & Conditions</a>
-            <a href="" id="Privacy">Privacy and Cookie Notice</a>
-            <a href="" id="Accesibility">Accesibility</a>
-            <a href="" id="Contact us">Contact us</a>
-        </div>
+        <%- include common/footer.ejs %>
 
         <script>
             function openLogin() {

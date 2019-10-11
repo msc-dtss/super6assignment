@@ -1,0 +1,38 @@
+<div class="navbar">
+        <a href="" id="home">HOME</a>
+        <a href="" id="play">PLAY SUPER 6</a>
+        <a href="" id="about">ABOUT</a>
+        <a href="" id="retults">RETULTS</a>
+        <a href="" id="leader">LEADERBOARD</a>
+        <label class="navright">USER: JHON ERWIN</label>
+    </div>
+
+    <div class="head-image">
+        <div class="head-grad">
+
+            <button class="open-button" onclick="openLogin()">LOGIN</button>
+            <br/>
+            <br/>
+            <button class="open-button button-margin-bottom" onclick="openForm2()">REGISTER</button>
+
+        </div>
+
+
+        <div class="form-popup" id="myForm">
+            <form action="/users/login" class="form-container">
+                <h1>Login</h1>
+                <label for="email">
+                    <b>Email</b>
+                </label>
+                <input name="email" placeholder="Enter Email" required type="text">
+                <label for="psw">
+                    <b>Password</b>
+                </label>
+                <input name="psw" placeholder="Enter Password" required type="password">
+
+                <button class="btn" type="submit">Login</button>
+                <button class="btn cancel" onclick="closeForm()" type="button">Close</button>
+            </form>
+        </div>
+
+    </div>
