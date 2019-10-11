@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <h1><%= title %></h1>
+  <div>
+    <h2>Games</h2>
+    <% if (games.length === 0) { %>
+    <p>No games scheduled.</p>
+    <% } else {%>
+    <ul>
+      <% games.forEach((game) => { %>
+      <li>
+        <span class="time"><%= game.gameDate.toLocaleString() %></span>:
+        <span class="teamA <%= game._id %>"> <%= game.teamA %></span>
+        <span class="vs">vs</span>
+        <span class="teamB <%= game._id %>"><%= game.teamB %></span>
+      </li>
+      <% }); %>
+    </ul>
+    <% } %>
+  </div>
+</body>
+
+</html>
