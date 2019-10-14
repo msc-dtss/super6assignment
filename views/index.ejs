@@ -1,13 +1,25 @@
-<!DOCTYPE html >
-<html lang="en">
+<!DOCTYPE html>
+<html>
 
-    <head>
-        <%- include common/head-items.ejs %>
-        <title>Super6 Rugby</title>
-    </head>
+<head>
+  <%- include common/head-items.ejs %>
+  <title><%= title %></title>
+</head>
 
     <body>
         <%- include common/header.ejs %>
+
+        <!-- Move this logic elsewhere! -->
+        <% if(!loggedIn){ %>
+            <div>
+                <a href="login">Login</a>
+            </div>
+        <%}%>
+        <% if(loggedIn){ %>
+            <div>
+                <a href="users/logout">Logout</a>
+            </div>
+        <%}%>
 
         <div class="content-middle">
             <div class="col1">
@@ -70,6 +82,6 @@
                 document.getElementById("myForm2").style.display = "none";
             }
         </script>
+</body>
 
-    </body>
 </html>
