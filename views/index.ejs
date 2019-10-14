@@ -25,6 +25,12 @@
     </ul>
     <% } %>
   </div>
+  <% if(!loggedIn){ %>
+<div><a href="login">Login</a></div>
+  <%}%>
+  <% if(loggedIn){ %>
+    <div><a href="users/logout">Logout</a></div>
+  <%}%>
 </body>
 
 </html>
