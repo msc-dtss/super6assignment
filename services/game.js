@@ -8,7 +8,7 @@ const fetch = (app, criteria) => {
     const db = app.get('super6db')
     return db
         .collection('games')
-        .find()
+        .find(criteria)
         .toArray();
 }
 
@@ -19,8 +19,10 @@ const fetch = (app, criteria) => {
  */
 const fetchFuture = (app) => {
     const now = new Date();
+    const paddedMonth = now.getMonth() > 9 ? `${now.getMonth()}` : `0${now.getMonth()}`;
+    const formattedDate = `${now.getFullYear()}/${paddedMonth}/${now.getDate()}`;
     return fetch(app, {
-        gameDate: { $gt: now }
+        gameDate: { $gt: formattedDate }
     });
 }
 

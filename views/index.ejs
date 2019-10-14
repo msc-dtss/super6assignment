@@ -2,35 +2,86 @@
 <html>
 
 <head>
+  <%- include common/head-items.ejs %>
   <title><%= title %></title>
-  <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
 
-<body>
-  <h1><%= title %></h1>
-  <div>
-    <h2>Games</h2>
-    <% if (games.length === 0) { %>
-    <p>No games scheduled.</p>
-    <% } else {%>
-    <ul>
-      <% games.forEach((game) => { %>
-      <li>
-        <span class="time"><%= game.gameDate.toLocaleString() %></span>:
-        <span class="teamA <%= game._id %>"> <%= game.teamA %></span>
-        <span class="vs">vs</span>
-        <span class="teamB <%= game._id %>"><%= game.teamB %></span>
-      </li>
-      <% }); %>
-    </ul>
-    <% } %>
-  </div>
-  <% if(!loggedIn){ %>
-<div><a href="login">Login</a></div>
-  <%}%>
-  <% if(loggedIn){ %>
-    <div><a href="users/logout">Logout</a></div>
-  <%}%>
+    <body>
+        <%- include common/header.ejs %>
+
+        <!-- Move this logic elsewhere! -->
+        <% if(!loggedIn){ %>
+            <div>
+                <a href="login">Login</a>
+            </div>
+        <%}%>
+        <% if(loggedIn){ %>
+            <div>
+                <a href="users/logout">Logout</a>
+            </div>
+        <%}%>
+
+        <div class="content-middle">
+            <div class="col1">
+                <div class="col-title">
+                    <div class="col-title-grad">
+                        <span class="col-title-span">Upcoming Fixtures</span>
+                    </div>
+                </div>
+                <div class="col-fixtures">
+                    <% games.forEach((game) => { %>
+                    <div class="game-fixture">
+                        <div class="fixture-teams">
+                            <div class="team">
+                                <div class="flag"><img src="/images/flags/<%= game.teamA.flag %>"></div>
+                                <div class="team-name"><%= game.teamA.name %></div>
+                            </div>
+                            <div class="team">
+                                <div class="flag"><img src="/images/flags/<%= game.teamB.flag %>"></div>
+                                <div class="team-name"><%= game.teamB.name %></div>
+                            </div>
+                        </div>
+                        <div class="fixture-date">
+                            <%= game.gameDate %>
+                        </div>
+                    </div>
+                    <% }); %>
+                </div>
+            </div>
+
+            <div class="col2">
+                <div class="col-title-grad">
+                    <span class="col-title-span">how to play</span>
+                </div>
+                <div class="col-text">
+                    <p>
+                        blablabbbbbbbbbbbbbbbbbbbb bbbbbbbbbbbbbbbbbbbbbbb bbbbbbbbbbbbbbbbbb bbbbbbbbbbb bbbbbb bbbbbbbbbbb
+                                            bbbbbb bbbbbbbbbbbb bbbbbbbbbbbbb bbbbbbbbbbbbbbb bbbbbbbbbbbbbb bbbbbbbbbbbbbb bbbbbbbbbbbbb
+                                            bbbbbbbbbbbbb
+                                            bbbbbbbbbb b bbbbbbbbbbbbbbbbbbbb</p>
+
+                </div>
+            </div>
+        </div>
+
+        <%- include common/footer.ejs %>
+
+        <script>
+            function openLogin() {
+                document.getElementById("myForm").classList.add("show-form");
+            }
+
+            function closeForm() {
+                document.getElementById("myForm").style.display = "none";
+            }
+            function openForm2() {
+                document.getElementById("myForm2").style.display = "block";
+            }
+
+            function closeForm2() {
+                document.getElementById("myForm2").style.display = "none";
+            }
+        </script>
 </body>
 
 </html>

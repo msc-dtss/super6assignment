@@ -7,7 +7,6 @@ const router = express.Router();
 /* GET home page. */
 router.get('/', function(req, res, next) {
   gameService.fetchFuture(req.app).then((games) => {
-    console.log(games)
       let token = req.cookies.super6token;
     // Check the token validity with the user service
 
