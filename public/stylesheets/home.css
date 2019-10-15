@@ -202,7 +202,7 @@ body{
 }
 
 /* Full-width input fields */
-.form-container input[type=text], .form-container input[type=password] {
+.form-container input[type=text], .form-container input[type=email], .form-container input[type=password] {
   width: 90%;
   padding: 15px;
   margin: 5px 0 22px 0;
