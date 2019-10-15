@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 
 function getHashedPassword(password){
     // Turn the password into a hash using the one-way bcrypt algo with salt.
@@ -46,6 +47,10 @@ function isAdmin(){
 function logout(){
     // Disable/delete the users token so it no longer works
     // User will require username and password again to gain access.
+}
+
+function getNewToken(){
+    return crypto.randomBytes(64).toString('hex');
 }
 
 module.exports = {createUser};
