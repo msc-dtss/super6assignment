@@ -8,19 +8,6 @@
 
     <body>
         <%- include common/header.ejs %>
-
-        <!-- Move this logic elsewhere! -->
-        <% if(!loggedIn){ %>
-            <div>
-                <a href="login">Login</a>
-            </div>
-        <%}%>
-        <% if(loggedIn){ %>
-            <div>
-                <a href="users/logout">Logout</a>
-            </div>
-        <%}%>
-
         <div class="content-middle">
             <div class="col1">
                 <div class="col-title">
@@ -68,11 +55,11 @@
 
         <script>
             function openLogin() {
-                document.getElementById("myForm").classList.add("show-form");
+                document.getElementById("loginForm").classList.add("show-form");
             }
 
-            function closeForm() {
-                document.getElementById("myForm").style.display = "none";
+            function closeLogin() {
+                document.getElementById("loginForm").classList.remove("show-form");
             }
             function openForm2() {
                 document.getElementById("myForm2").style.display = "block";

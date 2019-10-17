@@ -44,6 +44,6 @@ router.get('/logout', function (req, res, next) {
     // Delete token from database via user service
     res.clearCookie('super6token');
     res.redirect('../');
-})
+});
 
 module.exports = router;
