@@ -1,12 +1,14 @@
 <div class="navbar">
         <a href="" id="home">HOME</a>
-        <a href="" id="play">PLAY SUPER 6</a>
+        <% if(loggedIn){ %>
+        <a href="/users/play" id="play">PLAY SUPER 6</a>
+        <%}%>
         <a href="" id="about">ABOUT</a>
         <a href="" id="retults">RESULTS</a>
         <a href="" id="leader">LEADERBOARD</a>
     <% if(loggedIn){ %>
         <label class="navright">USER: JHON ERWIN</label>
-            <a href="users/logout">LOGOUT</a>
+            <a href="/users/logout">LOGOUT</a>
     <%}%>
     </div>
 
@@ -16,15 +18,18 @@
             <button class="open-button" onclick="openLogin()">LOGIN</button>
             <br/>
             <br/>
-            <button class="open-button button-margin-bottom" onclick="openForm2()">REGISTER</button>
+            <button class="open-button button-margin-bottom" onclick="openSignup()">REGISTER</button>
             <%}%>
 
         </div>
 
 
+
+        <!-- TODO - Merge the three very similar forms into 1, login, signup and edit user details -->
         <div class="form-popup" id="loginForm">
             <form action="/users/login" method="post" class="form-container">
                 <h1>Login</h1>
+                <h2>Login to your Super6 account to make your predictions!</h2>
                 <label for="email">
                     <b>Email</b>
                 </label>
@@ -39,5 +44,26 @@
                 <button class="btn cancel" onclick="closeLogin()" type="button">Close</button>
             </form>
         </div>
+
+       <% include user %>
+
+        </div>
+
+        <script>
+            function openLogin() {
+                document.getElementById("loginForm").classList.add("show-form");
+            }
+
+            function closeLogin() {
+                document.getElementById("loginForm").classList.remove("show-form");
+            }
+            function openSignup() {
+                document.getElementById("signupForm").classList.add("show-form");
+            }
+
+            function closeSignup() {
+                document.getElementById("signupForm").classList.remove("show-form");
+            }
+        </script>
 
     </div>
