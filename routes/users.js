@@ -50,7 +50,9 @@ router.get('/logout', function (req, res, next) {
 
 router.get('/play', function (req, res, next) {
     gameService.fetchFuture(req.app).then((games) => {
-        res.render('play', {title: 'Super6 Rugby - Your Account', games: games, loggedIn: true}); // TODO: Logged in needs to reflect cookie value and checked against db and games need to be pushed
+      res.render('play', {
+        title: 'Super6 Rugby - Your Account', games: games, testValue: "HELLO WORLD", loggedIn: true
+      }); // TODO: Logged in needs to reflect cookie value and checked against db and games need to be pushed
     },
         (reason) => {
             console.log(reason)
