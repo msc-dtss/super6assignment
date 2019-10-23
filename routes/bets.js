@@ -37,3 +37,4 @@ router.post('/bets', function (req, res, next) {
     });
 
 });
+module.exports = router;
