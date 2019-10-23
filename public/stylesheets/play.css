@@ -1,0 +1,49 @@
+.head-image{
+    height: 6em;
+    border: 2px solid red;
+}
+/*-------------------------Betting Area CSS--------------------------- */
+.bet_area{
+    background-color: #d0d0d0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    min-width: 900px;
+    width: 80%;
+    margin: 10px auto;
+}
+
+.game_row {
+    border: 2px solid black;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+.column {
+    border: solid 3px yellow;
+    display: flex;
+    justify-content: space-around;
+    align-content: space-around;
+    /* flex-direction: column; */
+    flex: 1;
+  }
+
+/*-------------------------Bet Button CSS--------------------------- */
+.place_bet_button{
+    text-align: center;
+    padding: 10px;
+}
+
+#bet_button{
+    background-color: purple;
+    color: whitesmoke;
+    font-size: .9em;
+    transition-duration: 0.4s;
+}
+#bet_button:hover{
+    background-color: violet;
+}
