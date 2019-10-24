@@ -12,7 +12,7 @@ const createBet = (app, bet) => {
             winTeam: bet.winTeam,
             goldenTry: bet.goldenTry
         });
-
+        // bet should contain `games` as an array of 6 items which will have the bets for each game
     return result;
 };
 
