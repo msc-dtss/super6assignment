@@ -1,6 +1,5 @@
 .head-image{
     height: 6em;
-    border: 2px solid red;
 }
 /*-------------------------Betting Area CSS--------------------------- */
 .bet_area{
@@ -14,7 +13,6 @@
 }
 
 .game_row {
-    border: 2px solid black;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -24,7 +22,6 @@
   }
   
 .column {
-    border: solid 3px yellow;
     display: flex;
     justify-content: space-around;
     align-content: space-around;
