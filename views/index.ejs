@@ -15,25 +15,7 @@
                         <span class="col-title-span">Upcoming Fixtures</span>
                     </div>
                 </div>
-                <div class="col-fixtures">
-                    <% games.forEach((game) => { %>
-                    <div class="game-fixture">
-                        <div class="fixture-teams">
-                            <div class="team">
-                                <div class="flag"><img src="/images/flags/<%= game.teamA.flag %>"></div>
-                                <div class="team-name"><%= game.teamA.name %></div>
-                            </div>
-                            <div class="team">
-                                <div class="flag"><img src="/images/flags/<%= game.teamB.flag %>"></div>
-                                <div class="team-name"><%= game.teamB.name %></div>
-                            </div>
-                        </div>
-                        <div class="fixture-date">
-                            <%= game.gameDate %>
-                        </div>
-                    </div>
-                    <% }); %>
-                </div>
+                <% include common/games.ejs %>
             </div>
 
             <div class="col2">
@@ -53,22 +35,7 @@
 
         <%- include common/footer.ejs %>
 
-        <script>
-            function openLogin() {
-                document.getElementById("loginForm").classList.add("show-form");
-            }
 
-            function closeLogin() {
-                document.getElementById("loginForm").classList.remove("show-form");
-            }
-            function openForm2() {
-                document.getElementById("myForm2").style.display = "block";
-            }
-
-            function closeForm2() {
-                document.getElementById("myForm2").style.display = "none";
-            }
-        </script>
 </body>
 
 </html>

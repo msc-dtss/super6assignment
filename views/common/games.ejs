@@ -1,0 +1,19 @@
+<div class="col-fixtures">
+    <% games.forEach((game) => { %>
+        <div class="game-fixture">
+            <div class="fixture-teams">
+                <div class="fixture-date">
+                    <%= game.gameDate %>
+                </div>
+                <div class="team">
+                    <div class="flag"><img src="/images/flags/<%= game.teamA.flag %>"></div>
+                    <div class="team-name"><%= game.teamA.name %></div>
+                </div>
+                <div class="team">
+                    <div class="flag"><img src="/images/flags/<%= game.teamB.flag %>"></div>
+                    <div class="team-name"><%= game.teamB.name %></div>
+                </div>
+            </div>
+        </div>
+    <% }); %>
+</div>

@@ -1,0 +1,17 @@
+<div id="userForm" class="form-popup">
+    <form id="userFormForm" action="ACTION" method="post" class="form-container">
+        <h1 id="userFormHeading">HEADING</h1>
+        <label for="email">
+            <b>Email</b>
+        </label>
+        <!-- Hardcode accepted values for ease of testing right now -->
+        <input name="email" placeholder="Enter Email" required type="email" value="user@gmail.com">
+        <label for="psw">
+            <b>Password</b>
+        </label>
+        <input name="password" placeholder="Enter Password" required type="password" value="password">
+
+        <button class="btn" type="submit" id="userFormButton">BUTTON</button>
+        <button class="btn cancel" onclick="closeUserForm()" type="button">Close</button>
+    </form>
+</div>

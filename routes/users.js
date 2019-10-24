@@ -1,6 +1,7 @@
 const express = require('express');
 const userService = require('../services/users');
 const cookieParser = require('cookie-parser');
+const gameService = require('../services/game');
 
 const router = express.Router();
 
@@ -16,12 +17,13 @@ router.get('/', function(req, res, next) {
   });
 });
 
-router.post('/', function (req, res, next) {
+router.post('/signup', function (req, res, next) {
   // Save a user - NO AUTH AT PRESENT
   let email = req.body.email;
   let password = req.body.password;
   let userId = userService.createUser(req.app.get('super6db'), email, password, false, function (error, result) {
-    res.json(result.ops[0]);
+      res.cookie('super6token', 'abcd1234', {maxAge: 3600000});
+      res.redirect('../');
   }, function() {
     res.statusCode = 500;
     res.send('Error adding user');
@@ -44,6 +46,19 @@ router.get('/logout', function (req, res, next) {
     // Delete token from database via user service
     res.clearCookie('super6token');
     res.redirect('../');
+});
+
+router.get('/play', function (req, res, next) {
+    gameService.fetchFuture(req.app).then((games) => {
+        res.render('play', {title: 'Super6 Rugby - Play', games: games, loggedIn: true}); // TODO: Logged in needs to reflect cookie value and checked against db and games need to be pushed
+    },
+        (reason) => {
+            console.log(reason)
+        });
+});
+
+router.get('/history', function (req, res, next) {
+   res.render('history', {title: 'Super6 Rugby - Your History', loggedIn: true});
 });
 
 module.exports = router;

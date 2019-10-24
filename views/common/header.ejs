@@ -1,43 +1,50 @@
 <div class="navbar">
         <a href="" id="home">HOME</a>
-        <a href="" id="play">PLAY SUPER 6</a>
+        <% if(loggedIn){ %>
+        <a href="/users/play" id="play">PLAY SUPER 6</a>
+        <%}%>
         <a href="" id="about">ABOUT</a>
         <a href="" id="retults">RESULTS</a>
         <a href="" id="leader">LEADERBOARD</a>
     <% if(loggedIn){ %>
-        <label class="navright">USER: JHON ERWIN</label>
-            <a href="users/logout">LOGOUT</a>
+        <label class="navright"><a href="/users/history">USER: JHON ERWIN</a></label>
+            <a href="/users/logout">LOGOUT</a>
     <%}%>
     </div>
 
     <div class="head-image">
         <div class="head-grad">
             <% if(!loggedIn){ %>
-            <button class="open-button" onclick="openLogin()">LOGIN</button>
+            <button class="open-button" onclick="showUserForm('login')">LOGIN</button>
             <br/>
             <br/>
-            <button class="open-button button-margin-bottom" onclick="openForm2()">REGISTER</button>
+            <button class="open-button button-margin-bottom" onclick="showUserForm('register')">REGISTER</button>
             <%}%>
 
         </div>
 
+       <% include userForm.ejs %>
 
-        <div class="form-popup" id="loginForm">
-            <form action="/users/login" method="post" class="form-container">
-                <h1>Login</h1>
-                <label for="email">
-                    <b>Email</b>
-                </label>
-                <!-- Hardcode accepted values for ease of testing right now -->
-                <input name="email" placeholder="Enter Email" required type="email" value="user@gmail.com">
-                <label for="psw">
-                    <b>Password</b>
-                </label>
-                <input name="password" placeholder="Enter Password" required type="password" value="password">
-
-                <button class="btn" type="submit">Login</button>
-                <button class="btn cancel" onclick="closeLogin()" type="button">Close</button>
-            </form>
         </div>
+
+        <script>
+
+            function showUserForm(type){
+                if(type === 'login'){
+                    document.getElementById("userFormHeading").innerText = "Login";
+                    document.getElementById("userFormButton").innerText = "Login";
+                    document.getElementById("userFormForm").action = "/users/login";
+                } else if(type === 'register'){
+                    document.getElementById("userFormHeading").innerText = "Register";
+                    document.getElementById("userFormButton").innerText = "Register";
+                    document.getElementById("userFormForm").action = "/users/signup";
+                }
+                document.getElementById("userForm").classList.add("show-form");
+            }
+
+            function closeUserForm() {
+                document.getElementById("userForm").classList.remove("show-form");
+            }
+        </script>
 
     </div>
