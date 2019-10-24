@@ -15,54 +15,35 @@
     <div class="head-image">
         <div class="head-grad">
             <% if(!loggedIn){ %>
-            <button class="open-button" onclick="openLogin()">LOGIN</button>
+            <button class="open-button" onclick="showUserForm('login')">LOGIN</button>
             <br/>
             <br/>
-            <button class="open-button button-margin-bottom" onclick="openSignup()">REGISTER</button>
+            <button class="open-button button-margin-bottom" onclick="showUserForm('register')">REGISTER</button>
             <%}%>
 
         </div>
 
-
-
-        <!-- TODO - Merge the three very similar forms into 1, login, signup and edit user details -->
-        <div class="form-popup" id="loginForm">
-            <form action="/users/login" method="post" class="form-container">
-                <h1>Login</h1>
-                <h2>Login to your Super6 account to make your predictions!</h2>
-                <label for="email">
-                    <b>Email</b>
-                </label>
-                <!-- Hardcode accepted values for ease of testing right now -->
-                <input name="email" placeholder="Enter Email" required type="email" value="user@gmail.com">
-                <label for="psw">
-                    <b>Password</b>
-                </label>
-                <input name="password" placeholder="Enter Password" required type="password" value="password">
-
-                <button class="btn" type="submit">Login</button>
-                <button class="btn cancel" onclick="closeLogin()" type="button">Close</button>
-            </form>
-        </div>
-
-       <% include user %>
+       <% include userForm.ejs %>
 
         </div>
 
         <script>
-            function openLogin() {
-                document.getElementById("loginForm").classList.add("show-form");
+
+            function showUserForm(type){
+                if(type === 'login'){
+                    document.getElementById("userFormHeading").innerText = "Login";
+                    document.getElementById("userFormButton").innerText = "Login";
+                    document.getElementById("userFormForm").action = "/users/login";
+                } else if(type === 'register'){
+                    document.getElementById("userFormHeading").innerText = "Register";
+                    document.getElementById("userFormButton").innerText = "Register";
+                    document.getElementById("userFormForm").action = "/users/signup";
+                }
+                document.getElementById("userForm").classList.add("show-form");
             }
 
-            function closeLogin() {
-                document.getElementById("loginForm").classList.remove("show-form");
-            }
-            function openSignup() {
-                document.getElementById("signupForm").classList.add("show-form");
-            }
-
-            function closeSignup() {
-                document.getElementById("signupForm").classList.remove("show-form");
+            function closeUserForm() {
+                document.getElementById("userForm").classList.remove("show-form");
             }
         </script>
 

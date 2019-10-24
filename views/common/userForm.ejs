@@ -1,7 +1,6 @@
-<div class="form-popup" id="signupForm">
-    <form action="/users/signup" method="post" class="form-container">
-        <h1>Signup</h1>
-        <h2>Create a Super6 account to make your predictions!</h2>
+<div id="userForm" class="form-popup">
+    <form id="userFormForm" action="ACTION" method="post" class="form-container">
+        <h1 id="userFormHeading">HEADING</h1>
         <label for="email">
             <b>Email</b>
         </label>
@@ -12,7 +11,7 @@
         </label>
         <input name="password" placeholder="Enter Password" required type="password" value="password">
 
-        <button class="btn" type="submit">Sign Up</button>
-        <button class="btn cancel" onclick="closeSignup()" type="button">Close</button>
+        <button class="btn" type="submit" id="userFormButton">BUTTON</button>
+        <button class="btn cancel" onclick="closeUserForm()" type="button">Close</button>
     </form>
 </div>
