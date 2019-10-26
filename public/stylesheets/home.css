@@ -45,7 +45,7 @@ body{
   background-image: url('https://rugbymadrid.com/wp-content/uploads/RugbyBalon.jpg')
 }
 .head-grad{
-  height: 43em;
+  height: inherit;
   background-image: linear-gradient(to right, rgba(2,0,36,0.1), #503580);
   align-items: flex-end;
   display: flex;

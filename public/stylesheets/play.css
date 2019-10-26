@@ -3,31 +3,48 @@
 }
 /*-------------------------Betting Area CSS--------------------------- */
 .bet_area{
-    background-color: #d0d0d0;
+    background-color: #503580;
+    color: white;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    min-width: 900px;
+    /* justify-content: space-around; */
+    min-width: 800px;
     width: 80%;
-    margin: 10px auto;
+    margin: 5px auto;
 }
 
 .game_row {
+    border: 0.5px solid hotpink;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     text-align: center;
-    justify-content: space-around;
+    /* justify-content: flex-end; */
     align-items: center;
   }
   
 .column {
-    display: flex;
-    justify-content: space-around;
-    align-content: space-around;
-    /* flex-direction: column; */
+    width: 50%;
+    /* display: flex; */
+    justify-content: flex-start;
+    align-content: center;
+    flex-direction: column;
     flex: 1;
   }
+
+.column input {
+    height: 1.2em;
+    width: 5em; 
+}
+
+.golden_try {
+    color: white;
+    width: 400px;
+    text-align: center;
+    background-color: #503580;
+    margin: 0px auto;
+    padding: 5px 5px;
+}
 
 /*-------------------------Bet Button CSS--------------------------- */
 .place_bet_button{
