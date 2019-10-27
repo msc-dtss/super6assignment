@@ -116,7 +116,7 @@ const findRoundWinners = (db, roundId, results) => {
 
 
 module.exports = {
-    resolveClientBet
+    resolveClientBet,
     create,
     delete: deleteBet,
     fetch,
