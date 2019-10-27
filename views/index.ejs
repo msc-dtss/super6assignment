@@ -2,21 +2,21 @@
 <html>
 
 <head>
-  <%- include common/head-items.ejs %>
-  <title><%= title %></title>
+    <%- include common/head-items.ejs %>
+    <title><%= title %></title>
 </head>
 
-    <body>
-        <%- include common/header.ejs %>
-        <div class="content-middle">
-            <div class="col1">
-                <div class="col-title">
-                    <div class="col-title-grad">
-                        <span class="col-title-span">Upcoming Fixtures</span>
-                    </div>
+<body>
+    <%- include common/header.ejs %>
+    <div class="content-middle">
+        <div class="col1">
+            <div class="col-title">
+                <div class="col-title-grad">
+                    <span class="col-title-span">Upcoming Fixtures</span>
                 </div>
-                <% include common/games.ejs %>
             </div>
+            <% include common/games.ejs %>
+        </div>
 
             <div class="col2">
                 <div class="col-title-grad">
@@ -41,11 +41,11 @@
                         Don't forget, if you correctly predict all 6 matches in one week you could net yourself our jackpot of £250,000 (unless otherwise specified)!
                     </p>
 
-                </div>
             </div>
         </div>
+    </div>
 
-        <%- include common/footer.ejs %>
+    <%- include common/footer.ejs %>
 
 
 </body>

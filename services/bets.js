@@ -1,49 +1,83 @@
-const createBet = (app, bet) => {
-    const db = app.get("super6db");
-    const result = db.collection("bets").insertOne({
-        userId: bet.userId,
-        gameId: bet.gameId,
-        roundId: bet.roundId,
-        gameBets: [
-            {
-                teamATries: bet.games[0].teamATries,
-                teamBTries: bet.games[0].teamBTries,
-                winTeam: bet.games[0].gameVictor
-            },
-            {
-                teamATries: bet.games[1].teamATries,
-                teamBTries: bet.games[1].teamBTries,
-                winTeam: bet.games[1].gameVictor
-            },
-            {
-                teamATries: bet.games[2].teamATries,
-                teamBTries: bet.games[2].teamBTries,
-                winTeam: bet.games[2].gameVictor
-            },
-            {
-                teamATries: bet.games[3].teamATries,
-                teamBTries: bet.games[3].teamBTries,
-                winTeam: bet.games[3].gameVictor
-            },
-            {
-                teamATries: bet.games[4].teamATries,
-                teamBTries: bet.games[4].teamBTries,
-                winTeam: bet.games[4].gameVictor
-            },
-            {
-                teamATries: bet.games[5].teamATries,
-                teamBTries: bet.games[5].teamBTries,
-                winTeam: bet.games[5].gameVictor
-            }
-        ],
-        goldenTry: bet.games[6].goldenTrySelection
+const resolveClientBet = (clientBet) => {
+    if (clientBet.games.length > 6) {
+        throw new Error("Each round only has 6 games!") // Todo: Create a new Error type.
+    }
+    if (clientBet.roundId !== 0 && !clientBet.roundId) { //0 is falsy, hence why we need to explicitely check for it
+        throw new Error("No round provided!") // Todo: Create a new Error type.
+    }
+    if (!clientBet.goldenTry) {
+        throw new Error("No golden try provided!") // Todo: Create a new Error type.
+    }
+
+    const verifiedBet = {
+        roundId: clientBet.roundId,
+        gameBets: [],
+        goldenTry: clientBet.games[6].goldenTrySelection // Why does this come in games[6]?
+    };
+
+    clientBet.games.forEach(game => {
+        if (game.id !== 0 && !game.id) {
+            throw new Error(`No id provided for game`) // Todo: Create a new Error type.
+        }
+        if (game.teamATries !== 0 && !game.teamATries) {
+            throw new Error(`No teamATries provided for game ${game.id}`) // Todo: Create a new Error type.
+        }
+        if (game.teamBTries !== 0 && !game.teamBTries) {
+            throw new Error(`No teamBTries provided for game ${game.id}`) // Todo: Create a new Error type.
+        }
+        if (game.gameVictor !== 0 && !game.gameVictor) {
+            throw new Error(`No gameVictor provided for game ${game.id}`) // Todo: Create a new Error type.
+        }
+        verifiedBet.gameBets.push({
+            id: game.id,
+            teamATries: game.teamATries,
+            teamBTries: game.teamBTries,
+            winTeam: game.gameVictor
+        });
     });
-    // bet should contain `games` as an array of 6 items which will have the bets for each game
-    return result;
+    return verifiedBet;
+}
+
+/**
+ * Creates a bet for a user
+ * @param {*} db The connection to the database
+ * @param {Number} roundId The ID of the round
+ * @return {Promise} A promise with the result?
+ */
+const create = (db, bet) => {
+    const betToInsert = {
+        userId: bet.userId,
+        roundId: bet.roundId,
+        gameBets: [],
+        goldenTry: bet.games[6].goldenTrySelection // Why does this come in games[6]?
+    };
+
+    if (bet.games.length > 6) {
+        throw new Error("Each round only has 6 games!") // Todo: Create a new Error type.
+    }
+
+    bet.games.forEach(game => {
+        betToInsert.gameBets.push({
+            teamATries: game.teamATries,
+            teamBTries: game.teamBTries,
+            winTeam: game.gameVictor
+        });
+    });
+    return db.collection("bets").insertOne(betToInsert);
 };
 
-const DeleteBet = (app, betId) => { };
+/**
+ * Deletes a bet owned by a user
+ * @param {*} db The connection to the database
+ * @param {Number} betID The id of the bet
+ * @param {Number} userID The id of the user that owns this bet (to make sure we're not deleting someone else's bet)
+ */
+const deleteBet = (app, betID, userID) => {
+    // do the thing
+}
 
 module.exports = {
-    createBet
+    resolveClientBet,
+    create,
+    delete: deleteBet,
 };

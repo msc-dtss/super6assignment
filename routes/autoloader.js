@@ -7,23 +7,23 @@ const fs = require('fs')
  * @return {Object} An object with the endpoints and the respective route module
  */
 const requireRouteModules = (routesDir) => {
-  const routes = {};
-  const files = fs.readdirSync(routesDir);
-  files.forEach(file => {
-    // Don't load itself!!!
-    if (file !== "autoloader.js") {
-      // get the name of the module without the .js
-      const moduleName = file.split('.').slice(0, -1).join('.');
+    const routes = {};
+    const files = fs.readdirSync(routesDir);
+    files.forEach(file => {
+        // Don't load itself!!!
+        if (file !== "autoloader.js") {
+            // get the name of the module without the .js
+            const moduleName = file.split('.').slice(0, -1).join('.');
 
-      // auto import it
-      const routeModule = require(`./${moduleName}`);
+            // auto import it
+            const routeModule = require(`./${moduleName}`);
 
-      // auto-create an endpoint
-      const route = moduleName === 'index' ? '/' : `/${moduleName}`;
-      routes[route] = routeModule;
-    }
-  });
-  return routes;
+            // auto-create an endpoint
+            const route = moduleName === 'index' ? '/' : `/${moduleName}`;
+            routes[route] = routeModule;
+        }
+    });
+    return routes;
 };
 
 /**
@@ -33,13 +33,13 @@ const requireRouteModules = (routesDir) => {
  * @param {*} app the Express app to load the routes onto
  */
 const loadRoutes = (app) => {
-  const routes = requireRouteModules('./routes');
-  for (let endpoint in routes) {
-    console.log(`Loading ${endpoint}`);
-    app.use(endpoint, routes[endpoint]);
-  }
+    const routes = requireRouteModules('./routes');
+    for (let endpoint in routes) {
+        console.log(`Loading ${endpoint}`);
+        app.use(endpoint, routes[endpoint]);
+    }
 };
 
 module.exports = {
-  load: loadRoutes
+    load: loadRoutes
 }
