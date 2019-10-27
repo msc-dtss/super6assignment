@@ -1,0 +1,18 @@
+.head-image{
+    height: 6em;
+}
+
+.history-area {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.history-round {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}
+.history-round-game {
+    padding: 10px;
+}

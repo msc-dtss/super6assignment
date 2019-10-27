@@ -34,7 +34,6 @@ body{
 }
 .navright{
   float: right;
-  padding: 15px;
   color: cornflowerblue;
 }
 .head-image{
@@ -202,7 +201,7 @@ body{
 }
 
 /* Full-width input fields */
-.form-container input[type=text], .form-container input[type=password] {
+.form-container input[type=text], .form-container input[type=email], .form-container input[type=password] {
   width: 90%;
   padding: 15px;
   margin: 5px 0 22px 0;
@@ -243,4 +242,36 @@ body{
     position: absolute;
     left: 40%;
     top:25%;
+}
+
+.game-fixture {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding:8px;
+  margin-right:64px;
+}
+
+.fixture-teams {
+  margin-right:16px;
+}
+
+.flag {
+  margin-right:16px;
+}
+
+.flag img {
+  width: 50px;
+  border: 1px solid black;
+}
+
+.team {
+  display: flex;
+  padding:8px;
+}
+
+.fixture-date {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }

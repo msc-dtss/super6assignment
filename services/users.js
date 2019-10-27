@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 
 function getHashedPassword(password){
     // Turn the password into a hash using the one-way bcrypt algo with salt.
@@ -26,26 +27,24 @@ async function userExists(db, email){
     return user != null;
 }
 
-function adminExists(){
-    // Does any admin user exist (to check if we need to create one)
-}
+async function checkLogin(email, password){
+    // Check user creds against the database
+    let user = await db.collection('users').findOne({email: email});
+    return bcrypt.compareSync(password, user.password);
 
-function login(){
-    // Check user creds against the database and issue a token
 }
 
 function verifyToken(){
     // Verify token is valid and not expired
 }
 
-function isAdmin(){
-    // For authorization - check the token belongs to an admin user (and is valid an not expired)
-    // Use this to check a user is allowed to use any admin functions
-}
-
 function logout(){
     // Disable/delete the users token so it no longer works
     // User will require username and password again to gain access.
+}
+
+function getNewToken(){
+    return crypto.randomBytes(64).toString('hex');
 }
 
 module.exports = {createUser};

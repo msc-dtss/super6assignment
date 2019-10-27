@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <%- include common/head-items.ejs %>
+  <title><%= title %></title>
+</head>
+
+<body>
+    <%- include common/header.ejs %>
+
+    <form method="POST" action="/bets">
+
+        <input name="goldenTry" value="" />
+
+        <button>SEND BET</button>
+
+    </form>
+
+
+    <%- include common/footer.ejs %>
+
+</body>
+
+</html>        

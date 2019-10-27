@@ -2,29 +2,40 @@
 <html>
 
 <head>
+  <%- include common/head-items.ejs %>
   <title><%= title %></title>
-  <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
 
-<body>
-  <h1><%= title %></h1>
-  <div>
-    <h2>Games</h2>
-    <% if (games.length === 0) { %>
-    <p>No games scheduled.</p>
-    <% } else {%>
-    <ul>
-      <% games.forEach((game) => { %>
-      <li>
-        <span class="time"><%= game.gameDate.toLocaleString() %></span>:
-        <span class="teamA <%= game._id %>"> <%= game.teamA %></span>
-        <span class="vs">vs</span>
-        <span class="teamB <%= game._id %>"><%= game.teamB %></span>
-      </li>
-      <% }); %>
-    </ul>
-    <% } %>
-  </div>
+    <body>
+        <%- include common/header.ejs %>
+        <div class="content-middle">
+            <div class="col1">
+                <div class="col-title">
+                    <div class="col-title-grad">
+                        <span class="col-title-span">Upcoming Fixtures</span>
+                    </div>
+                </div>
+                <% include common/games.ejs %>
+            </div>
+
+            <div class="col2">
+                <div class="col-title-grad">
+                    <span class="col-title-span">how to play</span>
+                </div>
+                <div class="col-text">
+                    <p>
+                        blablabbbbbbbbbbbbbbbbbbbb bbbbbbbbbbbbbbbbbbbbbbb bbbbbbbbbbbbbbbbbb bbbbbbbbbbb bbbbbb bbbbbbbbbbb
+                                            bbbbbb bbbbbbbbbbbb bbbbbbbbbbbbb bbbbbbbbbbbbbbb bbbbbbbbbbbbbb bbbbbbbbbbbbbb bbbbbbbbbbbbb
+                                            bbbbbbbbbbbbb
+                                            bbbbbbbbbb b bbbbbbbbbbbbbbbbbbbb</p>
+
+                </div>
+            </div>
+        </div>
+
+        <%- include common/footer.ejs %>
+
+
 </body>
 
 </html>
