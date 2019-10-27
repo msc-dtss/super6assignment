@@ -1,5 +1,9 @@
 .head-image{
     height: 6em;
+    background-image: url('https://rugbymadrid.com/wp-content/uploads/RugbyBalon.jpg');
+}
+.head-grad {
+    background-image: linear-gradient(to right, rgba(28, 96, 173, 0.4), #503580);
 }
 /*-------------------------Betting Area CSS--------------------------- */
 .bet_area{
