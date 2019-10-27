@@ -1,4 +1,6 @@
-
+/**
+ * todo
+ */
 const createBet = (app, bet) => {
     const db = app.get('super6db');
     const result = db
@@ -12,12 +14,18 @@ const createBet = (app, bet) => {
             winTeam: bet.winTeam,
             goldenTry: bet.goldenTry
         });
-        // bet should contain `games` as an array of 6 items which will have the bets for each game
+    // bet should contain `games` as an array of 6 items which will have the bets for each game
     return result;
 };
 
-const DeleteBet = (app, betId) => {
-
+/**
+ * Deletes a bet owned by a user
+ * @param {*} app The express app
+ * @param {Number} betID The id of the bet
+ * @param {Number} userID The id of the user that owns this bet (to make sure we're not deleting someone else's bet)
+ */
+const deleteBet = (app, betID, userID) => {
+    // do the thing
 }
 
 module.exports = {
