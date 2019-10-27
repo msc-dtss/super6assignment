@@ -1,49 +1,34 @@
-const createBet = (app, bet) => {
+/**
+ * Creates a bet for a user
+ * @param {*} app The express app
+ * @param {Number} roundId The ID of the round
+ * @return {Promise} A promise with the result?
+ */
+const create = (app, bet) => {
     const db = app.get("super6db");
-    const result = db.collection("bets").insertOne({
+    const betToInsert = {
         userId: bet.userId,
-        gameId: bet.gameId,
         roundId: bet.roundId,
-        gameBets: [
-            {
-                teamATries: bet.games[0].teamATries,
-                teamBTries: bet.games[0].teamBTries,
-                winTeam: bet.games[0].gameVictor
-            },
-            {
-                teamATries: bet.games[1].teamATries,
-                teamBTries: bet.games[1].teamBTries,
-                winTeam: bet.games[1].gameVictor
-            },
-            {
-                teamATries: bet.games[2].teamATries,
-                teamBTries: bet.games[2].teamBTries,
-                winTeam: bet.games[2].gameVictor
-            },
-            {
-                teamATries: bet.games[3].teamATries,
-                teamBTries: bet.games[3].teamBTries,
-                winTeam: bet.games[3].gameVictor
-            },
-            {
-                teamATries: bet.games[4].teamATries,
-                teamBTries: bet.games[4].teamBTries,
-                winTeam: bet.games[4].gameVictor
-            },
-            {
-                teamATries: bet.games[5].teamATries,
-                teamBTries: bet.games[5].teamBTries,
-                winTeam: bet.games[5].gameVictor
-            }
-        ],
-        goldenTry: bet.games[6].goldenTrySelection
+        gameBets: [],
+        goldenTry: bet.games[6].goldenTrySelection // Why does this come in games[6]?
+    };
+
+    if (bet.games.length > 6) {
+        throw new Error("Each round only has 6 games!") // Todo: Create a new Error type.
+    }
+
+    bet.games.forEach(game => {
+        betToInsert.gameBets.push({
+            teamATries: game.teamATries,
+            teamBTries: game.teamBTries,
+            winTeam: game.gameVictor
+        });
     });
-    // bet should contain `games` as an array of 6 items which will have the bets for each game
-    return result;
+    return db.collection("bets").insertOne(betToInsert);
 };
 
-const DeleteBet = (app, betId) => { };
+const delete = (app, betId) => { };
 
 module.exports = {
-    createBet
+    create
 };
