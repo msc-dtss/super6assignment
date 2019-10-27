@@ -7,9 +7,10 @@ const router = express.Router();
 
 router.get('/bets/games', function (req, res, next) {
     gameService.fetchFuture(req.app)
-        .then((games) => {
-            res.render('bets', { title: 'Super6 Rugby', games: games });
-        },
+        .then(
+            (games) => {
+                res.render('bets', { title: 'Super6 Rugby', games: games });
+            },
             (reason) => {
                 console.log(reason)
             });

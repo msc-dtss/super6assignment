@@ -4,6 +4,7 @@
  * @param {Number} roundId The ID of the round
  * @return {Promise} A promise with the result?
  */
+
 const create = (app, bet) => {
     const db = app.get("super6db");
     const betToInsert = {
@@ -27,7 +28,15 @@ const create = (app, bet) => {
     return db.collection("bets").insertOne(betToInsert);
 };
 
-const delete = (app, betId) => { };
+/**
+ * Deletes a bet owned by a user
+ * @param {*} app The express app
+ * @param {Number} betID The id of the bet
+ * @param {Number} userID The id of the user that owns this bet (to make sure we're not deleting someone else's bet)
+ */
+const delete = (app, betID, userID) => {
+    // do the thing
+}
 
 module.exports = {
     create
