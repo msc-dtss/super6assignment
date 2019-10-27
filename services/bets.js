@@ -34,10 +34,11 @@ const create = (app, bet) => {
  * @param {Number} betID The id of the bet
  * @param {Number} userID The id of the user that owns this bet (to make sure we're not deleting someone else's bet)
  */
-const delete = (app, betID, userID) => {
+const deleteBet = (app, betID, userID) => {
     // do the thing
 }
 
 module.exports = {
-    create
+    create,
+    delete: deleteBet
 };
