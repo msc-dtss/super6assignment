@@ -1,6 +1,7 @@
 var placeBet = () => {
     var bet = getBetValues();
-    console.log(bet);
+    console.log(bet)
+    console.table(bet.games);
     return bet;
 }
 

@@ -26,8 +26,8 @@
                 <h2>TEAMA VS TEAMB</h2>
             </div>
             <div class="column">
-                Team A tries: <input team_A_tries type="number" min="0" size="4">
-                Team B tries: <input team_B_tries type="number" min="0" size="4"><br>
+                Team A tries: <input team_A_tries name="bock<%=i%>TeamATries" type="number" min="0" size="4">
+                Team B tries: <input team_B_tries name="block<%=i%>TeamBTries" type="number" min="0" size="4"><br>
                 Select Match Winner:<select game_1_winner name="Winner">
                     <option value="TEAM A">TEAM A</option>
                     <option value="TEAM B">TEAM B</option>
@@ -38,7 +38,7 @@
     </div>
 
     <div class="golden_try" class="game_row">
-        <h2>Golden Try Prediction</h2> <input golden_try_input type="number" min="0" size="5">
+        <h2>Golden Try Prediction</h2> <input golden_try_input name="goldenTry" type="number" min="0" size="5">
     </div>
 
     <div class='place_bet_button'>
