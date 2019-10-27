@@ -17,27 +17,19 @@ router.get('/bets/games', function (req, res, next) {
 });
 
 router.post('/bets', function (req, res, next) {
-    const bet = {
-        roundId: Number(req.body.roundId),
-        userId: Number(req.body.userId),
-        games: []
-    };
-    req.body.games.forEach((game) => {
-        bet.games.push({
-            teamATries: Math.max(Number(game.teamATries), 0),
-            teamBTries: game.teamBTries,
-            //...
-        });
-    });
+    const bet = betsService.resolveClientBet(req.body);
+    // Attach userId from the session? We should return a 401 error if there is no authenticated session
+    bet.userId = req.session.userId;
 
     const db = req.app.get('super6db');
-
-    betsService.createBet(db, bet, function (error, result) {
-        res.json(true);
-    }, function () {
-        res.statusCode = 500;
-        res.send('Error create bet');
-    });
-
+    betsService.create(db, bet)
+        .then(
+            (error, result) => {
+                res.json(true);
+            },
+            () => {
+                res.statusCode = 500;
+                res.send('Error create bet');
+            });
 });
 module.exports = router;
