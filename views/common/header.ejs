@@ -1,50 +1,52 @@
 <div class="navbar">
-        <a href="" id="home">HOME</a>
-        <% if(loggedIn){ %>
-        <a href="/users/play" id="play">PLAY SUPER 6</a>
-        <%}%>
-        <a href="" id="about">ABOUT</a>
-        <a href="" id="retults">RESULTS</a>
-        <a href="" id="leader">LEADERBOARD</a>
+    <a href="" id="home">HOME</a>
+
     <% if(loggedIn){ %>
-        <label class="navright"><a href="/users/history">USER: JHON ERWIN</a></label>
-            <a href="/users/logout">LOGOUT</a>
+    <a href="/users/play" id="play">PLAY SUPER 6</a>
     <%}%>
+
+    <a href="" id="about">ABOUT</a>
+    <a href="" id="retults">RESULTS</a>
+    <a href="" id="leader">LEADERBOARD</a>
+    <% if(loggedIn){ %>
+    <label class="navright"><a href="/users/history">USER: JHON ERWIN</a></label>
+    <a href="/users/logout">LOGOUT</a>
+    <%}%>
+</div>
+
+<div class="head-image">
+    <div class="head-grad">
+    
+        <% if(!loggedIn){ %>
+    <button class="open-button" onclick="showUserForm('login')">LOGIN</button>
+    <br />
+    <br />
+    <button class="open-button button-margin-bottom" onclick="showUserForm('register')">REGISTER</button>
+    <%}%>
+
     </div>
-
-    <div class="head-image">
-        <div class="head-grad">
-            <% if(!loggedIn){ %>
-            <button class="open-button" onclick="showUserForm('login')">LOGIN</button>
-            <br/>
-            <br/>
-            <button class="open-button button-margin-bottom" onclick="showUserForm('register')">REGISTER</button>
-            <%}%>
-
-        </div>
 
        <% include userForm.ejs %>
 
-        </div>
+</div>
 
-        <script>
+<script>
+    function showUserForm(type) {
+        if (type === 'login') {
+            document.getElementById("userFormHeading").innerText = "Login";
+            document.getElementById("userFormButton").innerText = "Login";
+            document.getElementById("userFormForm").action = "/users/login";
+        } else if (type === 'register') {
+            document.getElementById("userFormHeading").innerText = "Register";
+            document.getElementById("userFormButton").innerText = "Register";
+            document.getElementById("userFormForm").action = "/users/signup";
+        }
+        document.getElementById("userForm").classList.add("show-form");
+    }
 
-            function showUserForm(type){
-                if(type === 'login'){
-                    document.getElementById("userFormHeading").innerText = "Login";
-                    document.getElementById("userFormButton").innerText = "Login";
-                    document.getElementById("userFormForm").action = "/users/login";
-                } else if(type === 'register'){
-                    document.getElementById("userFormHeading").innerText = "Register";
-                    document.getElementById("userFormButton").innerText = "Register";
-                    document.getElementById("userFormForm").action = "/users/signup";
-                }
-                document.getElementById("userForm").classList.add("show-form");
-            }
+    function closeUserForm() {
+        document.getElementById("userForm").classList.remove("show-form");
+    }
+</script>
 
-            function closeUserForm() {
-                document.getElementById("userForm").classList.remove("show-form");
-            }
-        </script>
-
-    </div>
+</div>
