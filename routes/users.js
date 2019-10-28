@@ -2,6 +2,7 @@ const express = require('express');
 const userService = require('../services/users');
 const cookieParser = require('cookie-parser');
 const gameService = require('../services/game');
+const roundsService = require('../services/rounds');
 
 const router = express.Router();
 
@@ -60,7 +61,8 @@ router.get('/play', function (req, res, next) {
 });
 
 router.get('/history', function (req, res, next) {
-    gameService.fetchByRound(req.app).then((rounds) => {
+    roundsService.fetch(req.app).then((rounds) => {
+        console.log(rounds);
         res.render('history', { title: 'Super6 Rugby - Your History', loggedIn: true, rounds: rounds });
     });
 });
