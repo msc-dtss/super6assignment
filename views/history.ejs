@@ -12,14 +12,37 @@
     <%- include common/header.ejs %>
 
     <div class="history-area">
-        <div class="history-round">
-            <div class="history-round-game">Game 1</div>
+
+            <%
+            for(var round in rounds){
+            %>
+            <div class="history-round">
+            <div class="history-v-middle">Round <%= round %></div>
+            <div class="fb-column">
+                <div class="history-h-middle">Game 1</div>
+                <div class="fb-column" class="padding-5px">
+                    <div class="fb-row" class="padding-5px">
+                        <div class="fb-column" class="padding-5px">
+                            <div style="height: 1em;"></div>
+                            <div class="padding-5px">Scotland</div>
+                            <div class="padding-5px">Argentina</div>
+                        </div>
+                        <div class="fb-row">
+                            <div class="padding-5px">
+                                Tries
+                            </div>
+                            <div class="padding-5px">
+                                Winner
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="padding-5px">Golden Try</div>
+                <div class="padding-5px">Your Points</div>
+            </div>
             <div class="history-round-game">Game 2</div>
         </div>
-        <div class="history-round">
-            <div class="history-round-game">Game 1</div>
-            <div class="history-round-game">Game 2</div>
-        </div>
+        <% };%>
     </div>
     <%- include common/footer.ejs %>
 

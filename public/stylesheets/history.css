@@ -11,8 +11,42 @@
 .history-round {
     display: flex;
     flex-direction: row;
-    padding: 10px;
+    border: 2px solid black;
+    vertical-align: middle;
 }
 .history-round-game {
-    padding: 10px;
+    flex-direction: column;
+    border: 2px solid black;
+}
+.history-round-game-per-team {
+    flex-direction: column;
+    border: 2px solid black;
+}
+
+.fb-row {
+    display: flex;
+    flex-direction: row;
+    border: 2px solid black;
+}
+
+.fb-column {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+}
+
+.padding-5px{
+    padding: 5px;
+}
+
+.history-v-middle{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.history-h-middle{
+    display: flex;
+    text-align: center;
+    flex-direction: column;
 }

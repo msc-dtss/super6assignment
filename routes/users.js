@@ -60,7 +60,9 @@ router.get('/play', function (req, res, next) {
 });
 
 router.get('/history', function (req, res, next) {
-    res.render('history', { title: 'Super6 Rugby - Your History', loggedIn: true });
+    gameService.fetchByRound(req.app).then((rounds) => {
+        res.render('history', { title: 'Super6 Rugby - Your History', loggedIn: true, rounds: rounds });
+    });
 });
 
 module.exports = router;

@@ -5,7 +5,7 @@
  * @return {Promise} A promise with an array
  */
 const fetch = (app, criteria) => {
-    const db = app.get('super6db')
+    const db = app.get('super6db');
     return db
         .collection('games')
         .find(criteria)
@@ -27,7 +27,25 @@ const fetchFuture = (app, debugDate) => {
     });
 };
 
+const fetchByRound = (app) => {
+    return new Promise((resolve => {
+        const gamesByRound = {1: '', 2: ''};
+        fetchRound(app, '1').then((round1) => {
+            gamesByRound[1] = round1;
+            fetchRound(app, '2').then((round2) => {
+                gamesByRound[2] = round2;
+                resolve(gamesByRound);
+            });
+        });
+    }))
+};
+
+const fetchRound = (app, round) => {
+    return fetch(app, {round_id: round});
+};
+
 module.exports = {
     fetch,
-    fetchFuture
-}
+    fetchFuture,
+    fetchByRound
+};
