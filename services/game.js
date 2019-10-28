@@ -27,8 +27,23 @@ const fetchFuture = (app, debugDate) => {
     });
 };
 
+const fetchGamesForRound = (app, round) => {
+    return fetch(app, {round_id: round});
+};
+
+const fetchByRound = (app, roundList) => {
+    return new Promise(async (resolve) => {
+        const byRound = {};
+        for(let round=0; round<= roundList.length; round++){
+            byRound[round] = await fetchGamesForRound(app, round);
+        }
+        resolve(byRound);
+    })
+};
+
 
 module.exports = {
     fetch,
-    fetchFuture
+    fetchFuture,
+    fetchByRound
 };

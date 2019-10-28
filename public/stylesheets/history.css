@@ -11,12 +11,12 @@
 .history-round {
     display: flex;
     flex-direction: row;
-    border: 2px solid black;
+    border: 1px solid black;
     vertical-align: middle;
 }
 .history-round-game {
     flex-direction: column;
-    border: 2px solid black;
+    border: 1px solid black;
 }
 .history-round-game-per-team {
     flex-direction: column;
@@ -26,13 +26,13 @@
 .fb-row {
     display: flex;
     flex-direction: row;
-    border: 2px solid black;
+    border: 1px solid black;
 }
 
 .fb-column {
     display: flex;
     flex-direction: column;
-    border: 2px solid black;
+    border: 1px solid black;
 }
 
 .padding-5px{

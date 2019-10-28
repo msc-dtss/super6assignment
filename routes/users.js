@@ -62,8 +62,9 @@ router.get('/play', function (req, res, next) {
 
 router.get('/history', function (req, res, next) {
     roundsService.fetch(req.app).then((rounds) => {
-        console.log(rounds);
-        res.render('history', { title: 'Super6 Rugby - Your History', loggedIn: true, rounds: rounds });
+        gameService.fetchByRound(req.app, rounds).then((games) => {
+            res.render('history', { title: 'Super6 Rugby - Your History', loggedIn: true, rounds: rounds, games: games });
+        });
     });
 });
 
