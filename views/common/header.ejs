@@ -1,8 +1,8 @@
 <div class="navbar">
-    <a href="" id="home">HOME</a>
+    <a href="/" id="home">HOME</a>
 
     <% if(loggedIn){ %>
-    <a href="/users/play" id="play">PLAY SUPER 6</a>
+    <a href="/bets/play" id="play">PLAY SUPER 6</a>
     <%}%>
     <!-- <div class="logo_image"><img src="../../public/images/placeholder.com-logo1.png" alt="logo image"></div> -->
         
@@ -10,7 +10,7 @@
     <a href="" id="retults">RESULTS</a>
     <a href="" id="leader">LEADERBOARD</a>
     <% if(loggedIn){ %>
-    <label class="navright"><a href="/users/history">USER: JHON ERWIN</a></label>
+    <label class="navright"><a href="/users/profile">USER: JHON ERWIN</a></label>
     <a href="/users/logout">LOGOUT</a>
     <%}%>
 </div>
