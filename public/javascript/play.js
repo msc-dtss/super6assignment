@@ -1,16 +1,30 @@
-var placeBet = () => {
-    var bet = getBetValues();
-    console.log(bet)
-    console.table(bet.games);
-    return bet;
+var makeRequest = (content) => {
+    var httpRequest = new XMLHttpRequest();
+
+    if (!httpRequest) {
+        alert('Giving up :( Cannot create an XMLHTTP instance');
+        return false;
+    }
+    // httpRequest.onreadystatechange = alertContents;
+    httpRequest.open('POST', '/bets');
+    httpRequest.setRequestHeader('Content-Type', 'application/json');
+    httpRequest.send(JSON.stringify(content));
 }
 
-var getBetValues = () => {
+var placeBet = (roundId, nrGames) => {
+    var bet = getBetValues(roundId, nrGames);
+    console.log(bet)
+    console.table(bet.games);
+    makeRequest(bet);
+}
+
+var getBetValues = (roundId, nrGames) => {
     var bet = {
+        "roundId": roundId,
         "games": [],
         "goldenTrySelection": null
     };
-    for (i = 0; i < 6; i++) {
+    for (i = 0; i < nrGames; i++) {
         let teamATries = document.querySelector(`[game_block_${i}] input[team_A_tries]`)
         let teamBTries = document.querySelector(`[game_block_${i}] input[team_B_tries]`)
         let gameVictor = document.querySelector(`[game_block_${i}] select[game_winner]`)
