@@ -4,9 +4,11 @@ const gameService = require('../services/game.js');
 
 const router = express.Router();
 
-
-router.get('/bets/games', function (req, res, next) {
-    gameService.fetchFuture(req.app)
+router.get('/games', function (req, res, next) {
+    const db = req.app.get('super6db');
+    const isDevelopment = app.get('isDevelopment');
+    const debugDate = isDevelopment ? req.query.debugDate : null;
+    gameService.fetchFuture(db, debugDate)
         .then(
             (games) => {
                 res.render('bets', { title: 'Super6 Rugby', games: games });
@@ -16,7 +18,7 @@ router.get('/bets/games', function (req, res, next) {
             });
 });
 
-router.post('/bets', function (req, res, next) {
+router.post('/', function (req, res, next) {
     const bet = betsService.resolveClientBet(req.body);
     // Attach userId from the session? We should return a 401 error if there is no authenticated session
     bet.userId = req.session.userId;
@@ -32,4 +34,5 @@ router.post('/bets', function (req, res, next) {
                 res.send('Error create bet');
             });
 });
+
 module.exports = router;

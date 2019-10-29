@@ -18,7 +18,7 @@ const fetch = (db, criteria) => {
  * @return {Promise} A promise with an array
  */
 const fetchFuture = (db, debugDate) => {
-    const now = debugDate && app.get('isDevelopment') ? new Date(debugDate) : new Date();
+    const now = debugDate ? new Date(debugDate) : new Date();
     const paddedMonth = now.getMonth() > 9 ? `${now.getMonth()}` : `0${now.getMonth()}`;
     const formattedDate = `${now.getFullYear()}/${paddedMonth}/${now.getDate()}`;
     return fetch(db, {
@@ -26,7 +26,35 @@ const fetchFuture = (db, debugDate) => {
     });
 };
 
+/**
+ * ????
+ * @param {*} db The connection to the database
+ * @param {Number} round ????
+ * @return {Promise} A promise with an array
+ */
+const fetchGamesForRound = (db, round) => {
+    return fetch(db, { round_id: round });
+};
+
+/**
+ * ????
+ * @param {*} db The connection to the database
+ * @param {Array<Number>} roundList ????
+ * @return {Promise} A promise with an array
+ */
+const fetchByRound = (db, roundList) => {
+    return new Promise(async (resolve) => {
+        const byRound = {};
+        for (let round = 0; round <= roundList.length; round++) {
+            byRound[round] = await fetchGamesForRound(db, round);
+        }
+        resolve(byRound);
+    })
+};
+
+
 module.exports = {
     fetch,
-    fetchFuture
-}
+    fetchFuture,
+    fetchByRound
+};
