@@ -1,20 +1,24 @@
 body{
   background-color: #d0d0d0 !important; 
   font-family: Arial, sans-serif; 
-  margin: 0px !important;
+  /* margin: 0px !important; */
+  max-width: 80%;
+  margin: 2px auto;
 }
 .navbar {
   background-color: transparent;
   overflow: hidden;
   position: fixed;
   top: 0;
-  width: 100%;    
+  width: inherit;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   padding-top: 20px;
 }
-
+.logo_image {
+  float: right;
+}
 .navbar a {
   float: left;
   color: white;
@@ -22,7 +26,7 @@ body{
   padding: 12px;
   text-decoration: none;
   font-size: 18px;
-  line-height: 25px;
+  line-height: 20px;
   border-radius: 4px;
 }
 .navbar a:hover {
@@ -37,35 +41,38 @@ body{
   color: cornflowerblue;
 }
 .head-image{
+  border: 1px solid black;
   width: 100%;
   height: 43em;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  background-image: url('https://rugbymadrid.com/wp-content/uploads/RugbyBalon.jpg')
+  background-image: url('../images/Background\ Image.jpg')
 }
 .head-grad{
   height: inherit;
-  background-image: linear-gradient(to right, rgba(2,0,36,0.1), #503580);
+  /* background-image: linear-gradient(to right, rgba(28, 96, 173, 0.4), #503580); */
   align-items: flex-end;
   display: flex;
   justify-content: flex-end;  
   flex-direction: column;  
 }
 .content-middle{
-  height: 30em;
+  height: auto;
+  width: 95%;
   flex-direction: row;
   display: flex;
+  margin: auto;
 }
 .col1{
-  margin: 30px;
-  width: 70%;
+  margin: 10px;
+  width: 60%;
   border: 2px solid #c5c4c4;
   background-color: white;
 }
 .col2{
-  margin: 30px;
-  width: 30%;
+  margin: 10px;
+  width: 40%;
   border: 2px solid #c5c4c4;
   background-color: white;
 }
@@ -77,10 +84,11 @@ body{
   height: 70px;    
 }
 .col-title-grad{
-  height: 70px;
+  height: 100px;
   color: white;
   font-weight: bold;    
-  background-image: linear-gradient(to left, rgba(2,0,36,0.5), #a545b5);
+  background-image: url('../images/Fixtures\ Head.jpg');
+  background-size: cover;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -139,12 +147,12 @@ body{
   flex-direction: row;
   display: flex;
   background-color: #FFF;
-  padding: 20px;    
+  padding: 10px;    
 }
 
 .footer-text { 
   /*background-color: royalblue; */
-  background-image: linear-gradient(to right, rgba(2,0,36,0.1), #503580);
+  background-image: linear-gradient(to right, rgba(28, 96, 173, 0.4), #503580);
   padding: 10px; 
   color: white; 
   font-weight: bold
