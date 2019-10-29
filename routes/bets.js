@@ -1,21 +1,40 @@
 const express = require('express');
 const betsService = require('../services/bets.js');
 const gameService = require('../services/game.js');
+const roundsService = require('../services/rounds');
 
 const router = express.Router();
 
-router.get('/games', function (req, res, next) {
+
+router.get('/play', function (req, res, next) {
     const db = req.app.get('super6db');
-    const isDevelopment = app.get('isDevelopment');
+    const isDevelopment = req.app.get('isDevelopment');
     const debugDate = isDevelopment ? req.query.debugDate : null;
-    gameService.fetchFuture(db, debugDate)
-        .then(
-            (games) => {
-                res.render('bets', { title: 'Super6 Rugby', games: games });
-            },
-            (reason) => {
-                console.log(reason)
+    gameService.fetchFuture(db, debugDate).then(
+        (games) => {
+            res.render('play', {
+                title: 'Super6 Rugby - Play',
+                games: games,
+                loggedIn: true
+            }); // TODO: Logged in needs to reflect cookie value and checked against db and games need to be pushed
+        },
+        (reason) => {
+            console.log(reason)
+        });
+});
+
+router.get('/history', function (req, res, next) {
+    const db = req.app.get('super6db');
+    roundsService.fetch(db).then((rounds) => {
+        gameService.fetchByRound(db, rounds).then((games) => {
+            res.render('history', {
+                title: 'Super6 Rugby - Your History',
+                loggedIn: true,
+                rounds: rounds,
+                games: games
             });
+        });
+    }); // TODO: Logged in needs to reflect cookie value and checked against db and games need to be pushed
 });
 
 router.post('/', function (req, res, next) {
