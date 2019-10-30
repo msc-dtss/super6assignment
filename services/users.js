@@ -1,6 +1,25 @@
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 
+/**
+ * Fetch games matching a given criteria
+ * @param {*} db The connection to the database
+ * @param {*} criteria An object with the criteria to find the users
+ * @return {Promise} A promise with an array
+ */
+const fetch = (db, criteria) => {
+    return db
+        .collection('users')
+        .find(criteria)
+        .toArray();
+};
+
+const fetchById = (db, userId) => {
+    return fetch(db, {
+        _id: userId
+    })
+};
+
 function getHashedPassword(password) {
     // Turn the password into a hash using the one-way bcrypt algo with salt.
     // Password will be saved as a hash and login will be verified by comparing hashed passwords.
@@ -15,20 +34,28 @@ async function createUser(db, email, plainTextPassword, isAdmin, onCreate, onFai
     let exists = await userExists(db, email);
 
     if (!exists) {
-        let id = db.collection('users').insertOne({ email: email, password: getHashedPassword(plainTextPassword), isAdmin: isAdmin }, onCreate);
+        let id = db.collection('users').insertOne({
+            email: email,
+            password: getHashedPassword(plainTextPassword),
+            isAdmin: isAdmin
+        }, onCreate);
     } else {
         onFail();
     }
 }
 
 async function userExists(db, email) {
-    let user = await db.collection('users').findOne({ email: email });
+    let user = await db.collection('users').findOne({
+        email: email
+    });
     return user != null;
 }
 
 async function checkLogin(email, password) {
     // Check user creds against the database
-    let user = await db.collection('users').findOne({ email: email });
+    let user = await db.collection('users').findOne({
+        email: email
+    });
     return bcrypt.compareSync(password, user.password);
 
 }
@@ -46,4 +73,8 @@ function getNewToken() {
     return crypto.randomBytes(64).toString('hex');
 }
 
-module.exports = { createUser };
+module.exports = {
+    fetch,
+    fetchById,
+    createUser
+};
