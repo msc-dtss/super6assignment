@@ -56,8 +56,7 @@ router.post("/login/", function(req, res, next) {
     //does this email address exist in the database?
     password === userService.checkLogin; // if so, return the password, and check it matches the password provided, within same method?
     //bring in session, store ID
-    console.log(userService.userExists.email);
-    console.log(userService.checkLogin.password);
+    req.session.login = true;
     res.redirect("/play");
   } else {
     res.redirect("/login/");

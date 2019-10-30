@@ -60,7 +60,7 @@ app.use(cookieParser()); //allows access to cookies stored in browser
 const userSession = app.use(
   session({
     key: "sid",
-    secret: userService.getNewToken, //from users Service?
+    secret: "verySecretStuff",  //userService.getNewToken, //from users Service?
     resave: false,
     saveUninitialized: false,
     cookie: {
