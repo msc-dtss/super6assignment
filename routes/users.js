@@ -1,6 +1,5 @@
 const express = require("express");
 const userService = require("../services/users");
-const cookieParser = require("cookie-parser");
 const gameService = require("../services/game");
 
 const router = express.Router();
@@ -27,7 +26,8 @@ router.post("/signup", function(req, res, next) {
     password,
     false,
     function(error, result) {
-      res.cookie("super6token", "abcd1234", { maxAge: 3600000 });
+      res.session("super6token", "abcd1234");
+      //res.cookie("super6token", "abcd1234", { maxAge: 3600000 });
       res.redirect("../");
     },
     function() {
@@ -49,24 +49,29 @@ router.post("/login/", function(req, res, next) {
   }
 });*/
 
-router.post("/login/", function(req, res, next) {
+router.post("/login", function(req, res, next) {
   let email = req.body.email;
   let password = req.body.password;
-  if (email === userService.userExists) {
+  if (
+    /*(email === userService.userExists) {
     //does this email address exist in the database?
     password === userService.checkLogin; // if so, return the password, and check it matches the password provided, within same method?
-    //bring in session, store ID
-    req.session.login = true;
-    res.redirect("/play");
+    //bring in session, store ID*/
+    email === "user@gmail.com" &&
+    password === "password"
+  ) {
+    //req.session.user = "user@gmail.com";
+    //req.session.login = true;
+    //console.log(req.session);
+    res.redirect("/users/play");
   } else {
-    res.redirect("/login/");
-    res.send("Incorrect details");
+    res.redirect("../login");
   }
 });
 
 router.get("/logout", function(req, res, next) {
   // Delete token from database via user service
-  res.clearCookie("super6token");
+  res.session.destroy("super6token");
   res.redirect("../");
 });
 

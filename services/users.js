@@ -1,6 +1,5 @@
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
-const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const app = require("express")();
 
@@ -10,24 +9,7 @@ function getHashedPassword(password) {
   let hash = bcrypt.hashSync(password, 10);
   return hash;
 }
-/*
 
-//check for cookie is still saved in browser
-let cookieCheck = (req, res, next) => {
-  if (req.cookies.sid && !req.session.user) {
-    res.clearCookie("sid");
-  }
-  next();
-};
-//if user already has a session, redirect to game page.
-let sessionCheck = (req, res, next) => {
-  if (req.session.user && req.cookies.sid) {
-    res.redirect("/play");
-  } else {
-    next();
-  }
-};
-*/
 async function createUser(
   db,
   email,
@@ -66,24 +48,11 @@ async function checkLogin(email, password) {
   return bcrypt.compareSync(password, user.password);
 }
 /*
-function login(req, res) {
-  // Check user creds against the database and issue a token
-  let { email = req.body.email, password = req.body.password } = req.body;
-  if (email && password) {
-    console.log("Incorrect login details have been entered");
-    return;
-  } else {
-    db.collection("users").findOne({ email: email, password: password }); 
-      console.log("Login Successful");
-      
-    }
-  }
 app.use(function verifyToken(req, res, next) {
   // Verify token is valid and not expired
   if (checkToken(req.query.token)) {
     return next();
   }
-
   res.status(403).end("Token is not valid");
 });*/
 

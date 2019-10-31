@@ -1,7 +1,6 @@
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
-const cookieParser = require('cookie-parser');
 const session = require("express-session")
 const logger = require('morgan');
 const routesAutoLoader = require('./routes/autoloader');
@@ -16,7 +15,6 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Load all the routes inside ./routes/
@@ -55,7 +53,6 @@ const startUpDataChecks = () => {
   });
 }
 
-app.use(cookieParser()); //allows access to cookies stored in browser
 // use express-session to track user across session
 const userSession = app.use(
   session({
@@ -63,11 +60,7 @@ const userSession = app.use(
     secret: "verySecretStuff",  //userService.getNewToken, //from users Service?
     resave: false,
     saveUninitialized: false,
-    cookie: {
-      expires: 3600000
-    }
   })
 );
 
 module.exports = app;
-//module.exports = session;
