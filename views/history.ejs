@@ -12,7 +12,6 @@
     <%- include common/header.ejs %>
 
     <div class="history-area small-font">
-
             <%
             for(var round in rounds){
             %>
@@ -29,11 +28,18 @@
                             <div class="padding-5px"><%=games[round][game].teamB.name%></div>
                         </div>
                         <div class="fb-row">
-                            <div class="padding-5px">
-                                Tries
+                            <% let bet = bets.get(games[round][game]._id)%>
+                            <div class="fb-column padding-5px">
+                                <div>Tries</div>
+                                <div><% if (bet) { %><%= bet.teamATries%> <%}%></div>
+                                <div style="height: 1em;"></div>
+                                <div><% if (bet) { %><%= bet.teamBTries%> <%}%></div>
                             </div>
-                            <div class="padding-5px">
-                                Winner
+                            <div class="fb-column padding-5px">
+                                <div>Winner</div>
+                                <div>Team</div>
+                                <div style="height: 1em;"></div>
+                                <div>Team</div>
                             </div>
                         </div>
                     </div>
