@@ -11,16 +11,16 @@
 <body>
     <%- include common/header.ejs %>
 
-    <div class="history-area">
+    <div class="history-area small-font">
 
             <%
             for(var round in rounds){
             %>
             <div class="history-round">
-            <div class="history-v-middle"><%= rounds[round].roundName %></div>
+            <div class="history-h-middle"><h2><%= rounds[round].roundName %></h2></div>
             <% for(var game in games[round]){ %>
                 <div class="fb-column">
-                <div class="history-h-middle">Game 1</div>
+                <div class="history-h-middle"><%=games[round][game].gameDate%></div>
                 <div class="fb-column" class="padding-5px">
                     <div class="fb-row" class="padding-5px">
                         <div class="fb-column" class="padding-5px">
