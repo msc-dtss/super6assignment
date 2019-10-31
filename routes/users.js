@@ -60,9 +60,8 @@ router.post("/login", function(req, res, next) {
     email === "user@gmail.com" &&
     password === "password"
   ) {
-    //req.session.user = "user@gmail.com";
-    //req.session.login = true;
-    //console.log(req.session);
+    req.session.user = "user@gmail.com";
+    req.session.loggedin = true;
     res.redirect("/users/play");
   } else {
     res.redirect("../login");
@@ -71,8 +70,9 @@ router.post("/login", function(req, res, next) {
 
 router.get("/logout", function(req, res, next) {
   // Delete token from database via user service
-  res.session.destroy("super6token");
-  res.redirect("../");
+  req.session.destroy(() => {
+    res.redirect("../");
+  })
 });
 
 router.get("/play", function(req, res, next) {

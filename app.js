@@ -15,7 +15,17 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));// use express-session to track user across session
+app.use(
+    session({
+        key: "sid",
+        secret: "verySecretStuff",  //userService.getNewToken, //from users Service?
+        resave: false,
+        saveUninitialized: false,
+    })
+);
+
+
 
 // Load all the routes inside ./routes/
 routesAutoLoader.load(app);
@@ -52,15 +62,5 @@ const startUpDataChecks = () => {
   usersModule.createUser(app.get('super6db'), 'admin@super6.com', 'password', true, function () {
   });
 }
-
-// use express-session to track user across session
-const userSession = app.use(
-  session({
-    key: "sid",
-    secret: "verySecretStuff",  //userService.getNewToken, //from users Service?
-    resave: false,
-    saveUninitialized: false,
-  })
-);
 
 module.exports = app;
