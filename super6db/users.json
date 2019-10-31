@@ -1,7 +1,0 @@
-{
-    "_id": "001",
-    "emailAddress": "test@testuser.com",
-    "password": "Hashedpa$$word",
-    "sysAdmin": "0",
-    "Active": "1"
-}

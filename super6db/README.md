@@ -7,7 +7,7 @@ I've added a few notes on what we've got so far:
 <b>rounds:-</b> very basic, 3 rounds which can be used to link to games, bets and results<br>
 <b>bets:-</b> currently empty, but gives an idea of the collection structure, linking to users by id<br>
 <b>games:-</b> populated with all the group fixtures<br>
-<b>matchResults:-</b> to store the details of the match outcome, linked by game_id.  This could prbbaly be nested within 'games'
+<b>matchResults:-</b> to store the details of the match outcome, linked by game_id. This could prbbaly be nested within 'games'
 not sure it needs to be seperate.<br>
 <b>points:-</b> used for calculating the scores, and position of the user in the 'league' table, if we decide to go down that route.
 Again, maybe this could be nested with users, or 'games'.<br><p>
