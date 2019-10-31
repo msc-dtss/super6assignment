@@ -78,7 +78,8 @@ router.get("/logout", function(req, res, next) {
 });
 
 router.get('/play', function (req, res, next) {
-    gameService.fetchFuture(req.app).then((games) => {
+    const db = req.app.get('super6db')
+    gameService.fetchFuture(db).then((games) => {
       res.render('play', {
         title: 'Super6 Rugby - Play', games: games, testValue: "HELLO WORLD", loggedIn: true
       }); // TODO: Logged in needs to reflect cookie value and checked against db and games need to be pushed

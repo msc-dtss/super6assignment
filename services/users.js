@@ -35,7 +35,5 @@ async function checkLogin(email, password) {
 }
 
 module.exports = { createUser };
-//module.exports = { login };
-module.exports = { getNewToken };
 module.exports = { userExists };
 module.exports = { checkLogin };

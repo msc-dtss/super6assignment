@@ -4,7 +4,8 @@ const router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  gameService.fetchFuture(req.app).then((games) => {
+  const db = req.app.get('super6db')
+  gameService.fetchFuture(db).then((games) => {
     res.render('index', { title: 'Super6 Rugby', games: games, loggedIn: req.session.loggedIn});
   }, 
   (reason) => {
