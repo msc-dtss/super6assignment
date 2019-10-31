@@ -12,8 +12,9 @@ router.get('/', function(req, res, next) {
   });
 });
 
+// @Neil/@Mike this isn't needed right?
 router.get('/login', function (req, res, next) {
-  res.render('login');
+    res.render('login');
 });
 
 module.exports = router;

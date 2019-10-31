@@ -4,23 +4,54 @@
 <head>
     <%- include common/head-items.ejs %>
     <title><%= title %></title>
-    <link href="/stylesheets/history.css" media="only screen and (min-width : 740px)" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/history.css" media="only screen and (min-width : 740px)" rel="stylesheet"
+        type="text/css" />
 </head>
 
 <body>
-<%- include common/header.ejs %>
+    <%- include common/header.ejs %>
 
-<div class="history-area">
-<div class="history-round">
-    <div class="history-round-game">Game 1</div>
-    <div class="history-round-game">Game 2</div>
-</div>
-<div class="history-round">
-    <div class="history-round-game">Game 1</div>
-    <div class="history-round-game">Game 2</div>
-</div>
-</div>
-<%- include common/footer.ejs %>
+    <div class="history-area small-font">
+            <%
+            for(var round in rounds){
+            %>
+            <div class="history-round">
+            <div class="history-h-middle"><h2><%= rounds[round].roundName %></h2></div>
+            <% for(var game in games[round]){ %>
+                <div class="fb-column">
+                <div class="history-h-middle"><%=games[round][game].gameDate%></div>
+                <div class="fb-column" class="padding-5px">
+                    <div class="fb-row" class="padding-5px">
+                        <div class="fb-column" class="padding-5px">
+                            <div style="height: 1em;"></div>
+                            <div class="padding-5px"><%=games[round][game].teamA.name%></div>
+                            <div class="padding-5px"><%=games[round][game].teamB.name%></div>
+                        </div>
+                        <div class="fb-row">
+                            <% let bet = bets.get(games[round][game]._id)%>
+                            <div class="fb-column padding-5px">
+                                <div>Tries</div>
+                                <div><% if (bet) { %><%= bet.teamATries%> <%}%></div>
+                                <div style="height: 1em;"></div>
+                                <div><% if (bet) { %><%= bet.teamBTries%> <%}%></div>
+                            </div>
+                            <div class="fb-column padding-5px">
+                                <div>Winner</div>
+                                <div>Team</div>
+                                <div style="height: 1em;"></div>
+                                <div>Team</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="padding-5px">Golden Try</div>
+                <div class="padding-5px">Your Points</div>
+            </div>
+                <%}%>
+        </div>
+        <% }%>
+    </div>
+    <%- include common/footer.ejs %>
 
 
 </body>

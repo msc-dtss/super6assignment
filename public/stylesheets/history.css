@@ -4,15 +4,54 @@
 
 .history-area {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     padding: 10px;
 }
 
 .history-round {
     display: flex;
-    flex-direction: row;
-    padding: 10px;
+    flex-direction: column;
+    border: 1px solid black;
+    vertical-align: middle;
+    padding: 20px;
 }
 .history-round-game {
-    padding: 10px;
+    flex-direction: row;
+    border: 1px solid black;
+}
+.history-round-game-per-team {
+    flex-direction: column;
+    border: 2px solid black;
+}
+
+.fb-row {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid black;
+}
+
+.fb-column {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+}
+
+.padding-5px{
+    padding: 5px;
+}
+
+.history-v-middle{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.history-h-middle{
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+}
+
+.small-font{
+    font-size: 10px;
 }

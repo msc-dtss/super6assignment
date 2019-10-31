@@ -20,66 +20,46 @@
         </div>
 
         <!-- <% include common/games.ejs %> -->
-        
-        <div class="game_row">
+        <% for (let i = 0; i < games.length; i++) { %>
+        <div game_block game_block_<%=i%> class="game_row">
             <div class="column">
                 <h2>TEAMA VS TEAMB</h2>
             </div>
             <div class="column">
-                <form>
-                    Team A tries: <input type="number" min="0"><br>
-                    Team B tries: <input type="number" min="0"><br>
-                    Select Match Winner:<select name="Winner">
-                        <option value="TEAM A">TEAM A</option>
-                        <option value="TEAM B">TEAM B</option>
-                    </select>
-                </form>
+                <%= games[i].teamA.name %> tries:
+                <input team_A_tries name="block<%=i%>TeamATries" type="number" min="0" size="4">
+                <%= games[i].teamB.name %> tries:
+                <input team_B_tries name="block<%=i%>TeamBTries" type="number" min="0" size="4">
+                <br>
+                Select Match Winner:<select game_winner name="Winner">
+                    <option value="TEAM A">TEAM A</option>
+                    <option value="TEAM B">TEAM B</option>
+                </select>
             </div>
         </div>
-
-        <div class="game_row">
-            <div class="column">
-                <h2><%=testValue%></games>%></h2>
-            </div>
-            <div class="column">
-                <form>
-                    Team A tries: <input type="number" name=""><br>
-                    Team B tries: <input type="number" name=""><br>
-                    Select Match Winner:<select name="Winner">
-                        <option value="TEAM A">TEAM A</option>
-                        <option value="TEAM B">TEAM B</option>
-                    </select>
-                </form>
-            </div>
-        </div>
-
-        <div class="game_row">
-            <div class="column">
-                <h2>TEAMA VS TEAMB</h2>
-            </div>
-            <div class="column">
-                <form>
-                    Team A tries: <input type="number" name=""><br>
-                    Team B tries: <input type="number" name=""><br>
-                    Select Match Winner:<select name="Winner">
-                        <option value="TEAM A">TEAM A</option>
-                        <option value="TEAM B">TEAM B</option>
-                    </select>
-                </form>
-            </div>
-        </div>
-
+        <% } %>
     </div>
 
+    <% if (games.length > 0) { %>
+    <div class="golden_try" class="game_row">
+        <h2>Golden Try Prediction</h2> <input golden_try_input name="goldenTry" type="number" min="0" size="5">
+    </div>
+    <% } %>
+
     <div class='place_bet_button'>
-        <button type="button" id="bet_button">
+        <% if (games.length > 0) { %>
+        <button onclick="placeBet(<%= games[0].round_id %>, <%= games.length %>)" type="button" id="bet_button">
             <h2>Place your Bets!</h2>
         </button>
+        <% } else { %>
+        <button disabled type="button" id="bet_button">
+            <h2>No games!</h2>
+        </button>
+        <% } %>
     </div>
 
     <%- include common/footer.ejs %>
-
-
+    <script src="/javascript/play.js"></script>
 </body>
 
 </html>
