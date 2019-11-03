@@ -29,24 +29,16 @@ const fetchFuture = async (db, debugDate) => {
 /**
  * TODO: Document
  * @param {*} db The connection to the database
- * @param {Number} round ????
- * @return {Array} An array of games
- */
-const fetchGamesForRound = async (db, round) => {
-    return await fetch(db, { round_id: round });
-};
-
-/**
- * TODO: Document
- * @param {*} db The connection to the database
- * @param {Array<Number>} roundList ????
  * @return {*} An array of games by round
  */
-const fetchByRound = async (db, roundList) => {
+const fetchIndexedByRound = async (db) => {
     const byRound = {};
-    //This will be a lot more performant if we query with all the rounds and then reorganize the data once we have it all
-    for (let round = 0; round <= roundList.length; round++) {
-        byRound[round] = await fetchGamesForRound(db, round);
+    const games = await fetch(db, {});
+    for (let i = 0; i < games.length; i++) {
+        if (!(games[i].round_id in byRound)) {
+            byRound[games[i].round_id] = [];
+        }
+        byRound[games[i].round_id].push(games[i]);
     }
     return byRound;
 };
@@ -55,5 +47,5 @@ const fetchByRound = async (db, roundList) => {
 module.exports = {
     fetch,
     fetchFuture,
-    fetchByRound
+    fetchIndexedByRound
 };
