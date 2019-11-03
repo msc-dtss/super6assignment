@@ -5,9 +5,16 @@ class SuperSixError extends Error {
     }
 }
 
-class SuperSixValidationError extends SuperSixError {
+class ValidationError extends SuperSixError {
     constructor(message, httpCode) {
-        super(message, httpCode || "400");
+        super(message || "Validation error", httpCode || "400");
+        this.httpCode = httpCode;
+    }
+}
+
+class UserNotFoundError extends SuperSixError {
+    constructor(message, httpCode) {
+        super(message || "Invalid user", httpCode || "404");
         this.httpCode = httpCode;
     }
 }
@@ -15,5 +22,6 @@ class SuperSixValidationError extends SuperSixError {
 
 module.exports = {
     SuperSixError,
-    SuperSixValidationError
+    ValidationError,
+    UserNotFoundError
 }

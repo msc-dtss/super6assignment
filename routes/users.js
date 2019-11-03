@@ -2,12 +2,11 @@ const express = require('express');
 const userService = require('../services/users');
 const cookieParser = require('cookie-parser');
 
-const signUpService = require('../services/signup') // CS CODE !!!!
 const userProfileService = require('../services/profile') // CS CODE !!!!!!!!
 
 const router = express.Router();
 
-router.get('/', function (req, res, next) {
+router.get('/', async (req, res, next) => {
     // List all users - NO AUTH AT PRESENT (only for admin)
     const db = req.app.get('super6db');
     userService.list(db).then((users) => {
@@ -16,18 +15,21 @@ router.get('/', function (req, res, next) {
 });
 
 
-router.post('/signup', function (req, res, next) {
+router.post('/signup', async (req, res, next) => {
     // Save a user - NO AUTH AT PRESENT
+    const db = req.app.get('super6db');
     const email = req.body.email;
     const password = req.body.password;
-    signUpService.makeUser(email, passowrd);
+    // Maybe do a validator like bets.resolveClientBet?
+    await userService.create(db, email, password);
+    res.send(true);
 });
 
-router.post('/login/', function (req, res, next) {
+router.post('/login/', async (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
 
-    // needs to vberify the users in the DB (do it via a service)
+    // needs to verify the users in the DB (do it via the userService)
     if (email === 'user@gmail.com' && password === 'password') { // to be replaced with call to the user service
         res.cookie('super6token', 'abcd1234', {
             maxAge: 3600000
@@ -38,7 +40,7 @@ router.post('/login/', function (req, res, next) {
     }
 });
 
-router.get('/logout', function (req, res, next) {
+router.get('/logout', async (req, res, next) => {
     // Delete token from database via user service
     res.clearCookie('super6token');
     res.redirect('../');

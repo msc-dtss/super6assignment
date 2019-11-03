@@ -41,7 +41,7 @@ router.post('/', async (req, res, next) => {
 
     const db = req.app.get('super6db');
     try {
-        const result = await betsService.create(db, bet);
+        await betsService.create(db, bet);
         res.json(true);
     } catch (e) {
         // TODO: Need to verify why we couldn't create the bet.

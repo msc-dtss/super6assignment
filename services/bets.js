@@ -1,21 +1,21 @@
 const ObjectId = require('mongodb').ObjectId;
-const errors = require('../errors');
+const errors = require('../errors/super6exceptions');
 
 /**
  * Ensures a bet coming in from the client is valid and strips out any invalid attributes
  * @param {*} clientBet The "untrusted" bet coming in from the client
  * @return {*} An object representing a bet in the correct format.
- * @throws {errors.SuperSixValidationError} An input validation error
+ * @throws {errors.ValidationError} An input validation error when there is missing/invalid information
  */
 const resolveClientBet = (clientBet) => {
     if (clientBet.games.length > 6) {
-        throw new errors.SuperSixValidationError("Each round only has 6 games");
+        throw new errors.ValidationError("Each round only has 6 games");
     }
     if (clientBet.roundId !== 0 && !clientBet.roundId || isNaN(clientBet.roundId)) { //0 is falsy, hence why we need to explicitely check for it
-        throw new errors.SuperSixValidationError("Bad round provided");
+        throw new errors.ValidationError("Bad round provided");
     }
     if (!clientBet.goldenTry) {
-        throw new errors.SuperSixValidationError("Bad goldenTry provided");
+        throw new errors.ValidationError("Bad goldenTry provided");
     }
 
     const verifiedBet = {
@@ -26,16 +26,16 @@ const resolveClientBet = (clientBet) => {
 
     clientBet.games.forEach(game => {
         if (game.id !== 0 && !game.id || isNaN(game.id)) {
-            throw new errors.SuperSixValidationError(`Bad id provided for game`);
+            throw new errors.ValidationError(`Bad id provided for game`);
         }
         if (game.teamATries !== 0 && !game.teamATries || isNaN(game.teamATries)) {
-            throw new errors.SuperSixValidationError(`Bad teamATries provided for game ${game.id}`);
+            throw new errors.ValidationError(`Bad teamATries provided for game ${game.id}`);
         }
         if (game.teamBTries !== 0 && !game.teamBTries || isNaN(game.teamBTries)) {
-            throw new errors.SuperSixValidationError(`Bad teamBTries provided for game ${game.id}`);
+            throw new errors.ValidationError(`Bad teamBTries provided for game ${game.id}`);
         }
         if (!game.gameVictor) {
-            throw new errors.SuperSixValidationError(`Bad gameVictor provided for game ${game.id}`);
+            throw new errors.ValidationError(`Bad gameVictor provided for game ${game.id}`);
         }
         verifiedBet.gameBets.push({
             id: game.id,
@@ -50,11 +50,17 @@ const resolveClientBet = (clientBet) => {
 /**
  * Creates a bet for a user
  * @param {*} db The connection to the database
- * @param {*} bet The bet that has been previously
- * @return {Promise} A promise with the result?
+ * @param {*} bet A valid bet
+ * @return {boolean} Whether or not we managed to create the bet
  */
 const create = async (db, bet) => {
-    return db.collection("bets").insertOne(bet);
+    try {
+        await db.collection("bets").insertOne(bet);
+        return true;
+    } catch (e) {
+        // Maybe we need to throw some exceptions here based on what kind of error we get so that we can provide better feedback to the user
+        return false
+    }
 };
 
 /**
@@ -62,17 +68,17 @@ const create = async (db, bet) => {
  * @param {*} db The connection to the database
  * @param {Number} betID The id of the bet
  * @param {Number} userID The id of the user that owns this bet (to make sure we're not deleting someone else's bet)
- * @return {Promise} A promise with the result?
+ * @return {boolean} Whether or not the bet was deleted
  */
 const deleteBet = async (app, betID, userID) => {
     // do the thing
 }
 
 /**
- * Gets the bet made by a user
+ * Fetch bets matching a given criteria
  * @param {*} db The connection to the database
  * @param {*} criteria An object with the criteria to find bets
- * @return {Promise} A promise with an array of bets
+ * @return {Array} An array of bets
  */
 const fetch = async (db, criteria) => {
     return db.collection("bets")
@@ -85,7 +91,7 @@ const fetch = async (db, criteria) => {
  * @param {*} db The connection to the database
  * @param {Number} userId The ID of the user
  * @param {Number} roundId The ID of the round
- * @return {Promise} A promise with an array of bets
+ * @return {Array} An array of bets
  */
 const madeByUser = async (db, roundId, userId) => {
     return await fetch(db, {
@@ -95,21 +101,21 @@ const madeByUser = async (db, roundId, userId) => {
 };
 
 /**
- * Gets all the bets ever made by a user
+ * Gets all the bets ever made by a user mapped by game
  * @param {*} db The connection to the database
  * @param {Number} userId The ID of the user
- * @return {Promise} A promise with an array of bets
+ * @return {Map} A map with the bets indexed by gameId
  */
-const allForUser = async (db, userId) => {
+const allForUser = async (db, userId) => { //maybe needs a clearer name
     const bets = await fetch(db, { users_id: userId });
-    return new Map(bets.map(bet => [bet.games_id, bet])); //Tiago: Not sure if I need to Promisify this? Someone remind me if they see this comment
+    return new Map(bets.map(bet => [bet.games_id, bet])); //Does this need to be a map or can it be regular JSON?
 }
 
 /**
  * Gets a collection of bets made by users for a given round
  * @param {*} db The connection to the database
  * @param {Number} roundId The ID of the round
- * @return {Promise} A promise with an array of bets
+ * @return {Array} An array of bets
  */
 const forRound = async (db, roundId) => {
     return await fetch(db, { roundId });
@@ -120,7 +126,7 @@ const forRound = async (db, roundId) => {
  * @param {*} db The connection to the database
  * @param {Number} roundId The ID of the round
  * @param {*} results The actual game results. These should be in the same format as `bet.gameBets`
- * @return {Promise} A promise with an array of bets
+ * @return {Array} An array of bets
  */
 const findRoundWinners = async (db, roundId, results) => {
     return await fetch(db, {

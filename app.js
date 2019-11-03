@@ -21,14 +21,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 routesAutoLoader.load(app);
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
     next(createError(404));
 });
 
 app.set('isDevelopment', app.get('env') === 'development');
 
 // error handler
-app.use(function (err, req, res, next) {
+app.use((err, req, res, next) => {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -41,18 +41,21 @@ app.use(function (err, req, res, next) {
 // MongoDB client connecting to default port and db name of super6db.
 // Available across the system with req.app.get('super6db')
 const MongoClient = require('mongodb').MongoClient;
-MongoClient.connect('mongodb://localhost:27017', {
-    useNewUrlParser: true, useUnifiedTopology: true
-}, function (err, client) {
-    app.set('super6db', client.db('super6db'));
-    //startUpDataChecks(); - not yet enabled
-});
+MongoClient.connect('mongodb://localhost:27017',
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    },
+    (err, client) => {
+        app.set('super6db', client.db('super6db'));
+        //startUpDataChecks(); - not yet enabled
+    }
+);
 
 
 const startUpDataChecks = () => {
     // Add required data to db when it does not exist
-    usersModule.createUser(app.get('super6db'), 'admin@super6.com', 'password', true, function () {
-    });
+    usersModule.createUser(app.get('super6db'), 'admin@super6.com', 'password', true, () => { });
 }
 
 module.exports = app;

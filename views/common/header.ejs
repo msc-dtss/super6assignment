@@ -32,7 +32,7 @@
 </div>
 
 <script>
-    function showUserForm(type) {
+    var showUserForm = function (type) {
         if (type === 'login') {
             document.getElementById("userFormHeading").innerText = "Login";
             document.getElementById("userFormButton").innerText = "Login";
@@ -43,11 +43,11 @@
             document.getElementById("userFormForm").action = "/users/signup";
         }
         document.getElementById("userForm").classList.add("show-form");
-    }
+    };
 
-    function closeUserForm() {
+    var closeUserForm = function () {
         document.getElementById("userForm").classList.remove("show-form");
-    }
+    };
 </script>
 
 </div>
