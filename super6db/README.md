@@ -1,15 +1,15 @@
-<b>MongoDB Collection Info</b>
+# MongoDB Collections
 
-Hopefully you guys can now utilise the collection structure - but if I've missed anything, please let me know.
-I've added a few notes on what we've got so far:
+In this folder, we've got the seed database that we should all have.
 
-<b>users:-</b> Populated with 1 basic sample user, just for reference.<br>
-<b>rounds:-</b> very basic, 3 rounds which can be used to link to games, bets and results<br>
-<b>bets:-</b> currently empty, but gives an idea of the collection structure, linking to users by id<br>
-<b>games:-</b> populated with all the group fixtures<br>
-<b>matchResults:-</b> to store the details of the match outcome, linked by game_id. This could prbbaly be nested within 'games'
-not sure it needs to be seperate.<br>
-<b>points:-</b> used for calculating the scores, and position of the user in the 'league' table, if we decide to go down that route.
-Again, maybe this could be nested with users, or 'games'.<br><p>
+If you add something to it that is needed for the application to work, please remember to re-export your DB, and save the resulting `*.bson` and `*.mesatada.json` files here.
 
-for each collection, Initially I've chosen to set our own ID, rather than using the system generated 'guid' style ID - I'm not sure if this makes any real difference other than making them easy to refer to in the business logic, if we even need to refer to particular/specifc id's in code
+Remember to commit and push!
+
+## Importing into the database
+
+To import these collections into your MongoDB database, please run `import.sh` (linux, mac, and windows with gitbash) or `import.bat` (windows).
+
+## Exporting the database
+
+To export the database into this folder, please run `export.sh` (linux, mac, and windows with gitbash) or `export.bat` (windows).
