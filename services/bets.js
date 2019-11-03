@@ -51,7 +51,7 @@ const resolveClientBet = (clientBet) => {
  * @param {*} bet The bet that has been previously
  * @return {Promise} A promise with the result?
  */
-const create = (db, bet) => {
+const create = async (db, bet) => {
     return db.collection("bets").insertOne(bet);
 };
 
@@ -60,8 +60,9 @@ const create = (db, bet) => {
  * @param {*} db The connection to the database
  * @param {Number} betID The id of the bet
  * @param {Number} userID The id of the user that owns this bet (to make sure we're not deleting someone else's bet)
+ * @return {Promise} A promise with the result?
  */
-const deleteBet = (app, betID, userID) => {
+const deleteBet = async (app, betID, userID) => {
     // do the thing
 }
 
@@ -71,32 +72,35 @@ const deleteBet = (app, betID, userID) => {
  * @param {*} criteria An object with the criteria to find bets
  * @return {Promise} A promise with an array of bets
  */
-const fetch = (db, criteria) => {
+const fetch = async (db, criteria) => {
     return db.collection("bets")
         .find(criteria)
         .toArray();
 };
 
 /**
- * Gets the bet made by a user
+ * Gets the bet made by a user for a round
  * @param {*} db The connection to the database
+ * @param {Number} userId The ID of the user
  * @param {Number} roundId The ID of the round
  * @return {Promise} A promise with an array of bets
  */
-const madeByUser = (db, roundId, userId) => {
-    return fetch(db, {
+const madeByUser = async (db, roundId, userId) => {
+    return await fetch(db, {
         roundId,
         userId
     });
 };
 
-const allForUser = (db, userId) => {
-    return new Promise(async (Resolve) => {
-        db.collection("bets").find({users_id: userId}).toArray().then((result) => {
-            let mapResult = new Map(result.map(bet => [bet.games_id, bet]));
-            Resolve(mapResult);
-        });
-    });
+/**
+ * Gets all the bets ever made by a user
+ * @param {*} db The connection to the database
+ * @param {Number} userId The ID of the user
+ * @return {Promise} A promise with an array of bets
+ */
+const allForUser = async (db, userId) => {
+    const bets = await fetch(db, { users_id: userId });
+    return new Map(bets.map(bet => [bet.games_id, bet])); //Tiago: Not sure if I need to Promisify this? Someone remind me if they see this comment
 }
 
 /**
@@ -105,10 +109,8 @@ const allForUser = (db, userId) => {
  * @param {Number} roundId The ID of the round
  * @return {Promise} A promise with an array of bets
  */
-const forRound = (db, roundId) => {
-    return fetch(db, {
-        roundId
-    });
+const forRound = async (db, roundId) => {
+    return await fetch(db, { roundId });
 };
 
 /**
@@ -118,8 +120,8 @@ const forRound = (db, roundId) => {
  * @param {*} results The actual game results. These should be in the same format as `bet.gameBets`
  * @return {Promise} A promise with an array of bets
  */
-const findRoundWinners = (db, roundId, results) => {
-    return fetch(db, {
+const findRoundWinners = async (db, roundId, results) => {
+    return await fetch(db, {
         roundId,
         gameBets: results.games
     });
