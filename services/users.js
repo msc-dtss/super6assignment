@@ -29,8 +29,8 @@ async function userExists(db, email) {
 
 async function checkLogin(email, password) {
     // Check user creds against the database
-    let user = await db.collection('users').findOne({ email: email });
-    return bcrypt.compareSync(password, user.password);
+    let user = await db.collection('users').findOne({ email: email }); //does the email provided match email in DB?
+    return bcrypt.compareSync(password, user.password); //compares the input password with DB hashed password.
 
 }
 
