@@ -1,3 +1,5 @@
+const ObjectId = require('mongodb').ObjectId;
+
 /**
  * Ensures a bet coming in from the client is valid and strips out any invalid attributes
  * @param {*} clientBet The "untrusted" bet coming in from the client
@@ -88,6 +90,15 @@ const madeByUser = (db, roundId, userId) => {
     });
 };
 
+const allForUser = (db, userId) => {
+    return new Promise(async (Resolve) => {
+        db.collection("bets").find({users_id: userId}).toArray().then((result) => {
+            let mapResult = new Map(result.map(bet => [bet.games_id, bet]));
+            Resolve(mapResult);
+        });
+    });
+}
+
 /**
  * Gets a collection of bets made by users for a given round
  * @param {*} db The connection to the database
@@ -123,4 +134,5 @@ module.exports = {
     madeByUser,
     forRound,
     findRoundWinners,
+    allForUser,
 };

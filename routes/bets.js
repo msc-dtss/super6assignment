@@ -2,6 +2,7 @@ const express = require('express');
 const betsService = require('../services/bets.js');
 const gameService = require('../services/game.js');
 const roundsService = require('../services/rounds');
+const ObjectId = require('mongodb').ObjectId;
 
 const router = express.Router();
 
@@ -27,12 +28,15 @@ router.get('/history', function (req, res, next) {
     const db = req.app.get('super6db');
     roundsService.fetch(db).then((rounds) => {
         gameService.fetchByRound(db, rounds).then((games) => {
-            res.render('history', {
-                title: 'Super6 Rugby - Your History',
-                loggedIn: true,
-                rounds: rounds,
-                games: games
-            });
+            betsService.allForUser(db,new ObjectId('5d9dea063935915c6861feaf')).then((bets) => {
+                res.render('history', {
+                    title: 'Super6 Rugby - Your History',
+                    loggedIn: true,
+                    rounds: rounds,
+                    games: games,
+                    bets: bets
+                });
+            });//TODO - Use real user id
         });
     }); // TODO: Logged in needs to reflect cookie value and checked against db and games need to be pushed
 });

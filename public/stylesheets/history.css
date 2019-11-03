@@ -4,18 +4,19 @@
 
 .history-area {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     padding: 10px;
 }
 
 .history-round {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     border: 1px solid black;
     vertical-align: middle;
+    padding: 20px;
 }
 .history-round-game {
-    flex-direction: column;
+    flex-direction: row;
     border: 1px solid black;
 }
 .history-round-game-per-team {
@@ -49,4 +50,8 @@
     display: flex;
     text-align: center;
     flex-direction: column;
+}
+
+.small-font{
+    font-size: 10px;
 }
