@@ -1,19 +1,21 @@
 const ObjectId = require('mongodb').ObjectId;
+const errors = require('../errors');
 
 /**
  * Ensures a bet coming in from the client is valid and strips out any invalid attributes
  * @param {*} clientBet The "untrusted" bet coming in from the client
  * @return {*} An object representing a bet in the correct format.
+ * @throws {errors.SuperSixValidationError} An input validation error
  */
 const resolveClientBet = (clientBet) => {
     if (clientBet.games.length > 6) {
-        throw new Error("Each round only has 6 games") // Todo: Create a new Error type.
+        throw new errors.SuperSixValidationError("Each round only has 6 games");
     }
     if (clientBet.roundId !== 0 && !clientBet.roundId || isNaN(clientBet.roundId)) { //0 is falsy, hence why we need to explicitely check for it
-        throw new Error("Bad round provided") // Todo: Create a new Error type.
+        throw new errors.SuperSixValidationError("Bad round provided");
     }
     if (!clientBet.goldenTry) {
-        throw new Error("Bad goldenTry provided") // Todo: Create a new Error type.
+        throw new errors.SuperSixValidationError("Bad goldenTry provided");
     }
 
     const verifiedBet = {
@@ -24,16 +26,16 @@ const resolveClientBet = (clientBet) => {
 
     clientBet.games.forEach(game => {
         if (game.id !== 0 && !game.id || isNaN(game.id)) {
-            throw new Error(`Bad id provided for game`) // Todo: Create a new Error type.
+            throw new errors.SuperSixValidationError(`Bad id provided for game`);
         }
         if (game.teamATries !== 0 && !game.teamATries || isNaN(game.teamATries)) {
-            throw new Error(`Bad teamATries provided for game ${game.id}`) // Todo: Create a new Error type.
+            throw new errors.SuperSixValidationError(`Bad teamATries provided for game ${game.id}`);
         }
         if (game.teamBTries !== 0 && !game.teamBTries || isNaN(game.teamBTries)) {
-            throw new Error(`Bad teamBTries provided for game ${game.id}`) // Todo: Create a new Error type.
+            throw new errors.SuperSixValidationError(`Bad teamBTries provided for game ${game.id}`);
         }
         if (!game.gameVictor) {
-            throw new Error(`Bad gameVictor provided for game ${game.id}`) // Todo: Create a new Error type.
+            throw new errors.SuperSixValidationError(`Bad gameVictor provided for game ${game.id}`);
         }
         verifiedBet.gameBets.push({
             id: game.id,
