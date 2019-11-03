@@ -51,6 +51,10 @@ async function userExists(db, email) {
     return user != null;
 }
 
+const list = async function (db) {
+    return fetch(db, {});
+};
+
 async function checkLogin(email, password) {
     // Check user creds against the database
     let user = await db.collection('users').findOne({
@@ -76,5 +80,6 @@ function getNewToken() {
 module.exports = {
     fetch,
     fetchById,
+    list,
     createUser
 };

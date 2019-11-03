@@ -9,16 +9,9 @@ const router = express.Router();
 
 router.get('/', function (req, res, next) {
     // List all users - NO AUTH AT PRESENT (only for admin)
-
-
-    // TODO: move the code below to a service (much like service/games.js and such)
     const db = req.app.get('super6db');
-    const collection = db.collection('users');
-    collection.find({}).toArray(function (err, docs) {
-        if (err) {
-            console.error(err);
-        }
-        res.json(docs)
+    userService.list(db).then((users) => {
+        res.json(users)
     });
 });
 
