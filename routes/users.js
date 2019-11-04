@@ -1,60 +1,42 @@
 const express = require("express");
+const bcrypt = require("bcrypt");
 const userService = require("../services/users");
 const gameService = require("../services/game");
-const bcrypt = require("bcrypt");
+const userProfileService = require('../services/profile') // CS CODE !!!!!!!!
 
 const router = express.Router();
 
-router.get("/", function(req, res, next) {
-  // List all users - NO AUTH AT PRESENT (only for admin)
-
-  // TODO: move the code below to a service (much like service/games.js and such)
-  const db = req.app.get("super6db");
-  const collection = db.collection("users");
-  collection.find({}).toArray(function(err, docs) {
-    if (err) {
-      console.error(err);
-    }
-    res.json(docs);
-  });
+router.get('/', async (req, res, next) => {
+    // List all users - NO AUTH AT PRESENT (only for admin)
+    const db = req.app.get('super6db');
+    userService.list(db).then((users) => {
+        res.json(users)
+    });
 });
 
-router.get("/profile", function(req, res, next) {
-  // Should show the user profile page
+router.get('/profile', function (req, res, next) {
+    // Should show the user profile page
 
-  // TODO: move the code below to a service (much like service/games.js and such)
-  // const db = req.app.get('super6db');
-  // const collection = db.collection('users');
-  // collection.find({}).toArray(function (err, docs) {
-  //     if (err) {
-  //         console.error(err);
-  //     }
-  //     res.json(docs)
-  // });
-  res.render("profile");
+    // TODO: move the code below to a service (much like service/games.js and such)
+    // const db = req.app.get('super6db');
+    // const collection = db.collection('users');
+    // collection.find({}).toArray(function (err, docs) {
+    //     if (err) {
+    //         console.error(err);
+    //     }
+    //     res.json(docs)
+    // });
+    res.render('profile');
 });
 
-router.post("/signup", function(req, res, next) {
-  // Save a user - NO AUTH AT PRESENT
-  const email = req.body.email;
-  const password = req.body.password;
-
-  // TODO: move the code below to a service (much like service/games.js and such)
-  const db = req.app.get("super6db");
-  userService.createUser(
-    db,
-    email,
-    password,
-    false,
-    function(error, result) {
-      res.cookie("super6token", "abcd1234", { maxAge: 3600000 });
-      res.redirect("../");
-    },
-    function() {
-      res.statusCode = 500;
-      res.send("Error adding user");
-    }
-  );
+router.post('/signup', async (req, res, next) => {
+    // Save a user - NO AUTH AT PRESENT
+    const db = req.app.get('super6db');
+    const email = req.body.email;
+    const password = req.body.password;
+    // Maybe do a validator like bets.resolveClientBet?
+    await userService.create(db, email, password);
+    res.send(true);
 });
 
 router.post("/login", function(req, res, next) {
@@ -82,35 +64,12 @@ router.post("/login", function(req, res, next) {
   //}
 });
 
-router.get("/logout", function(req, res, next) {
-  // Delete token from database via user service
+router.get('/logout', async (req, res, next) => {
+    // Delete token from database via user service
   req.session.destroy(() => {
     res.redirect("../");
   });
 });
 
-router.get("/play", function(req, res, next) {
-  const db = req.app.get("super6db");
-  gameService.fetchFuture(db).then(
-    games => {
-      res.render("play", {
-        title: "Super6 Rugby - Play",
-        games: games,
-        testValue: "HELLO WORLD",
-        loggedIn: true
-      }); // TODO: Logged in needs to reflect cookie value and checked against db and games need to be pushed
-    },
-    reason => {
-      console.log(reason);
-    }
-  );
-});
-
-router.get("/history", function(req, res, next) {
-  res.render("history", {
-    title: "Super6 Rugby - Your History",
-    loggedIn: true
-  });
-});
 
 module.exports = router;

@@ -1,19 +1,21 @@
 const ObjectId = require('mongodb').ObjectId;
+const errors = require('../errors/super6exceptions');
 
 /**
  * Ensures a bet coming in from the client is valid and strips out any invalid attributes
  * @param {*} clientBet The "untrusted" bet coming in from the client
  * @return {*} An object representing a bet in the correct format.
+ * @throws {errors.ValidationError} An input validation error when there is missing/invalid information
  */
 const resolveClientBet = (clientBet) => {
     if (clientBet.games.length > 6) {
-        throw new Error("Each round only has 6 games") // Todo: Create a new Error type.
+        throw new errors.ValidationError("Each round only has 6 games");
     }
     if (clientBet.roundId !== 0 && !clientBet.roundId || isNaN(clientBet.roundId)) { //0 is falsy, hence why we need to explicitely check for it
-        throw new Error("Bad round provided") // Todo: Create a new Error type.
+        throw new errors.ValidationError("Bad round provided");
     }
     if (!clientBet.goldenTry) {
-        throw new Error("Bad goldenTry provided") // Todo: Create a new Error type.
+        throw new errors.ValidationError("Bad goldenTry provided");
     }
 
     const verifiedBet = {
@@ -24,16 +26,16 @@ const resolveClientBet = (clientBet) => {
 
     clientBet.games.forEach(game => {
         if (game.id !== 0 && !game.id || isNaN(game.id)) {
-            throw new Error(`Bad id provided for game`) // Todo: Create a new Error type.
+            throw new errors.ValidationError(`Bad id provided for game`);
         }
         if (game.teamATries !== 0 && !game.teamATries || isNaN(game.teamATries)) {
-            throw new Error(`Bad teamATries provided for game ${game.id}`) // Todo: Create a new Error type.
+            throw new errors.ValidationError(`Bad teamATries provided for game ${game.id}`);
         }
         if (game.teamBTries !== 0 && !game.teamBTries || isNaN(game.teamBTries)) {
-            throw new Error(`Bad teamBTries provided for game ${game.id}`) // Todo: Create a new Error type.
+            throw new errors.ValidationError(`Bad teamBTries provided for game ${game.id}`);
         }
         if (!game.gameVictor) {
-            throw new Error(`Bad gameVictor provided for game ${game.id}`) // Todo: Create a new Error type.
+            throw new errors.ValidationError(`Bad gameVictor provided for game ${game.id}`);
         }
         verifiedBet.gameBets.push({
             id: game.id,
@@ -48,11 +50,17 @@ const resolveClientBet = (clientBet) => {
 /**
  * Creates a bet for a user
  * @param {*} db The connection to the database
- * @param {*} bet The bet that has been previously
- * @return {Promise} A promise with the result?
+ * @param {*} bet A valid bet
+ * @return {boolean} Whether or not we managed to create the bet
  */
-const create = (db, bet) => {
-    return db.collection("bets").insertOne(bet);
+const create = async (db, bet) => {
+    try {
+        await db.collection("bets").insertOne(bet);
+        return true;
+    } catch (e) {
+        // Maybe we need to throw some exceptions here based on what kind of error we get so that we can provide better feedback to the user
+        return false
+    }
 };
 
 /**
@@ -60,55 +68,57 @@ const create = (db, bet) => {
  * @param {*} db The connection to the database
  * @param {Number} betID The id of the bet
  * @param {Number} userID The id of the user that owns this bet (to make sure we're not deleting someone else's bet)
+ * @return {boolean} Whether or not the bet was deleted
  */
-const deleteBet = (app, betID, userID) => {
+const deleteBet = async (app, betID, userID) => {
     // do the thing
 }
 
 /**
- * Gets the bet made by a user
+ * Fetch bets matching a given criteria
  * @param {*} db The connection to the database
  * @param {*} criteria An object with the criteria to find bets
- * @return {Promise} A promise with an array of bets
+ * @return {Array} An array of bets
  */
-const fetch = (db, criteria) => {
+const fetch = async (db, criteria) => {
     return db.collection("bets")
         .find(criteria)
         .toArray();
 };
 
 /**
- * Gets the bet made by a user
+ * Gets the bet made by a user for a round
  * @param {*} db The connection to the database
+ * @param {Number} userId The ID of the user
  * @param {Number} roundId The ID of the round
- * @return {Promise} A promise with an array of bets
+ * @return {Array} An array of bets
  */
-const madeByUser = (db, roundId, userId) => {
-    return fetch(db, {
+const madeByUser = async (db, roundId, userId) => {
+    return await fetch(db, {
         roundId,
         userId
     });
 };
 
-const allForUser = (db, userId) => {
-    return new Promise(async (Resolve) => {
-        db.collection("bets").find({users_id: userId}).toArray().then((result) => {
-            let mapResult = new Map(result.map(bet => [bet.games_id, bet]));
-            Resolve(mapResult);
-        });
-    });
+/**
+ * Gets all the bets ever made by a user mapped by game
+ * @param {*} db The connection to the database
+ * @param {Number} userId The ID of the user
+ * @return {Map} A map with the bets indexed by gameId
+ */
+const allForUser = async (db, userId) => { //maybe needs a clearer name
+    const bets = await fetch(db, { users_id: userId });
+    return new Map(bets.map(bet => [bet.games_id, bet])); //Does this need to be a map or can it be regular JSON?
 }
 
 /**
  * Gets a collection of bets made by users for a given round
  * @param {*} db The connection to the database
  * @param {Number} roundId The ID of the round
- * @return {Promise} A promise with an array of bets
+ * @return {Array} An array of bets
  */
-const forRound = (db, roundId) => {
-    return fetch(db, {
-        roundId
-    });
+const forRound = async (db, roundId) => {
+    return await fetch(db, { roundId });
 };
 
 /**
@@ -116,10 +126,10 @@ const forRound = (db, roundId) => {
  * @param {*} db The connection to the database
  * @param {Number} roundId The ID of the round
  * @param {*} results The actual game results. These should be in the same format as `bet.gameBets`
- * @return {Promise} A promise with an array of bets
+ * @return {Array} An array of bets
  */
-const findRoundWinners = (db, roundId, results) => {
-    return fetch(db, {
+const findRoundWinners = async (db, roundId, results) => {
+    return await fetch(db, {
         roundId,
         gameBets: results.games
     });

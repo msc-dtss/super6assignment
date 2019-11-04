@@ -9,16 +9,21 @@
 </head>
 
 <body>
+    <%# Might turn this into a partial %>
+    <%# Also this file gets f***ed up by vscode when saving normally. Use Ctrl+K and then press S to prevent auto-formatting %>
     <%- include common/header.ejs %>
 
+    <!-- There's some games in the database without a round so we'll be getting a column with a title as undefined -->
     <div class="history-area small-font">
-            <%
+        <%
             for(var round in rounds){
             %>
-            <div class="history-round">
-            <div class="history-h-middle"><h2><%= rounds[round].roundName %></h2></div>
+        <div class="history-round">
+            <div class="history-h-middle">
+                <h2><%= rounds[round] %></h2>
+            </div>
             <% for(var game in games[round]){ %>
-                <div class="fb-column">
+            <div class="fb-column">
                 <div class="history-h-middle"><%=games[round][game].gameDate%></div>
                 <div class="fb-column" class="padding-5px">
                     <div class="fb-row" class="padding-5px">
@@ -48,10 +53,10 @@
                 <div class="padding-5px">Your Points</div>
             </div>
                 <%}%>
-        </div>
-        <% }%>
-    </div>
-    <%- include common/footer.ejs %>
+                                </div>
+                                <% }%>
+                            </div>
+                            <%- include common/footer.ejs %>
 
 
 </body>

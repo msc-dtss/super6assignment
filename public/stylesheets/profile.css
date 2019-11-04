@@ -1,0 +1,65 @@
+.head-image {
+  height: 6em;
+  background-image: url('https://rugbymadrid.com/wp-content/uploads/RugbyBalon.jpg');
+}
+
+.head-grad {
+  background-image: linear-gradient(to right, rgba(28, 96, 173, 0.4), #503580);
+}
+
+/* -------------------CONTENT MAIN BODY-------------------------- */
+.page_content {
+  display: flex;
+  flex-direction: row;
+}
+
+/* ---------------------USER BOX------------------------ */
+
+.user_info_box {
+  background-color: lightgray;
+  min-height: 500px;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-content: center;
+  align-items: center;
+}
+
+.avatar_image {
+  max-width: 150px;
+  max-height: 150px;
+  /* margin-top: 50px; */
+}
+
+.avatar_image img {
+  max-width: 150px;
+}
+
+.profile_information {
+  color: darkgray;
+}
+
+/* ---------------------BET HISTORY BOX------------------------ */
+
+.user_history_box {
+  background-color: white;
+  flex: 1;
+}
+
+.bet_table {
+  display: flex;
+  flex-direction: column;
+}
+
+.history_item {
+  border-top: 2px solid rgb(240, 240, 240);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.history_item h5 {
+  margin: 10px 10px;
+}
