@@ -19,9 +19,17 @@ class UserNotFoundError extends SuperSixError {
     }
 }
 
+class InvalidCredentialsError extends SuperSixError {
+    constructor(message, httpCode) {
+        super(message || "Invalid credentials", httpCode || "401");
+        this.httpCode = httpCode;
+    }
+}
+
 
 module.exports = {
     SuperSixError,
     ValidationError,
-    UserNotFoundError
+    UserNotFoundError,
+    InvalidCredentialsError
 }

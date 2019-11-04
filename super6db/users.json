@@ -1,0 +1,9 @@
+{
+  "_id": "001",
+  "emailAddress": "test@testuser.com",
+  "firstName": "Test",
+  "surname": "User",
+  "password": "Hashedpa$$word",
+  "sysAdmin": "0",
+  "Active": "1"
+}
