@@ -1,25 +1,31 @@
-<div id="userForm" class="form-popup">
+<%# TODO: Change this into two separate forms: login and register (this can be the register one %>
+
+<div id="registerForm" class="form-popup" user_form>
     <form id="userFormForm" action="ACTION" method="post" class="form-container">
         <h1 id="userFormHeading">HEADING</h1>
-        <label for="firstName">
+        <label for="register_firstName">
             <b>First Name</b>
         </label>
-        <input name="firstName" placeholder="Enter First Name" required type="firstName">
-        <label for="surname">
+        <input id="register_firstName" name="firstName" placeholder="Enter First Name" required type="text" />
+
+        <label for="register_surname">
             <b>Surname</b>
         </label>
-        <input name="surname" placeholder="Enter Surname" required type="surname">
-        <label for="email">
+        <input id="register_surname" name="surname" placeholder="Enter Surname" required type="text" />
+
+        <label for="register_email">
             <b>Email</b>
         </label>
         <!-- Hardcode accepted values for ease of testing right now -->
-        <input name="email" placeholder="Enter Email" required type="email" value="user@gmail.com">
-        <label for="psw">
+        <input id="register_email" name="email" placeholder="Enter Email" required type="email" />
+
+        <label for="register_password">
             <b>Password</b>
         </label>
-        <input name="password" placeholder="Enter Password" required type="password" value="password">
+        <input id="register_password" name="password" placeholder="Enter Password" required type="password" />
 
         <button class="btn" type="submit" id="userFormButton">BUTTON</button>
+
         <button class="btn cancel" onclick="closeUserForm()" type="button">Close</button>
     </form>
 </div>

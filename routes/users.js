@@ -1,8 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const userService = require("../services/users");
-const gameService = require("../services/game");
-const userProfileService = require('../services/profile') // CS CODE !!!!!!!!
+const errors = require('../errors/super6exceptions');
 
 const router = express.Router();
 
@@ -34,41 +33,33 @@ router.post('/signup', async (req, res, next) => {
     const db = req.app.get('super6db');
     const email = req.body.email;
     const password = req.body.password;
-    // Maybe do a validator like bets.resolveClientBet?
+    //TODO: Maybe do a validator like bets.resolveClientBet?
     await userService.create(db, email, password);
-    res.send(true);
+
+    // Do we want to also login the user automatically?
+    res.send(true); // redirect somewhere?
 });
 
-router.post("/login", function(req, res, next) {
-  let email = req.body.email;
-  let password = req.body.password;
-  const db = req.app.get("super6db");
-  const collection = db.collection("users");
-  let firstName = "test"; //collection.find({"firstName": email});
-  let surname = "user"; //collection.find({"surname": email}); 
-/*
-  if(email = collection.findOne({emailAddress: email})) {
-    bcrypt.compareSync(password, user.password);
-}*/
-  email === "user@gmail.com" &&
-  password === "password"
-  {
-    req.session.user = email;
-    req.session.firstName = firstName;
-    req.session.surname = surname;
-    req.session.loggedin = true;
-    console.log(req.session);
-    res.redirect("/users/play");
-  } // else {
-  //res.redirect("../login");
-  //}
+router.post("/login", async (req, res, next) => {
+    let email = req.body.email;
+    let password = req.body.password;
+    const db = req.app.get("super6db");
+    try {
+        await userService.checkLogin(db, email, password);
+        //TODO: Assign whatever we need to assign into the session
+        res.redirect("/users/play");
+    } catch (e) {
+        if (e instanceof errors.InvalidCredentialsError) {
+            res.redirect("/"); //TODO: Provide feedback to user that login was unsuccessful
+        }
+    }
 });
 
 router.get('/logout', async (req, res, next) => {
     // Delete token from database via user service
-  req.session.destroy(() => {
-    res.redirect("../");
-  });
+    req.session.destroy(() => {
+        res.redirect("/");
+    });
 });
 
 

@@ -1,6 +1,5 @@
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
-const session = require("express-session");
 const errors = require('../errors/super6exceptions');
 
 /**
@@ -93,8 +92,14 @@ const create = async (db, email, plainTextPassword, isAdmin) => {
  * @return {boolean} Whether or not a user exists
  */
 const userExists = async (db, email) => {
-    const user = await fetchByEmail(db, email);
-    return user != null;
+    try {
+        await fetchByEmail(db, email);
+        return true;
+    } catch (e) {
+        if (e instanceof errors.UserNotFoundError) {
+            return false;
+        }
+    }
 }
 
 /**
@@ -116,7 +121,9 @@ const list = async (db) => {
 const checkLogin = async (db, email, password) => {
     // Check user creds against the database
     const user = await fetchByEmail(db, email);
-    return bcrypt.compareSync(password, user.password); //Can possibly use compare async with an await?
+    if (!bcrypt.compareSync(password, user.password)) { //Can possibly use compare async with an await?
+        throw new errors.InvalidCredentialsError()
+    }
 }
 
 /**
@@ -150,6 +157,6 @@ module.exports = {
     fetchByEmail,
     list,
     create,
-userExists,
-checkLogin
+    userExists,
+    checkLogin
 };

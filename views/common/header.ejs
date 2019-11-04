@@ -26,13 +26,14 @@
     <%}%>
 
     </div>
-
-       <% include userForm.ejs %>
+    <%# Include the register and the login forms here. %>
+    <% include userForm.ejs %>
 
 </div>
 
 <script>
     var showUserForm = function (type) {
+        // The code below should just decide which login form to open
         if (type === 'login') {
             document.getElementById("userFormHeading").innerText = "Login";
             document.getElementById("userFormButton").innerText = "Login";
@@ -42,11 +43,11 @@
             document.getElementById("userFormButton").innerText = "Register";
             document.getElementById("userFormForm").action = "/users/signup";
         }
-        document.getElementById("userForm").classList.add("show-form");
+        document.querySelector("[user_form]").classList.add("show-form");
     };
 
     var closeUserForm = function () {
-        document.getElementById("userForm").classList.remove("show-form");
+        document.querySelector("[user_form].show-form").classList.remove("show-form");
     };
 </script>
 

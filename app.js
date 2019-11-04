@@ -16,12 +16,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public"))); // use express-session to track user across session
 app.use(
-  session({
-    key: "sid",
-    secret: "verySecretStuff", //userService.getNewToken, //from users Service?
-    resave: false,
-    saveUninitialized: false
-  })
+    session({
+        key: "sid",
+        secret: "verySecretStuff", //userService.getNewToken, //from users Service?
+        resave: false,
+        saveUninitialized: false
+    })
 );
 
 // Load all the routes inside ./routes/
@@ -55,20 +55,20 @@ MongoClient.connect('mongodb://localhost:27017',
     },
     (err, client) => {
         app.set('super6db', client.db('super6db'));
-        //startUpDataChecks(); - not yet enabled
+        // startUpDataChecks(); // TODO: Should this really be comented out?
     }
 );
 
 
 const startUpDataChecks = () => {
-  // Add required data to db when it does not exist
-  usersModule.createUser(
-    app.get("super6db"),
-    "admin@super6.com",
-    "password",
-    true,
-    () => {}
-  );
+    // Add required data to db when it does not exist
+    usersModule.createUser(
+        app.get("super6db"),
+        "admin@super6.com",
+        "password",
+        true,
+        () => { }
+    );
 };
 
 module.exports = app;
