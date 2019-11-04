@@ -11,7 +11,7 @@ const requireRouteModules = (routesDir) => {
     const files = fs.readdirSync(routesDir);
     files.forEach(file => {
         // Don't load itself!!!
-        if (file !== "autoloader.js") {
+        if (file !== "autoloader.js" && file.endsWith(".js") && fs.lstatSync(`${routesDir}/${file}`)) {
             // get the name of the module without the .js
             const moduleName = file.split('.').slice(0, -1).join('.');
 
