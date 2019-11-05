@@ -1,6 +1,7 @@
 const express = require('express');
 const betsService = require('../services/bets.js');
 const gameService = require('../services/game.js');
+const resultsService = require('../services/results.js');
 const ObjectId = require('mongodb').ObjectId;
 
 const router = express.Router();
@@ -26,12 +27,14 @@ router.get('/history', async (req, res, next) => {
     const rounds = Object.keys(gamesByRound); // We had individual rounds before, any reason we need to know the rounds like that?
     console.log(rounds)
     const bets = await betsService.allForUser(db, new ObjectId('5d9dea063935915c6861feaf')); //TODO - Use real user id
+    const results = await resultsService.getGameResults();
     res.render('history', {
         title: 'Super6 Rugby - Your History',
         loggedIn: true,
         rounds: rounds,
         games: gamesByRound,
-        bets: bets
+        bets: bets,
+        results: results
     });
 });
 
