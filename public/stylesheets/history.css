@@ -17,23 +17,20 @@
 }
 .history-round-game {
     flex-direction: row;
-    border: 1px solid black;
 }
 .history-round-game-per-team {
     flex-direction: column;
-    border: 2px solid black;
 }
 
 .fb-row {
     display: flex;
     flex-direction: row;
-    border: 1px solid black;
+    border: 0.5px solid black;
 }
 
 .fb-column {
     display: flex;
     flex-direction: column;
-    border: 1px solid black;
 }
 
 .padding-5px{
@@ -41,17 +38,26 @@
 }
 
 .history-v-middle{
-    display: flex;
     justify-content: center;
-    flex-direction: column;
 }
 
 .history-h-middle{
-    display: flex;
     text-align: center;
-    flex-direction: column;
 }
 
 .small-font{
     font-size: 10px;
+}
+
+.large-icon{
+    width: 2em;
+    height: 2em;
+}
+
+.text-align-center{
+    text-align: center;
+}
+
+.vertical-align-middle{
+    vertical-align: middle;
 }

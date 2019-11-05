@@ -6,6 +6,7 @@
     <title><%= title %></title>
     <link href="/stylesheets/history.css" media="only screen and (min-width : 740px)" rel="stylesheet"
         type="text/css" />
+    <script src="//code.iconify.design/1/1.0.0-rc1/iconify.min.js"></script>
 </head>
 
 <body>
@@ -20,41 +21,48 @@
             %>
         <div class="history-round">
             <div class="history-h-middle">
-                <h2><%= rounds[round] %></h2>
+                <div><span class="iconify large-icon" data-icon="mdi-calendar-outline"></span></div>
+                <div><h2 class="vertical-align-middle"><%= "Round " + (parseInt(rounds[round])+1) %></h2></div>
             </div>
             <% for(var game in games[round]){ %>
             <div class="fb-column">
-                <div class="history-h-middle"><%=games[round][game].gameDate%></div>
+                <div class="history-h-middle"><h3><%=games[round][game].gameDate%></h3></div>
                 <div class="fb-column" class="padding-5px">
                     <div class="fb-row" class="padding-5px">
-                        <div class="fb-column" class="padding-5px">
-                            <div style="height: 1em;"></div>
-                            <div class="padding-5px"><%=games[round][game].teamA.name%></div>
-                            <div class="padding-5px"><%=games[round][game].teamB.name%></div>
+                        <div class="fb-column padding-5px" style="width: 50%;">
+                            <div class="text-align-center"><span class="iconify large-icon" data-icon="mdi-account-group" title="Team"></span></div>
+                            <div class="padding-5px text-align-center"><%=games[round][game].teamA.name%></div>
+                            <div class="padding-5px text-align-center"><%=games[round][game].teamB.name%></div>
                         </div>
                         <div class="fb-row">
                             <% let bet = bets.get(games[round][game]._id)%>
                             <div class="fb-column padding-5px">
-                                <div>Tries</div>
-                                <div><% if (bet) { %><%= bet.teamATries%> <%}%></div>
-                                <div style="height: 1em;"></div>
-                                <div><% if (bet) { %><%= bet.teamBTries%> <%}%></div>
+                                <div><span class="iconify large-icon" data-icon="mdi-rugby" title="Number of Tries"></span></div>
+                                <div class="text-align-center padding-5px "><% if (bet) { %><%= bet.teamATries%> <%}%></div>
+                                <div class="text-align-center padding-5px "><% if (bet) { %><%= bet.teamBTries%> <%}%></div>
                             </div>
                             <div class="fb-column padding-5px">
-                                <div>Winner</div>
-                                <div>Team</div>
-                                <div style="height: 1em;"></div>
-                                <div>Team</div>
+                                <div><span class="iconify large-icon" data-icon="mdi-trophy"  title="Winning Team"></span></div>
+                                <div class="text-align-center"><% if (bet && bet.winTeam === games[round][game].teamA.name) { %><span class="iconify large-icon" data-icon="mdi-medal"></span><%}%></div>
+                                <div><% if (bet && bet.winTeam === games[round][game].teamB.name) { %><span class="iconify large-icon" data-icon="mdi-medal"></span><%}%></div>
                             </div>
                         </div>
+
+
                     </div>
                 </div>
-                <div class="padding-5px">Golden Try</div>
-                <div class="padding-5px">Your Points</div>
+                <div class="fb-column history-h-middle">
+                    <div class="fb-row history-h-middle"><div style="width: 50%"><span class="iconify large-icon" style="color: gold" data-icon="mdi-rugby" title="Golden Try"></span></div><div class="padding-5px"><% if (bet) { %><%= bet.goldenTry%> <%}%></div></div>
+                    <div class="fb-row history-h-middle"><div style="width: 50%"><span class="iconify large-icon" data-icon="mdi-calculator" title="Golden Try"></span></div><div class="padding-5px">5</div></div>
+                </div>
             </div>
+            <div style="min-height: 1em"></div>
                 <%}%>
+
                                 </div>
+
                                 <% }%>
+
                             </div>
                             <%- include common/footer.ejs %>
 
