@@ -5,10 +5,10 @@
  * @return {Array} An array
  */
 const fetch = async (db, criteria) => {
-    return await db
-        .collection('games')
-        .find(criteria)
-        .toArray();
+  return await db
+    .collection("games")
+    .find(criteria)
+    .toArray();
 };
 
 /**
@@ -18,12 +18,13 @@ const fetch = async (db, criteria) => {
  * @return {Array} An array of games
  */
 const fetchFuture = async (db, debugDate) => {
-    const now = debugDate ? new Date(debugDate) : new Date();
-    const paddedMonth = now.getMonth() > 9 ? `${now.getMonth()}` : `0${now.getMonth()}`;
-    const formattedDate = `${now.getFullYear()}/${paddedMonth}/${now.getDate()}`;
-    return await fetch(db, {
-        gameDate: { $gt: formattedDate }
-    });
+  const now = debugDate ? new Date(debugDate) : new Date();
+  let paddedMonth = now.getMonth() > 9 ? `${now.getMonth()}` : `0${now.getMonth()}`;
+  paddedMonth = (Number(paddedMonth) + 1).toString();
+  const formattedDate = `${now.getFullYear()}/${paddedMonth}/${now.getDate()}`;
+  return await fetch(db, {
+    $and: [{ gameDate: { $gt: formattedDate } }, { round_id: { $gt: 1 } }] //TODO THIS NEEDS FIXING!
+  });
 };
 
 /**
@@ -31,21 +32,20 @@ const fetchFuture = async (db, debugDate) => {
  * @param {*} db The connection to the database
  * @return {*} An array of games by round
  */
-const fetchIndexedByRound = async (db) => {
-    const byRound = {};
-    const games = await fetch(db, {});
-    for (let i = 0; i < games.length; i++) {
-        if (!(games[i].round_id in byRound)) {
-            byRound[games[i].round_id] = [];
-        }
-        byRound[games[i].round_id].push(games[i]);
+const fetchIndexedByRound = async db => {
+  const byRound = {};
+  const games = await fetch(db, {});
+  for (let i = 0; i < games.length; i++) {
+    if (!(games[i].round_id in byRound)) {
+      byRound[games[i].round_id] = [];
     }
-    return byRound;
+    byRound[games[i].round_id].push(games[i]);
+  }
+  return byRound;
 };
 
-
 module.exports = {
-    fetch,
-    fetchFuture,
-    fetchIndexedByRound
+  fetch,
+  fetchFuture,
+  fetchIndexedByRound
 };
