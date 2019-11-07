@@ -19,9 +19,10 @@ const fetch = async (db, criteria) => {
  */
 const fetchFuture = async (db, debugDate) => {
   const now = debugDate ? new Date(debugDate) : new Date();
-  let paddedMonth = now.getMonth() > 9 ? `${now.getMonth()}` : `0${now.getMonth()}`;
-  paddedMonth = (Number(paddedMonth) + 1).toString();
-  const formattedDate = `${now.getFullYear()}/${paddedMonth}/${now.getDate()}`;
+  const oneIndexMonth = now.getMonth() + 1;
+  const paddedMonth = oneIndexMonth > 9 ? `${oneIndexMonth}` : `0${oneIndexMonth}`;
+  const paddedDay = now.getDate() > 9 ? `${now.getDate()}` : `0${now.getDate()}`;
+  const formattedDate = `${now.getFullYear()}/${paddedMonth}/${paddedDay}`;
   // return await fetch(db, {
   //   $and: [{ gameDate: { $gt: formattedDate } }, { round_id: { $gt: 2 } }] //TODO THIS NEEDS FIXING!
   // });
