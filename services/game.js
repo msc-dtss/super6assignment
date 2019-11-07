@@ -22,9 +22,10 @@ const fetchFuture = async (db, debugDate) => {
   let paddedMonth = now.getMonth() > 9 ? `${now.getMonth()}` : `0${now.getMonth()}`;
   paddedMonth = (Number(paddedMonth) + 1).toString();
   const formattedDate = `${now.getFullYear()}/${paddedMonth}/${now.getDate()}`;
-  return await fetch(db, {
-    $and: [{ gameDate: { $gt: formattedDate } }, { round_id: { $gt: 1 } }] //TODO THIS NEEDS FIXING!
-  });
+  // return await fetch(db, {
+  //   $and: [{ gameDate: { $gt: formattedDate } }, { round_id: { $gt: 2 } }] //TODO THIS NEEDS FIXING!
+  // });
+  return await fetch(db, { gameDate: { $gt: formattedDate } });
 };
 
 /**
