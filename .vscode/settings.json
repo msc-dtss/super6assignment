@@ -3,6 +3,5 @@
     "javascript.preferences.quoteStyle": "single",
     "typescript.format.semicolons": "insert",
     "gitblame.ignoreWhitespace": true,
-    "editor.formatOnSave": true,
     "editor.tabSize": 4,
 }
