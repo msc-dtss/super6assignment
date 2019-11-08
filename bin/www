@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var config = require('../config.json');
+var config = require('../config/config.json');
 var debug = require('debug')('super6assignment:server');
 var http = require('http');
 
