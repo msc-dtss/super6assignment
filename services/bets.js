@@ -131,8 +131,8 @@ const madeByUser = async (db, roundId, userId) => {
  * @return {Map} A map with the bets indexed by gameId
  */
 const allForUser = async (db, userId) => { //maybe needs a clearer name
-    const bets = await fetch(db, { users_id: userId });
-    return new Map(bets.map(bet => [bet.games_id, bet])); //Does this need to be a map or can it be regular JSON?
+    const bets = await fetch(db, { userId: userId });
+    return new Map(bets.map(bet => [bet.gameId, bet])); //Does this need to be a map or can it be regular JSON?
 }
 
 /**

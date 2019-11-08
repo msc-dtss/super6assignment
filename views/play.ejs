@@ -55,7 +55,7 @@
 
     <div class='place_bet_button'>
         <% if (games.length > 0) { %>
-        <button onclick="placeBet(<%= games[0].round_id %>, <%= games.length %>)" type="button" id="bet_button">
+        <button onclick="placeBet(<%= games[0].roundId %>, <%= games.length %>)" type="button" id="bet_button">
             <h2>Place your Bets!</h2>
         </button>
         <% } else { %>

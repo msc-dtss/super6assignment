@@ -24,7 +24,7 @@ const fetchFuture = async (db, debugDate) => {
   const paddedDay = now.getDate() > 9 ? `${now.getDate()}` : `0${now.getDate()}`;
   const formattedDate = `${now.getFullYear()}/${paddedMonth}/${paddedDay}`;
   // return await fetch(db, {
-  //   $and: [{ gameDate: { $gt: formattedDate } }, { round_id: { $gt: 2 } }] //TODO THIS NEEDS FIXING!
+  //   $and: [{ gameDate: { $gt: formattedDate } }, { roundId: { $gt: 2 } }] //TODO THIS NEEDS FIXING!
   // });
   return await fetch(db, { gameDate: { $gt: formattedDate } });
 };
@@ -38,10 +38,10 @@ const fetchIndexedByRound = async db => {
   const byRound = {};
   const games = await fetch(db, {});
   for (let i = 0; i < games.length; i++) {
-    if (!(games[i].round_id in byRound)) {
-      byRound[games[i].round_id] = [];
+    if (!(games[i].roundId in byRound)) {
+      byRound[games[i].roundId] = [];
     }
-    byRound[games[i].round_id].push(games[i]);
+    byRound[games[i].roundId].push(games[i]);
   }
   return byRound;
 };
