@@ -4,10 +4,11 @@ const gameService = require('../services/game.js');
 const resultsService = require('../services/results.js');
 const ObjectId = require('mongodb').ObjectId;
 
+const wrap = require('./helpers/exceptionHandler').exceptionWrapper;
 const router = express.Router();
 
 
-router.get('/play', async (req, res, next) => {
+router.get('/play', wrap(async (req, res, next) => {
     // TODO: Logged in needs to reflect cookie value and needs to be checked against db
     const db = req.app.get('super6db');
     const debugDate = req.app.get('isDevelopment') ? req.query.debugDate : null;
@@ -17,9 +18,9 @@ router.get('/play', async (req, res, next) => {
         games: games,
         loggedIn: true
     });
-});
+}));
 
-router.get('/history', async (req, res, next) => {
+router.get('/history', wrap(async (req, res, next) => {
     const db = req.app.get('super6db');
     const gamesByRound = await gameService.fetchIndexedByRound(db, {}); // Maybe this should be fetchPast?
     const rounds = Object.keys(gamesByRound);
@@ -33,9 +34,9 @@ router.get('/history', async (req, res, next) => {
         bets: bets,
         results: results
     });
-});
+}));
 
-router.post('/', async (req, res, next) => {
+router.post('/', wrap(async (req, res, next) => {
     const bet = betsService.resolveClientBet(req.body);
     // Attach userId from the session? We should return a 401 error if there is no authenticated session
     bet.userId = req.session.userId;
@@ -50,6 +51,6 @@ router.post('/', async (req, res, next) => {
         res.statusCode = 500; // (or 400ish if error is caused by the input coming from the client)
         res.send('Error create bet');
     }
-});
+}));
 
 module.exports = router;
