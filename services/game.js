@@ -30,9 +30,9 @@ const fetchFuture = async (db, debugDate) => {
 };
 
 /**
- * TODO: Document
+ * Fetches all the games as a dictionary where each round is the key and the value is an array of games
  * @param {*} db The connection to the database
- * @return {*} An array of games by round
+ * @return {*} An object with all games grouped by round
  */
 const fetchIndexedByRound = async db => {
   const byRound = {};
