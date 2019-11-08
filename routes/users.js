@@ -13,21 +13,6 @@ router.get('/', async (req, res, next) => {
     });
 });
 
-router.get('/profile', function (req, res, next) {
-    // Should show the user profile page
-
-    // TODO: move the code below to a service (much like service/games.js and such)
-    // const db = req.app.get('super6db');
-    // const collection = db.collection('users');
-    // collection.find({}).toArray(function (err, docs) {
-    //     if (err) {
-    //         console.error(err);
-    //     }
-    //     res.json(docs)
-    // });
-    res.render('profile');
-});
-
 router.post('/signup', async (req, res, next) => {
     // Save a user - NO AUTH AT PRESENT
     const db = req.app.get('super6db');

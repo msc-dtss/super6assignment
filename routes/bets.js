@@ -8,7 +8,7 @@ const router = express.Router();
 
 
 router.get('/play', async (req, res, next) => {
-    // TODO: Logged in needs to reflect cookie value and checked against db and games need to be pushed
+    // TODO: Logged in needs to reflect cookie value and needs to be checked against db
     const db = req.app.get('super6db');
     const debugDate = req.app.get('isDevelopment') ? req.query.debugDate : null;
     const games = await gameService.fetchFuture(db, debugDate);
@@ -20,11 +20,9 @@ router.get('/play', async (req, res, next) => {
 });
 
 router.get('/history', async (req, res, next) => {
-    // TODO: Logged in needs to reflect cookie value and checked against db and games need to be pushed
     const db = req.app.get('super6db');
-    //No such thing as rounds except in games, so this logic needs to change a bit?
     const gamesByRound = await gameService.fetchIndexedByRound(db, {}); // Maybe this should be fetchPast?
-    const rounds = Object.keys(gamesByRound); // We had individual rounds before, any reason we need to know the rounds like that?
+    const rounds = Object.keys(gamesByRound);
     console.log(rounds)
     const bets = await betsService.allForUser(db, new ObjectId('5d9dea063935915c6861feaf')); //TODO - Use real user id
     const results = await resultsService.getGameResults();
