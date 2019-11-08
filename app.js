@@ -55,6 +55,7 @@ MongoClient.connect('mongodb://localhost:27017',
     (err, client) => {
         app.set('super6db', client.db('super6db'));
         // startUpDataChecks(); // TODO: Should this really be comented out?
+        app.emit('db-ready')
     }
 );
 
