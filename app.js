@@ -4,8 +4,10 @@ const path = require('path');
 const session = require('express-session');
 const logger = require('morgan');
 const routesAutoLoader = require('./routes/autoloader');
+const MongoClient = require('mongodb').MongoClient;
 
 const app = express();
+app.set('isDevelopment', app.get('env') === 'development');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,8 +34,6 @@ app.use((req, res, next) => {
     next(createError(404));
 });
 
-app.set('isDevelopment', app.get('env') === 'development');
-
 // error handler
 app.use((err, req, res, next) => {
     // set locals, only providing error in development
@@ -47,7 +47,6 @@ app.use((err, req, res, next) => {
 
 // MongoDB client connecting to default port and db name of super6db.
 // Available across the system with req.app.get('super6db')
-const MongoClient = require('mongodb').MongoClient;
 MongoClient.connect('mongodb://localhost:27017',
     {
         useNewUrlParser: true,
