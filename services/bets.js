@@ -39,8 +39,8 @@ const resolveClientBet = (clientBet) => {
         }
         verifiedBet.gameBets.push({
             id: game.id,
-            teamATries: game.teamATries,
-            teamBTries: game.teamBTries,
+            teamATries: Number(game.teamATries),
+            teamBTries: Number(game.teamBTries),
             winTeam: game.gameVictor
         });
     });
@@ -135,6 +135,10 @@ const findRoundWinners = async (db, roundId, results) => {
     });
 };
 
+
+const scoreBets = async (db, bets, results) => {
+
+}
 
 module.exports = {
     resolveClientBet,
