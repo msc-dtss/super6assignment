@@ -1,5 +1,6 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
+const session = require("express-session")
 const userService = require("../services/users");
 const errors = require('../errors/super6exceptions');
 
@@ -33,8 +34,10 @@ router.post('/signup', async (req, res, next) => {
     const db = req.app.get('super6db');
     const email = req.body.email;
     const password = req.body.password;
+    const firstName = req.body.firstName;
+    const surname = req.body.surname;
     //TODO: Maybe do a validator like bets.resolveClientBet?
-    await userService.create(db, email, password);
+    await userService.create(db, email, password, firstName, surname);
 
     // Do we want to also login the user automatically?
     res.send(true); // redirect somewhere?
@@ -45,9 +48,13 @@ router.post("/login", async (req, res, next) => {
     let password = req.body.password;
     const db = req.app.get("super6db");
     try {
-        await userService.checkLogin(db, email, password);
-        //TODO: Assign whatever we need to assign into the session
-        res.redirect("/users/play");
+        await userService.checkLogin(db, email, password);{
+        req.session.user = await userService.fetchUser(db, email)
+        req.session.login = true;
+        console.log(req.session.user.email)
+        //console.log(req.session.login)
+        res.redirect("/bets/play");
+        }
     } catch (e) {
         if (e instanceof errors.InvalidCredentialsError) {
             res.redirect("/"); //TODO: Provide feedback to user that login was unsuccessful

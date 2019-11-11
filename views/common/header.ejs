@@ -26,7 +26,7 @@
     <%}%>
 
     </div>
-    <%# Include the register and the login forms here. %>
+    <% include loginForm.ejs %>
     <% include userForm.ejs %>
 
 </div>
@@ -35,20 +35,26 @@
     var showUserForm = function (type) {
         // The code below should just decide which login form to open
         if (type === 'login') {
-            document.getElementById("userFormHeading").innerText = "Login";
-            document.getElementById("userFormButton").innerText = "Login";
-            document.getElementById("userFormForm").action = "/users/login";
+            document.getElementById("loginFormHeading").innerText = "Login";
+            document.getElementById("loginFormButton").innerText = "Login";
+            document.getElementById("userLoginForm").action = "/users/login";
+            document.querySelector("[login_form]").classList.add("show-form");
         } else if (type === 'register') {
             document.getElementById("userFormHeading").innerText = "Register";
             document.getElementById("userFormButton").innerText = "Register";
             document.getElementById("userFormForm").action = "/users/signup";
+            document.querySelector("[user_form]").classList.add("show-form");
         }
-        document.querySelector("[user_form]").classList.add("show-form");
+        //document.querySelector("[user_form],[login_form]").classList.add("show-form");
     };
 
     var closeUserForm = function () {
-        document.querySelector("[user_form].show-form").classList.remove("show-form");
+        document.querySelector("[user_form].show-form,[login_form].show-form ").classList.remove("show-form");
     };
+
+    var loginError = function () {
+        
+    }
 </script>
 
 </div>

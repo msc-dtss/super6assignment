@@ -24,6 +24,12 @@ app.use(
     })
 );
 
+//middleware to expose logged in name
+app.use((req, res, next) => {
+    res.locals.user = req.session.user;
+    next();
+  }); 
+
 // Load all the routes inside ./routes/
 routesAutoLoader.load(app);
 
