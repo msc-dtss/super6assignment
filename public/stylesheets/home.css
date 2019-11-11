@@ -6,9 +6,10 @@ body {
   margin: 2px auto;
 }
 .navbar {
+  
   background-color: transparent;
   overflow: hidden;
-  position: fixed;
+  position: absolute;
   top: 0;
   width: inherit;
   display: flex;
