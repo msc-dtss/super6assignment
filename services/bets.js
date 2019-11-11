@@ -1,4 +1,5 @@
 const ObjectId = require('mongodb').ObjectId;
+const pointsConfig = require('../config/points.json');
 const errors = require('../errors/super6exceptions');
 
 /**
@@ -39,8 +40,8 @@ const resolveClientBet = (clientBet) => {
         }
         verifiedBet.gameBets.push({
             id: game.id,
-            teamATries: game.teamATries,
-            teamBTries: game.teamBTries,
+            teamATries: Number(game.teamATries),
+            teamBTries: Number(game.teamBTries),
             winTeam: game.gameVictor
         });
     });
@@ -66,12 +67,25 @@ const create = async (db, bet) => {
 /**
  * Deletes a bet owned by a user
  * @param {*} db The connection to the database
- * @param {Number} betID The id of the bet
- * @param {Number} userID The id of the user that owns this bet (to make sure we're not deleting someone else's bet)
+ * @param {Number} betId The id of the bet
+ * @param {Number} userId The id of the user that owns this bet (to make sure we're not deleting someone else's bet)
  * @return {boolean} Whether or not the bet was deleted
  */
-const deleteBet = async (app, betID, userID) => {
+const deleteBet = async (db, betId, userId) => {
     // do the thing
+}
+
+/**
+ * Updates a bet given a bet ID
+ * @param {*} db The connection to the database
+ * @param {*} betId The id of the bet
+ * @param {*} updateObject The object containing the updates to the fields
+ * @param {boolean} replace Whether or not to replace the document completely
+ */
+const update = async (db, betId, updateObject, replace) => {
+    const replaceAllContent = replace || false;
+    const updates = replaceAllContent ? updateObject : { $set: updateObject }
+    db.collection('bets').update({ _id: betId }, updates);
 }
 
 /**
@@ -85,6 +99,16 @@ const fetch = async (db, criteria) => {
         .find(criteria)
         .toArray();
 };
+
+/**
+ * Fetches any bet that does not have a `points` field.
+ * @param {*} db The connection to the database
+ */
+const fetchUnscoredBets = async (db) => {
+    return fetch(db, {
+        points: { $exists: false }
+    });
+}
 
 /**
  * Gets the bet made by a user for a round
@@ -107,8 +131,8 @@ const madeByUser = async (db, roundId, userId) => {
  * @return {Map} A map with the bets indexed by gameId
  */
 const allForUser = async (db, userId) => { //maybe needs a clearer name
-    const bets = await fetch(db, { users_id: userId });
-    return new Map(bets.map(bet => [bet.games_id, bet])); //Does this need to be a map or can it be regular JSON?
+    const bets = await fetch(db, { userId: userId });
+    return new Map(bets.map(bet => [bet.gameId, bet])); //Does this need to be a map or can it be regular JSON?
 }
 
 /**
@@ -135,14 +159,38 @@ const findRoundWinners = async (db, roundId, results) => {
     });
 };
 
+/**
+ * Updates all provided bets with their total points based on the results (if a matching one is found).
+ * This method should run when we get a new result.
+ * @param {*} db The connection to the database
+ * @param {*} unscoredBets A list of bets that have not yet been scored
+ * @param {*} results All results
+ */
+const score = async (db, unscoredBets, results) => {
+    unscoredBets.forEach(async (bet) => {
+        const matchingResult = results.find((result) => {
+            return result.gameId === bet.gameId
+        });
+        if (matchingResult) {
+            const resultPoints = matchingResult.winTeam === bet.winTeam ? pointsConfig.result : 0;
+            const triesPoints = matchingResult.teamATries === bet.teamATries && matchingResult.teamBTries === bet.teamBTries ? pointsConfig.tries : 0;
+            await update(db, bet._id, {
+                points: resultPoints + triesPoints
+            });
+        }
+    });
+}
 
 module.exports = {
     resolveClientBet,
     create,
-    delete: deleteBet,
     fetch,
     madeByUser,
     forRound,
     findRoundWinners,
     allForUser,
+    update,
+    score,
+    delete: deleteBet,
+    fetchUnscoredBets
 };

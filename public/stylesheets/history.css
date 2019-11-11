@@ -61,3 +61,16 @@
 .vertical-align-middle{
     vertical-align: middle;
 }
+
+.history-correct{
+    color: lawngreen;
+}
+
+.history-wrong{
+    color: red;
+}
+
+.history-large-text{
+    font-size: 14px;
+    font-weight: bold;
+}

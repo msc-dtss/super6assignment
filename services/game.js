@@ -5,10 +5,10 @@
  * @return {Array} An array
  */
 const fetch = async (db, criteria) => {
-    return await db
-        .collection('games')
-        .find(criteria)
-        .toArray();
+  return await db
+    .collection("games")
+    .find(criteria)
+    .toArray();
 };
 
 /**
@@ -18,34 +18,36 @@ const fetch = async (db, criteria) => {
  * @return {Array} An array of games
  */
 const fetchFuture = async (db, debugDate) => {
-    const now = debugDate ? new Date(debugDate) : new Date();
-    const paddedMonth = now.getMonth() > 9 ? `${now.getMonth()}` : `0${now.getMonth()}`;
-    const formattedDate = `${now.getFullYear()}/${paddedMonth}/${now.getDate()}`;
-    return await fetch(db, {
-        gameDate: { $gt: formattedDate }
-    });
+  const now = debugDate ? new Date(debugDate) : new Date();
+  const oneIndexMonth = now.getMonth() + 1;
+  const paddedMonth = oneIndexMonth > 9 ? `${oneIndexMonth}` : `0${oneIndexMonth}`;
+  const paddedDay = now.getDate() > 9 ? `${now.getDate()}` : `0${now.getDate()}`;
+  const formattedDate = `${now.getFullYear()}/${paddedMonth}/${paddedDay}`;
+  // return await fetch(db, {
+  //   $and: [{ gameDate: { $gt: formattedDate } }, { roundId: { $gt: 2 } }] //TODO THIS NEEDS FIXING!
+  // });
+  return await fetch(db, { gameDate: { $gt: formattedDate } });
 };
 
 /**
- * TODO: Document
+ * Fetches all the games as a dictionary where each round is the key and the value is an array of games
  * @param {*} db The connection to the database
- * @return {*} An array of games by round
+ * @return {*} An object with all games grouped by round
  */
-const fetchIndexedByRound = async (db) => {
-    const byRound = {};
-    const games = await fetch(db, {});
-    for (let i = 0; i < games.length; i++) {
-        if (!(games[i].round_id in byRound)) {
-            byRound[games[i].round_id] = [];
-        }
-        byRound[games[i].round_id].push(games[i]);
+const fetchIndexedByRound = async db => {
+  const byRound = {};
+  const games = await fetch(db, {});
+  for (let i = 0; i < games.length; i++) {
+    if (!(games[i].roundId in byRound)) {
+      byRound[games[i].roundId] = [];
     }
-    return byRound;
+    byRound[games[i].roundId].push(games[i]);
+  }
+  return byRound;
 };
 
-
 module.exports = {
-    fetch,
-    fetchFuture,
-    fetchIndexedByRound
+  fetch,
+  fetchFuture,
+  fetchIndexedByRound
 };

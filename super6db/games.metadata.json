@@ -1,1 +1,1 @@
-{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"super6db.games"}],"uuid":"ed84022503c8466382b2d5140b06fc3f"}
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"super6db.games"}],"uuid":"3bb34d42336746108375d036f99ce2bb"}

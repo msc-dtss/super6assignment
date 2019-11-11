@@ -1,6 +1,5 @@
 /**
- * TODO: Document
- * @param {*} content 
+ * @param {*} content The array containing all of the user's bets.
  */
 var makeRequest = function (content) {
     var httpRequest = new XMLHttpRequest();
@@ -20,9 +19,8 @@ var makeRequest = function (content) {
 };
 
 /**
- * TODO: Document
- * @param {*} roundId 
- * @param {*} nrGames 
+ * @param {*} roundId The round Id which the user is betting on.
+ * @param {*} nrGames The number of Games which the user is betting on (should always be 6).
  */
 var placeBet = function (roundId, nrGames) {
     var bet = getBetValues(roundId, nrGames);
@@ -32,9 +30,8 @@ var placeBet = function (roundId, nrGames) {
 };
 
 /**
- * TODO: Document
- * @param {*} roundId 
- * @param {*} nrGames 
+ * @param {*} roundId The round Id which the user is betting on.
+ * @param {*} nrGames The number of Games which the user is betting on (should always be 6).
  */
 var getBetValues = function (roundId, nrGames) {
     var bet = {

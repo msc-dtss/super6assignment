@@ -1,13 +1,15 @@
 const express = require('express');
 const betsService = require('../services/bets.js');
 const gameService = require('../services/game.js');
+const resultsService = require('../services/results.js');
 const ObjectId = require('mongodb').ObjectId;
 
+const wrap = require('./helpers/exceptionHandler').exceptionWrapper;
 const router = express.Router();
 
 
-router.get('/play', async (req, res, next) => {
-    // TODO: Logged in needs to reflect cookie value and checked against db and games need to be pushed
+router.get('/play', wrap(async (req, res, next) => {
+    // TODO: Logged in needs to reflect cookie value and needs to be checked against db
     const db = req.app.get('super6db');
     const debugDate = req.app.get('isDevelopment') ? req.query.debugDate : null;
     const games = await gameService.fetchFuture(db, debugDate);
@@ -16,26 +18,25 @@ router.get('/play', async (req, res, next) => {
         games: games,
         loggedIn: true
     });
-});
+}));
 
-router.get('/history', async (req, res, next) => {
-    // TODO: Logged in needs to reflect cookie value and checked against db and games need to be pushed
+router.get('/history', wrap(async (req, res, next) => {
     const db = req.app.get('super6db');
-    //No such thing as rounds except in games, so this logic needs to change a bit?
     const gamesByRound = await gameService.fetchIndexedByRound(db, {}); // Maybe this should be fetchPast?
-    const rounds = Object.keys(gamesByRound); // We had individual rounds before, any reason we need to know the rounds like that?
-    console.log(rounds)
+    const rounds = Object.keys(gamesByRound);
     const bets = await betsService.allForUser(db, new ObjectId('5d9dea063935915c6861feaf')); //TODO - Use real user id
+    const results = await resultsService.getGameResults();
     res.render('history', {
         title: 'Super6 Rugby - Your History',
         loggedIn: true,
         rounds: rounds,
         games: gamesByRound,
-        bets: bets
+        bets: bets,
+        results: results
     });
-});
+}));
 
-router.post('/', async (req, res, next) => {
+router.post('/', wrap(async (req, res, next) => {
     const bet = betsService.resolveClientBet(req.body);
     // Attach userId from the session? We should return a 401 error if there is no authenticated session
     bet.userId = req.session.userId;
@@ -50,6 +51,6 @@ router.post('/', async (req, res, next) => {
         res.statusCode = 500; // (or 400ish if error is caused by the input coming from the client)
         res.send('Error create bet');
     }
-});
+}));
 
 module.exports = router;
