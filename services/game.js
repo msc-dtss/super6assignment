@@ -17,16 +17,26 @@ const fetch = async (db, criteria) => {
  * @param {String} debugDate An optional date to pass in to ease debugging (unavailable in production mode)
  * @return {Array} An array of games
  */
-const fetchFuture = async (db, debugDate) => {
-  const now = debugDate ? new Date(debugDate) : new Date();
-  const oneIndexMonth = now.getMonth() + 1;
-  const paddedMonth = oneIndexMonth > 9 ? `${oneIndexMonth}` : `0${oneIndexMonth}`;
-  const paddedDay = now.getDate() > 9 ? `${now.getDate()}` : `0${now.getDate()}`;
-  const formattedDate = `${now.getFullYear()}/${paddedMonth}/${paddedDay}`;
-  // return await fetch(db, {
-  //   $and: [{ gameDate: { $gt: formattedDate } }, { roundId: { $gt: 2 } }] //TODO THIS NEEDS FIXING!
-  // });
-  return await fetch(db, { gameDate: { $gt: formattedDate } });
+const fetchFuture = async (db, debugDate) => { //TODO HANDLE WHEN THE REQUEST DATE IS ABOVE ANY GAMES IN THE DATABASE
+    const now = debugDate ? new Date(debugDate) : new Date();
+    const oneIndexMonth = now.getMonth() + 1;
+    const paddedMonth = oneIndexMonth > 9 ? `${oneIndexMonth}` : `0${oneIndexMonth}`;
+    const paddedDay = now.getDate() > 9 ? `${now.getDate()}` : `0${now.getDate()}`;
+    const formattedDate = `${now.getFullYear()}/${paddedMonth}/${paddedDay}`;
+
+    let currentRoundInfo = await db.collection("rounds").find({$and:[{"dateRange.start": {$lte: formattedDate}}, {"dateRange.end": {$gte: formattedDate}}]}).toArray();
+
+    if (currentRoundInfo.length === 0) {
+        let currentRoundInfo = await db.collection("rounds").find({"dateRange.start": {$gt: formattedDate}}).sort({"dateRange.start": 1}).toArray();
+        currentRoundIndex = currentRoundInfo[0].index;
+        nextRoundIndex = currentRoundIndex;
+    } else {
+        currentRoundIndex = currentRoundInfo[0].index;
+        nextRoundIndex = currentRoundIndex + 1;
+    };
+
+    nextRound = await db.collection("rounds").find({index: {$eq: nextRoundIndex}}).toArray();
+    return await fetch(db, {$and:[{"gameDate": {$gte: nextRound[0].dateRange.start}}, {"gameDate": {$lte: nextRound[0].dateRange.end}}]});
 };
 
 /**
