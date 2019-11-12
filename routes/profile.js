@@ -1,9 +1,8 @@
-const express = require('express');
-const userProfileService = require('../services/profile');
-const wrap = require('./helpers/exceptionHandler').exceptionWrapper;
+const express = require("express");
+const userProfileService = require("../services/profile");
+const wrap = require("./helpers/exceptionHandler").exceptionWrapper;
 
 const router = express.Router();
-
 // TODO once user session Id is working correctly use this code structure below.
 // router.get('/', wrap(async (req, res, next) => {
 //     // Should show the user profile page
@@ -17,11 +16,14 @@ const router = express.Router();
 // }));
 
 // TEST CODE ONLY
-router.get('/', wrap((req, res, next) => {
-    res.render('profile', {
-        title: 'user name',
-        loggedIn: true
-    })
-}));
+router.get(
+  "/",
+  wrap((req, res, next) => {
+    res.render("profile", {
+      title: "user name",
+      loggedIn: true
+    });
+  })
+);
 
 module.exports = router;
