@@ -17,6 +17,7 @@ body {
   justify-content: flex-end;
   padding-top: 20px;
 }
+
 .logo_image {
   float: right;
   position: absolute;
@@ -36,6 +37,37 @@ body {
   background-color: #ddd;
   color: black;
 }
+
+@media only screen and (max-width: 800px) {
+  .navbar{
+    display: inline-block;
+    padding-left: 5px;
+  }
+
+  .navbar a {
+  font-size: 12px;
+  padding: 3px;
+  text-align: justify;
+  line-height: 25px;
+  }
+  .navright{
+    float: left !important;
+  }
+  .logo_image{
+    margin-top: 20rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    right: 0 !important;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .logo_image{
+    margin-top: 13rem;
+  }
+}
+
 .navbar #home a:visited {
   color: red;
 }
@@ -52,6 +84,22 @@ body {
   background-size: cover;
   background-image: url("../images/Background\ Image.jpg");
 }
+
+@media only screen and (max-width: 800px) {
+  .head-image{
+  border: 1px solid black;
+  width: 100%;
+  height: 15em;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-image: url("../images/Background\ Image.jpg");
+  font-size: 3vh;
+  text-align: center;
+  float:center;
+}
+}
+
 .head-grad {
   height: inherit;
   /* background-image: linear-gradient(to right, rgba(28, 96, 173, 0.4), #503580); */
@@ -60,6 +108,22 @@ body {
   justify-content: flex-end;
   flex-direction: column;
 }
+
+@media only screen and (max-width: 800px) {
+  .head-grad {
+    height: inherit;
+    align-items: center;
+    justify-content: center;
+  }
+  .open-button{
+    margin-right: 0 !important;    
+  }
+  .button-margin-bottom{
+    margin-bottom: 0 !important;
+  }
+}
+
+
 .content-middle {
   height: auto;
   width: 95%;
@@ -79,6 +143,20 @@ body {
   border: 2px solid #c5c4c4;
   background-color: white;
 }
+@media only screen and (max-width: 800px) {
+  .col1, .col2, .content-middle {
+
+    margin: 0px;
+    width: 100%;
+    border: 2px solid #c5c4c4;
+    background-color: white;
+    flex-direction: column;
+    text-align:center;
+    float: center;
+    font-size: 3vh;
+  }
+}
+
 .col-title {
   background-repeat: no-repeat;
   background-position: center;
@@ -96,6 +174,28 @@ body {
   flex-direction: column;
   justify-content: flex-end;
 }
+@media only screen and (max-width: 800px) {
+
+.col-title {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-image: url("https://rugbymadrid.com/wp-content/uploads/RugbyBalon.jpg");
+  height: 70px;
+}
+.col-title-grad {
+  height: 70px;
+  color: white;
+  font-weight: bold;
+  background-image: url("../images/Fixtures\ Head.jpg");
+  background-size: cover;
+ 
+  flex-direction: column;
+  justify-content: flex-start;
+}
+}
+
+
 .col-title-span {
   padding-left: 10px;
   padding-bottom: 10px;
@@ -160,6 +260,8 @@ body {
   font-weight: bold;
 }
 
+
+
 .footer-text a {
   float: center;
   color: white;
@@ -201,6 +303,20 @@ body {
   /*border: 3px solid #f1f1f1;*/
   z-index: 9999;
 }
+/* @media only screen and (max-width: 800 px) {
+  .open-button .form-popup .show-form{
+    margin: 0px;
+    width: 100%;
+    border: 2px solid #c5c4c4;
+    background-color: white;
+    flex-direction: column;
+    text-align:center;
+    float: center;
+    font-size: 3vh;
+    display:block;
+    }
+  } */
+
 
 /* Add styles to the form container */
 .form-container {
@@ -242,6 +358,22 @@ body {
   margin-bottom: 10px;
   opacity: 0.8;
 }
+
+@media only screen and (max-width: 800px) {
+  .form-container .btn{
+    background-color: rgb(126, 29, 86);
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 10px;
+    opacity: 0.8;
+    text-align: center;
+    float: center;
+
+
+  }
 
 /* Add a red background color to the cancel button */
 .form-container .cancel {
@@ -292,12 +424,13 @@ body {
   flex-direction: column;
   justify-content: center;
 }
+}
 
-@media only screen and (max-width: 720px) {
+/*  @media only screen and (max-width: 720px) {
   body {
     background-color: lightblue;
   }
   .content-middle{
     flex-direction: column;
   }
-}
+}  */

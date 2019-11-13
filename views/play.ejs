@@ -5,6 +5,7 @@
     <%- include common/head-items.ejs %>
     <title><%= title %></title>
     <link href="/stylesheets/play.css" media="only screen and (min-width : 740px)" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/play-mobile.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -12,7 +13,7 @@
 
     <!-- GAMES TABLE -->
 
-    <div class="bet_area">
+    <div class="bet_area bet_background">
 
         <div class="game_row">
             <div class="column">
@@ -36,6 +37,7 @@
             <div class="user_input_col">
                 <p><%= games[i].teamA.name %> tries:
                     <input team_A_tries name="block<%=i%>TeamATries" type="number" min="0" size="4">
+                    <br/>
                     <%= games[i].teamB.name %> tries:
                     <input team_B_tries name="block<%=i%>TeamBTries" type="number" min="0" size="4"></p>
                 <p>Select Match Winner:<select game_winner name="Winner">
@@ -62,7 +64,7 @@
         <button disabled type="button" id="bet_button">
             <h2>No games!</h2>
         </button>
-        <% } %>
+        <% } %> 
     </div>
 
     <%- include common/footer.ejs %>

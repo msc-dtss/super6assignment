@@ -1,4 +1,7 @@
+<div>
+
 <div class="navbar">
+
     <a href="/" id="home">HOME</a>
     <% if(loggedIn){ %>
     <a href="/bets/play" id="play">PLAY SUPER 6</a>
@@ -10,8 +13,11 @@
     <label class="navright"><a href="/profile">USER: JHON ERWIN</a></label>
     <a href="/users/logout">LOGOUT</a>
     <%}%>
+
 </div>
-<div class="logo_image"><img src="/images/logo.svg" height="100px"></div>
+
+<div class="logo_image"><img src="/images/logo.svg" width="160px"></div>
+
 <div class="head-image">
     <div class="head-grad">
     
@@ -22,11 +28,18 @@
     <button class="open-button button-margin-bottom" onclick="showUserForm('register')">REGISTER</button>
     <%}%>
 
+
     </div>
+
+
     <%# Include the register and the login forms here. %>
     <% include userForm.ejs %>
 
 </div>
+
+
+</div>
+
 
 <script>
     var showUserForm = function (type) {
