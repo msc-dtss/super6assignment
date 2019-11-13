@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"super6db.rounds"}],"uuid":"cd3f49432a9f45bc88f6abbbb331f832"}
