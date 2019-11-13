@@ -11,7 +11,8 @@ const router = express.Router();
 //     res.render('profile', {
 //         title: 'user name',
 //         response: userInfo,
-//         loggenIn: true
+//         loggedIn: !!req.session.user,
+//         user: req.session.user || null
 //     });
 // }));
 
@@ -21,7 +22,6 @@ router.get(
   wrap((req, res, next) => {
     res.render("profile", {
       title: "user name",
-      loggedIn: true
     });
   })
 );

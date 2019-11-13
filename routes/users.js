@@ -38,7 +38,6 @@ router.post("/login", wrap(async (req, res, next) => {
         req.session.user = await userService.fetchUser(db, email)
         req.session.login = true;
         console.log(req.session.user.email)
-        //console.log(req.session.login)
         res.redirect("/bets/play");
         }
     } catch (e) {

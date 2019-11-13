@@ -16,7 +16,8 @@ router.get('/play', wrap(async (req, res, next) => {
     res.render('play', {
         title: 'Super6 Rugby - Play',
         games: games,
-        loggedIn: true
+        loggedIn: !!req.session.user,
+        user: req.session.user || null
     });
 }));
 
@@ -28,7 +29,8 @@ router.get('/history', wrap(async (req, res, next) => {
     const results = await resultsService.getGameResults();
     res.render('history', {
         title: 'Super6 Rugby - Your History',
-        loggedIn: true,
+        loggedIn: !!req.session.user,
+        user: req.session.user || null,
         rounds: rounds,
         games: gamesByRound,
         bets: bets,

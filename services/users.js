@@ -24,11 +24,11 @@ const fetch = async (db, criteria) => {
 const fetchUser = async (db, email) => {
     const users = await db
         .collection('users')
-        .find({email: email})
-        .project({_id: 1, email: 1, firstName: 1, surname: 1})
+        .find({ email: email })
+        .project({ _id: 1, email: 1, firstName: 1, surname: 1 })
         .toArray()
-        return users.length > 0 ? users[0]:null;
-    };
+    return users.length > 0 ? users[0] : null;
+};
 
 
 /**
