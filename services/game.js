@@ -25,29 +25,22 @@ const fetchFuture = async (db, debugDate) => { //TODO HANDLE WHEN THE REQUEST DA
     const paddedDay = now.getDate() > 9 ? `${now.getDate()}` : `0${now.getDate()}`;
     const formattedDate = `${now.getFullYear()}/${paddedMonth}/${paddedDay}`;
 
-    let currentRoundInfo = await db.collection("rounds").find({
+    const currentRoundInfo = await db.collection("rounds").find({
         "dateRange.start": { $lte: formattedDate },
         "dateRange.end": { $gte: formattedDate }
+    }).sort({
+        "dateRange.start": 1
     }).toArray();
 
-    if (currentRoundInfo.length === 0) {
-        //Why are we redeclaring currentRoundInfo?
-        let currentRoundInfo = await db.collection("rounds").find({
-            "dateRange.start": {
-                $gt: formattedDate
-            }
-        }).sort({
-            "dateRange.start": 1
-        }).toArray();
+    let currentRoundIndex = 1;
+    if (currentRoundInfo.length > 0) {
         currentRoundIndex = currentRoundInfo[0].index;
-        nextRoundIndex = currentRoundIndex;
-    } else {
-        currentRoundIndex = currentRoundInfo[0].index;
-        nextRoundIndex = currentRoundIndex + 1;
     };
-
-    nextRound = await db.collection("rounds").find({ index: { $eq: nextRoundIndex } }).toArray();
-    return await fetch(db, { $and: [{ "gameDate": { $gte: nextRound[0].dateRange.start } }, { "gameDate": { $lte: nextRound[0].dateRange.end } }] });
+    const nextRound = await db.collection("rounds").find({ index: { $eq: currentRoundIndex + 1 } }).toArray();
+    if (nextRound.length > 0) {
+        return await fetch(db, { $and: [{ "gameDate": { $gte: nextRound[0].dateRange.start } }, { "gameDate": { $lte: nextRound[0].dateRange.end } }] });
+    }
+    return [];
 };
 
 /**
