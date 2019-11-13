@@ -15,6 +15,22 @@ const fetch = async (db, criteria) => {
         .toArray();
 };
 
+/** 
+ * fetch user details for session, exlcuding password
+ * @param {*} db database
+ * @param {*} email email input
+ * @return {Array}
+*/
+const fetchUser = async (db, email) => {
+    const users = await db
+        .collection('users')
+        .find({ email: email })
+        .project({ _id: 1, email: 1, firstName: 1, surname: 1 })
+        .toArray()
+    return users.length > 0 ? users[0] : null;
+};
+
+
 /**
  * Fetch a user by id
  * @param {*} db The connection to the database
@@ -47,7 +63,6 @@ const fetchByEmail = async (db, email) => {
     return users[0];
 };
 
-
 /**
  * Turn the password into a hash using the one-way bcrypt algo with salt.
  * @param {string} password The clear-text password
@@ -68,7 +83,7 @@ const getHashedPassword = (password) => {
  * @return {boolean} Whether or not a user was inserted
  * @throws {errors.ValidationError} In case a user already exists
  */
-const create = async (db, email, plainTextPassword, isAdmin) => {
+const create = async (db, email, plainTextPassword, firstName, surname, isAdmin) => {
     // Save a new user to the database
     // Using email as identifier so ensure it doesn't exist before saving - to do
 
@@ -77,6 +92,8 @@ const create = async (db, email, plainTextPassword, isAdmin) => {
         await db.collection('users').insertOne({
             email: email,
             password: getHashedPassword(plainTextPassword),
+            firstName: firstName,
+            surname: surname,
             isAdmin: isAdmin || false
         });
         return true
@@ -153,6 +170,7 @@ const getNewToken = async () => { // Does this really need to be async?
 
 module.exports = {
     fetch,
+    fetchUser,
     fetchById,
     fetchByEmail,
     list,
