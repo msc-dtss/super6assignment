@@ -13,7 +13,8 @@
     flex-direction: column;
     border: 1px solid black;
     vertical-align: middle;
-    padding: 20px;
+    padding: 10px;
+    max-width: 140px;
 }
 .history-round-game {
     flex-direction: row;
@@ -45,7 +46,7 @@
     text-align: center;
 }
 
-.small-font{
+.history-small-text{
     font-size: 10px;
 }
 
@@ -71,6 +72,6 @@
 }
 
 .history-large-text{
-    font-size: 14px;
+    font-size: 12px;
     font-weight: bold;
 }
