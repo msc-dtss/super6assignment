@@ -35,7 +35,7 @@
                             <div class="padding-5px text-align-center history-small-text"><%=games[round][game].teamB.name%></div>
                         </div>
                         <div class="fb-row">
-                            <% let bet = bets.get(games[round][game]._id);
+                            <% let bet = bets[games[round][game]._id];
                                 let result = results[games[round][game]._id];
                             %>
                             <div class="fb-column padding-5px">
@@ -108,7 +108,7 @@
                     </div>
                 </div>
                 <div class="fb-column history-h-middle">
-                    <div class="fb-row history-h-middle"><div style="width: 50%"><span class="iconify large-icon" style="color: gold" data-icon="mdi-rugby" title="Golden Try"></span></div>
+<!--                     <div class="fb-row history-h-middle"><div style="width: 50%"><span class="iconify large-icon" style="color: gold" data-icon="mdi-rugby" title="Golden Try"></span></div>
                         <%
                         let goldenTryStyle;
                         if (result === undefined){
@@ -119,7 +119,7 @@
                             goldenTryStyle = "history-wrong history-small-text"
                         }%>
                         <div class="padding-5px"><% if (bet) { %> <span class="<%= goldenTryStyle%>"><%= bet.goldenTry%> <%}%></span></div>
-                    </div>
+                    </div> -->
                     <div class="fb-row history-h-middle"><div style="width: 50%"><span class="iconify large-icon" data-icon="mdi-calculator" title="Golden Try"></span></div><div class="padding-5px history-small-text">
                             <% if(result !== undefined) {%><%=result.userPoints%><%}%>
                         </div></div>

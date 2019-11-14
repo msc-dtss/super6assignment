@@ -125,14 +125,19 @@ const madeByUser = async (db, roundId, userId) => {
 };
 
 /**
- * Gets all the bets ever made by a user mapped by game
+ * Gets all the bets for a user, keyed by game id
  * @param {*} db The connection to the database
- * @param {Number} userId The ID of the user
- * @return {Map} A map with the bets indexed by gameId
+ * @param {*} userId The ID of the user
  */
-const allForUser = async (db, userId) => { //maybe needs a clearer name
-    const bets = await fetch(db, { userId: userId });
-    return new Map(bets.map(bet => [bet.gameId, bet])); //Does this need to be a map or can it be regular JSON?
+const betsForUserByGame = async(db, userId) => {
+    const bets = {}
+    const dbBets = await fetch(db, { userId: new ObjectId(userId) });
+    dbBets.forEach(dbBet => {
+        dbBet.gameBets.forEach(gameBet => {
+            bets[gameBet.id] = gameBet;
+        })
+    })
+    return bets;
 }
 
 /**
@@ -188,9 +193,9 @@ module.exports = {
     madeByUser,
     forRound,
     findRoundWinners,
-    allForUser,
     update,
     score,
     delete: deleteBet,
-    fetchUnscoredBets
+    fetchUnscoredBets,
+    betsForUserByGame
 };

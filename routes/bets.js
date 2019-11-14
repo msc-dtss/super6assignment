@@ -25,7 +25,7 @@ router.get('/history', wrap(async (req, res, next) => {
     const db = req.app.get('super6db');
     const gamesByRound = await gameService.fetchIndexedByRound(db, {}); // Maybe this should be fetchPast?
     const rounds = Object.keys(gamesByRound);
-    const bets = await betsService.allForUser(db, new ObjectId('5d9dea063935915c6861feaf')); //TODO - Use real user id
+    const bets = await betsService.betsForUserByGame(db, new ObjectId(req.session.user._id));
     const results = await resultsService.getGameResults();
     res.render('history', {
         title: 'Super6 Rugby - Your History',
