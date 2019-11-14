@@ -186,6 +186,7 @@ const findRoundWinners = async (db, roundId, results) => {
  * @param {*} results All results
  */
 const score = async (db, unscoredBets, results) => {
+    // TODO - I think this needs updating to support gameBets being a child of a bet (ie match bets are nested within 1 bet object)
     unscoredBets.forEach(async (bet) => {
         const matchingResult = results.find((result) => {
             return result.gameId === bet.gameId

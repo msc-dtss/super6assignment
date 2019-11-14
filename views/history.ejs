@@ -18,11 +18,13 @@
     <div class="history-area history-small-text">
         <%
             for(var round in rounds){
+                let roundPoints = 0;
             %>
         <div class="history-round">
             <div class="history-h-middle">
                 <div><span class="iconify large-icon" data-icon="mdi-calendar-outline"></span></div>
                 <div><h2 class="vertical-align-middle"><%= "Round " + (parseInt(rounds[round].index)+1) %></h2></div>
+                <div>Your points!:<span id="totalPointsRound<%=round%>"></span> </div>
                 <div>Golden Try:<span class="iconify large-icon" style="color: gold" data-icon="mdi-rugby" title="Golden Try"></span>
                     <%=goldenTries[rounds[round]._id]%>
                 </div>
@@ -111,11 +113,16 @@
                     </div>
                 </div>
                 <div class="fb-column history-h-middle">
-                    <div class="fb-row history-h-middle"><div style="width: 50%"><span class="iconify large-icon" data-icon="mdi-calculator" title="Golden Try"></span></div><div class="padding-5px history-small-text">
-                            <% if(result !== undefined) {%><%=result.userPoints%><%}%>
+                    <div class="fb-row history-h-middle"><div style="width: 50%"><span class="iconify large-icon" data-icon="mdi-calculator" title="Your Points"></span></div><div class="padding-5px history-small-text">
+                            <% if(bet) {
+                            roundPoints+= bet.points;
+
+                            %><%=bet.points%><%}%>
+
                         </div></div>
                 </div>
             </div>
+            <script>document.getElementById('totalPointsRound<%=round%>').innerText = "<%=roundPoints%>";</script>
             <div style="min-height: 1em"></div>
                 <%}%>
 

@@ -10,8 +10,17 @@ const getGameResults = async () => {
                     teamBScore: 10,
                     teamATries: 4,
                     teamBTries: 1
+                },
+                '5dbb5ba824a8c8398c3a0f8d': {
+                    _id: 2,
+                    gamesId: '5dbb5ba824a8c8398c3a0f8d',
+                    winTeam: 'Canada',
+                    teamAScore: 12,
+                    teamBScore: 5,
+                    teamATries: 1,
+                    teamBTries: 0
                 }
-                
+
             }
         );
     });
