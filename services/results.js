@@ -9,15 +9,28 @@ const getGameResults = async () => {
                     teamAScore: 30,
                     teamBScore: 10,
                     teamATries: 4,
-                    teamBTries: 1,
-                    userPoints: 8
+                    teamBTries: 1
                 }
                 
             }
         );
     });
-}
+};
+
+const getGoldenTryResults = async () => {
+    return new Promise((resolve, reject) => {
+        resolve(
+            {
+                '5dc9d60cc46c6d373ce167fd': {
+                    goldenTry: 13
+                }
+
+            }
+        );
+    });
+};
 
 module.exports = {
-    getGameResults
+    getGameResults,
+    getGoldenTryResults
 };
