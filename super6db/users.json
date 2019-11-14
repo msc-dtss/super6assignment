@@ -1,9 +1,1 @@
-{
-  "_id": "001",
-  "emailAddress": "test@testuser.com",
-  "firstName": "Test",
-  "surname": "User",
-  "password": "Hashedpa$$word",
-  "sysAdmin": "0",
-  "Active": "1"
-}
+{"_id":{"$oid":"5dbb59a524a8c8398c3a0f8a"},"emailAddress":"test@testuser.com","password":"Hashedpa$$word","sysAdmin":"0","Active":"1"}

@@ -9,3 +9,9 @@ done
 DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
 
 mongodump -d super6db -o "${DIR}/.."
+
+# Also export in json as a readable reference
+mongoexport -d super6db -c bets -o "${DIR}/bets.json"
+mongoexport -d super6db -c games -o "${DIR}/games.json"
+mongoexport -d super6db -c rounds -o "${DIR}/rounds.json"
+mongoexport -d super6db -c users -o "${DIR}/users.json"
