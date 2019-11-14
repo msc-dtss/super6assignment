@@ -1,1 +1,1 @@
-{"_id":{"$oid":"5dcc9659b744f913959e001d"},"userId":{"$oid":"5dbb59a524a8c8398c3a0f8a"},"roundId":{"$oid":"5dc9d60cc46c6d373ce167fd"},"gameBets":[{"id":{"$oid":"5dbb5ba824a8c8398c3a0f8b"},"teamATries":4,"teamBTries":1,"winTeam":"Japan"}],"goldenTry":12,"points":7}
+{"_id":{"$oid":"5dcc9659b744f913959e001d"},"userId":{"$oid":"5dbb59a524a8c8398c3a0f8a"},"roundId":{"$oid":"5dc9d60cc46c6d373ce167fd"},"gameBets":[{"id":{"$oid":"5dbb5ba824a8c8398c3a0f8b"},"teamATries":4,"teamBTries":1,"winTeam":"Japan","points":7}],"goldenTry":12}
