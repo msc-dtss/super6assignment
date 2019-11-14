@@ -12,7 +12,7 @@
 <body>
     <%# Might turn this into a partial %>
     <%# Also this file gets f***ed up by vscode when saving normally. Use Ctrl+K and then press S to prevent auto-formatting %>
-    <%# include common/header.ejs %>
+    <%- include common/header.ejs %>
 
     <!-- There's some games in the database without a round so we'll be getting a column with a title as undefined -->
     <div class="history-area history-small-text">
@@ -22,7 +22,10 @@
         <div class="history-round">
             <div class="history-h-middle">
                 <div><span class="iconify large-icon" data-icon="mdi-calendar-outline"></span></div>
-                <div><h2 class="vertical-align-middle"><%= "Round " + (parseInt(rounds[round])+1) %></h2></div>
+                <div><h2 class="vertical-align-middle"><%= "Round " + (parseInt(rounds[round].index)+1) %></h2></div>
+                <div>Golden Try:<span class="iconify large-icon" style="color: gold" data-icon="mdi-rugby" title="Golden Try"></span>
+                    <%=goldenTries[rounds[round]._id]%>
+                </div>
             </div>
             <% for(var game in games[round]){ %>
             <div class="fb-column">
@@ -108,18 +111,6 @@
                     </div>
                 </div>
                 <div class="fb-column history-h-middle">
-<!--                     <div class="fb-row history-h-middle"><div style="width: 50%"><span class="iconify large-icon" style="color: gold" data-icon="mdi-rugby" title="Golden Try"></span></div>
-                        <%
-                        let goldenTryStyle;
-                        if (result === undefined){
-                            goldenTryStyle = "history-small-text"
-                        } else if (bet && bet.goldenTry === result.goldenTry) {
-                            goldenTryStyle = "history-correct history-small-text"
-                        } else {
-                            goldenTryStyle = "history-wrong history-small-text"
-                        }%>
-                        <div class="padding-5px"><% if (bet) { %> <span class="<%= goldenTryStyle%>"><%= bet.goldenTry%> <%}%></span></div>
-                    </div> -->
                     <div class="fb-row history-h-middle"><div style="width: 50%"><span class="iconify large-icon" data-icon="mdi-calculator" title="Golden Try"></span></div><div class="padding-5px history-small-text">
                             <% if(result !== undefined) {%><%=result.userPoints%><%}%>
                         </div></div>

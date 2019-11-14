@@ -1,6 +1,7 @@
 const express = require('express');
 const betsService = require('../services/bets.js');
 const gameService = require('../services/game.js');
+const roundsService = require('../services/rounds.js');
 const resultsService = require('../services/results.js');
 const ObjectId = require('mongodb').ObjectId;
 
@@ -24,8 +25,9 @@ router.get('/play', wrap(async (req, res, next) => {
 router.get('/history', wrap(async (req, res, next) => {
     const db = req.app.get('super6db');
     const gamesByRound = await gameService.fetchIndexedByRound(db, {}); // Maybe this should be fetchPast?
-    const rounds = Object.keys(gamesByRound);
+    const rounds = await roundsService.fetchRoundsByIndex(db, {});
     const bets = await betsService.betsForUserByGame(db, new ObjectId(req.session.user._id));
+    const goldenTries = await betsService.goldenTriesForUserByRound(db, new ObjectId(req.session.user._id));
     const results = await resultsService.getGameResults();
     res.render('history', {
         title: 'Super6 Rugby - Your History',
@@ -34,6 +36,7 @@ router.get('/history', wrap(async (req, res, next) => {
         rounds: rounds,
         games: gamesByRound,
         bets: bets,
+        goldenTries: goldenTries,
         results: results
     });
 }));

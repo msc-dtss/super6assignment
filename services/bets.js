@@ -141,6 +141,20 @@ const betsForUserByGame = async(db, userId) => {
 }
 
 /**
+ * Gets all the golden try predictions for a user, keyed by user id
+ * @param {*} db 
+ * @param {*} userId 
+ */
+const goldenTriesForUserByRound = async(db, userId) => {
+    const goldenTries = {};
+    const dbBets = await fetch(db, { userId: new ObjectId(userId) });
+    dbBets.forEach(dbBet => {
+        goldenTries[dbBet.roundId] = dbBet.goldenTry;
+    });
+    return goldenTries;
+}
+
+/**
  * Gets a collection of bets made by users for a given round
  * @param {*} db The connection to the database
  * @param {Number} roundId The ID of the round
@@ -197,5 +211,6 @@ module.exports = {
     score,
     delete: deleteBet,
     fetchUnscoredBets,
-    betsForUserByGame
+    betsForUserByGame,
+    goldenTriesForUserByRound
 };
