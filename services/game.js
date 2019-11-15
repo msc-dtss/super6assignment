@@ -50,7 +50,7 @@ const fetchFuture = async (db, debugDate) => { //TODO HANDLE WHEN THE REQUEST DA
  */
 const fetchIndexedByRound = async db => {
     const byRound = {};
-    const games = await fetch(db, {});
+    const games = await db.collection("games").find().sort({"gameDate": 1}).toArray();
     for (let i = 0; i < games.length; i++) {
         let roundIndex = games[i].roundIndex;
         if (!(roundIndex in byRound)) {
