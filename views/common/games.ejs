@@ -5,14 +5,8 @@
                 <div class="fixture-date">
                     <%= game.gameDate %>
                 </div>
-                <div class="team">
-                    <div class="flag"><img src="/images/flags/<%= game.teamA.flag %>"></div>
-                    <div class="team-name"><%= game.teamA.name %></div>
-                </div>
-                <div class="team">
-                    <div class="flag"><img src="/images/flags/<%= game.teamB.flag %>"></div>
-                    <div class="team-name"><%= game.teamB.name %></div>
-                </div>
+                <%- include('common/game.ejs', {team: game.teamA}) %>
+                <%- include('common/game.ejs', {team: game.teamB}) %>
             </div>
         </div>
     <% }); %>
