@@ -32,6 +32,10 @@
 }
 }*/
 
+.fixture {
+    display: flex;
+}
+
 .game_row {
     border: 0.5px solid lightgray;
     display: flex;

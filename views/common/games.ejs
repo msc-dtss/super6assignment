@@ -1,13 +1,11 @@
 <div class="col-fixtures">
     <% games.forEach((game) => { %>
-        <div class="game-fixture">
-            <div class="fixture-teams">
-                <div class="fixture-date">
-                    <%= game.gameDate %>
-                </div>
-                <%- include('common/game.ejs', {team: game.teamA}) %>
-                <%- include('common/game.ejs', {team: game.teamB}) %>
-            </div>
+    <div class="game-fixture">
+        <div class="fixture-date">
+            <%= game.gameDate %>
         </div>
+        
+        <%- include('common/fixture.ejs', {teamA: game.teamA, teamB: game.teamB}) %>
+    </div>
     <% }); %>
 </div>
