@@ -44,19 +44,23 @@ const fetchFuture = async (db, debugDate) => { //TODO HANDLE WHEN THE REQUEST DA
 };
 
 /**
- * Fetches all the games as a dictionary where each round is the key and the value is an array of games
+ * Fetches all the games as a dictionary where each round is the key, each game date is a nested key and the value is an array of games
  * @param {*} db The connection to the database
  * @return {*} An object with all games grouped by round
  */
-const fetchIndexedByRound = async db => {
+const fetchIndexedByRoundAndDate = async db => {
     const byRound = {};
     const games = await db.collection("games").find().sort({"gameDate": 1}).toArray();
     for (let i = 0; i < games.length; i++) {
-        let roundIndex = games[i].roundIndex;
+        let game = games[i]
+        let roundIndex = game.roundIndex;
         if (!(roundIndex in byRound)) {
             byRound[roundIndex] = [];
         }
-        byRound[roundIndex].push(games[i]);
+        if(!(game.gameDate in byRound[roundIndex])){
+            byRound[roundIndex][game.gameDate] = [];
+        }
+        byRound[roundIndex][game.gameDate].push(game);
     }
     return byRound;
 };
@@ -64,5 +68,5 @@ const fetchIndexedByRound = async db => {
 module.exports = {
     fetch,
     fetchFuture,
-    fetchIndexedByRound
+    fetchIndexedByRoundAndDate
 };
