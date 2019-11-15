@@ -1,3 +1,16 @@
 .bet_background{
     background-image: linear-gradient(to right, rgba(28, 96, 173, 0.4), #503580)
 } 
+
+/*Mobile Logo*/
+/*
+    Rough example of how to swap the logos
+*/
+@media only screen and (max-width: 800px) {
+    .logo_image_mobile{
+        display:block;
+    }
+    .logo_image_desktop{
+        display:none;
+    }
+}
