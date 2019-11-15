@@ -1,5 +1,4 @@
 const bcrypt = require('bcrypt');
-const crypto = require('crypto');
 const errors = require('../errors/super6exceptions');
 
 /**
@@ -129,45 +128,21 @@ const list = async (db) => {
 };
 
 /**
- * TODO: Document
+ * Check the login against the database
  * @param {*} db The connection to the database
  * @param {string} email The email that uniquely identifies this user
  * @param {string} password Clear-text password
- * @return {boolean} ????
+ * @return {boolean} true if credentials are valid, exception otherwise
  */
 const checkLogin = async (db, email, password) => {
     // Check user creds against the database
     const user = await fetchByEmail(db, email);
-    if (!bcrypt.compareSync(password, user.password)) { //Can possibly use compare async with an await?
+    if(bcrypt.compareSync(password, user.password)) {//Can possibly use compare async with an await?
+        return true
+    } else {
         throw new errors.InvalidCredentialsError()
     }
 }
-
-/**
- * TODO: Document
- * Verify token is valid and not expired
- * @return {boolean} ????
- */
-const verifyToken = async () => {
-}
-
-/**
- * TODO: Document
- * Disable/delete the users token so it no longer works
- * @return {boolean} ????
- */
-const logout = async () => {
-    // User will require username and password again to gain access.
-}
-
-/**
- * TODO: Document
- * @return {boolean} ????
- */
-const getNewToken = async () => { // Does this really need to be async?
-    return crypto.randomBytes(64).toString('hex');
-}
-
 module.exports = {
     fetch,
     fetchUser,
