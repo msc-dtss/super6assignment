@@ -52,15 +52,21 @@ const fetchById = async (db, userId) => {
  * Fetch a user by email
  * @param {*} db The connection to the database
  * @param {*} email The email of a user
+ * @param {*} activeUsersOnly Filter the results by listing only active users
  * @return {*} An object with the user information
  * @throws {erros.UserNotFoundError} When no user is found
  */
-const fetchByEmail = async (db, email) => {
-    const users = await fetch(db, { email });
+const fetchByEmail = async (db, email, activeUsersOnly) => {
+    let users = []
+    if(activeUsersOnly){
+        users = await fetch(db, { email, isActive: true });
+    } else {
+        users = await fetch(db, { email });
+    }
     if (users.length === 0) {
         throw new errors.UserNotFoundError();
     }
-    return users[0];
+    return users[0] || null;
 };
 
 /**
@@ -94,7 +100,8 @@ const create = async (db, email, plainTextPassword, firstName, surname, isAdmin)
             password: getHashedPassword(plainTextPassword),
             firstName: firstName,
             surname: surname,
-            isAdmin: isAdmin || false
+            isAdmin: isAdmin || false,
+            isActive: true
         });
         return true
     } else {
@@ -137,8 +144,8 @@ const list = async (db) => {
  */
 const checkLogin = async (db, email, password) => {
     // Check user creds against the database
-    const user = await fetchByEmail(db, email);
-    if (!bcrypt.compareSync(password, user.password)) { //Can possibly use compare async with an await?
+    const user = await fetchByEmail(db, email, true);
+    if (!bcrypt.compareSync(password, user.password)) {
         throw new errors.InvalidCredentialsError()
     }
 }

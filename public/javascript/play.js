@@ -1,4 +1,5 @@
 /**
+ * Creates and sends the request with the bet details
  * @param {*} content The array containing all of the user's bets.
  */
 var makeRequest = function (content) {
@@ -19,23 +20,24 @@ var makeRequest = function (content) {
 };
 
 /**
- * @param {*} roundId The round Id which the user is betting on.
+ * Grabs the betting values from the form and sends them to the server
+ * @param {*} roundIndex The round index which the user is betting on.
  * @param {*} nrGames The number of Games which the user is betting on (should always be 6).
  */
-var placeBet = function (roundId, nrGames) {
-    var bet = getBetValues(roundId, nrGames);
-    console.log(bet);
-    console.table(bet.games);
+var placeBet = function (roundIndex, nrGames) {
+    var bet = getBetValues(roundIndex, nrGames);
     makeRequest(bet);
 };
 
 /**
- * @param {*} roundId The round Id which the user is betting on.
+ * Gets the values from the input fields and builds them up into a json structure to be sent to the server.
+ * @param {*} roundIndex The round index which the user is betting on.
  * @param {*} nrGames The number of Games which the user is betting on (should always be 6).
+ * @returns {*} A JSON structure with the roundIndex, the game tries and victor and the golden try.
  */
-var getBetValues = function (roundId, nrGames) {
+var getBetValues = function (roundIndex, nrGames) {
     var bet = {
-        roundId: roundId,
+        roundIndex: roundIndex,
         games: [],
         goldenTrySelection: null
     };
