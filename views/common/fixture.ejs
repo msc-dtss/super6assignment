@@ -1,5 +1,5 @@
 <div class="fixture-teams">
-    <%- include('game.ejs', {team: teamA}) %>
+    <%- include('game.ejs', {team: teamA, isBet, teamSide: 'A', blockNumber}) %>
     vs
-    <%- include('game.ejs', {team: teamB}) %>
+    <%- include('game.ejs', {team: teamB, isBet, teamSide: 'B', blockNumber}) %>
 </div>

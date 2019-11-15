@@ -1,4 +1,7 @@
 <div class="team">
     <div class="flag"><img src="/images/flags/<%= team.flag %>"></div>
     <div class="team-name"><%= team.name %></div>
+    <% if(isBet){ %>
+        <input class="game-fixture-try-input" placeholder="<%= team.name %> Tries" team_<%= teamSide %>_tries name="block<%= blockNumber %>Team<%= teamSide %>Tries" type="number" min="0">
+    <% } %>
 </div>

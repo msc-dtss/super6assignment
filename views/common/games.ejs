@@ -5,7 +5,7 @@
             <%= game.gameDate %>
         </div>
         
-        <%- include('common/fixture.ejs', {teamA: game.teamA, teamB: game.teamB}) %>
+        <%- include('common/fixture.ejs', {teamA: game.teamA, teamB: game.teamB, isBet: false, blockNumber: null}) %>
     </div>
     <% }); %>
 </div>
