@@ -13,7 +13,6 @@ let resultsCache = [];
 const refreshResults = async (db) => {
     const unscoredBets = await betsService.fetchUnscoredBets(db);
     resultsCache = await getResults(true);
-    console.table(unscoredBets)
     await betsService.score(db, unscoredBets, resultsCache);
 }
 

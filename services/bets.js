@@ -86,7 +86,6 @@ const update = async (db, betId, updateObject, replace) => {
     const replaceAllContent = replace || false;
     const updates = replaceAllContent ? updateObject : { $set: updateObject }
     db.collection('bets').updateOne({ _id: betId }, updates);
-    console.log(`Updating`, await fetch(db, {}))
 }
 
 /**
