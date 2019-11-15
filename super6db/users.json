@@ -1,11 +1,10 @@
-[
-    {
-        "_id": "5dce9fcb973d0747e843d1fe",
-        "email": "admin@rugbysuper6.com",
-        "password": "$2b$10$xHiT.koRCS0Zeb8elKyNbe4Lfp.4wWsFfl8iLOTFasOVlQ25SzcEa",
-        "firstName": "Test",
-        "surname": "Administrator",
-        "isAdmin": true,
-        "isActive": true
-    }
-]
+[{
+	"_id": "5dce9fcb973d0747e843d1fe",
+	"email": "admin@rugbysuper6.com",
+	"password": "$2b$10$xHiT.koRCS0Zeb8elKyNbe4Lfp.4wWsFfl8iLOTFasOVlQ25SzcEa",
+	"firstName": "Test",
+	"surname": "Administrator",
+	"isAdmin": true,
+	"isActive": true
+}]
+
