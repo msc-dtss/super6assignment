@@ -15,11 +15,11 @@
 	"_id": "5dbb5ba824a8c8398c3a0f8c",
 	"teamA": {
 		"name": "Fiji",
-		"flag": "fiji.png"
+		"flag": "fiji.svg"
 	},
 	"teamB": {
 		"name": "Uruguay",
-		"flag": "uruguay.png"
+		"flag": "uruguay.svg"
 	},
 	"gameDate": "2019/09/25",
 	"roundIndex": 1
