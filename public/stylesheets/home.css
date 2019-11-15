@@ -18,11 +18,22 @@ body {
   padding-top: 20px;
 }
 
-.logo_image {
+/*
+  Todo remove .logo_image rule
+  Also remove any .logo_image from media query rules.
+*/
+.logo_image,
+.logo_image_desktop {
   float: right;
   position: absolute;
   right: 10%;
+  display:block;
 }
+
+.logo_image_mobile {
+  display:none;
+}
+
 .navbar a {
   float: left;
   color: white;
