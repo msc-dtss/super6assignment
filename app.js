@@ -62,7 +62,7 @@ MongoClient.connect('mongodb://localhost:27017',
     async (err, client) => {
         const db = client.db('super6db');
         app.set('super6db', db);
-        if(app.get('isDevelopment')){
+        if (app.get('isDevelopment')) {
             await reSeedDatabase('./super6db', db);
         }
         app.emit('db-ready')
@@ -83,16 +83,25 @@ const reSeedDatabase = async (jsonDir, db) => {
     files.forEach(async (file) => {
         if (file.endsWith(".json")) {
             const collection = file.split('.').slice(0, -1).join('.');
-            const data = require(`${jsonDir}/${collection}`);
-            try{
-                await db.dropCollection(collection);
-            } catch(ignored) {
-                //don't really care
-            }
-            try{
-                await db.collection(collection).insertMany(data);
-            } catch(e) {
-                console.error(`Unable to insert into ${collection}`, e)
+            const doNotTouch = (process.env.SUPERSIX_NO_OVERWRITE || "")
+                .split(',')
+                .map((item) => {
+                    return item.trim();
+                })
+            if (!doNotTouch.includes(collection)) {
+                const data = require(`${jsonDir}/${collection}`);
+                try {
+                    await db.dropCollection(collection);
+                } catch (ignored) {
+                    //don't really care
+                }
+                try {
+                    await db.collection(collection).insertMany(data);
+                } catch (e) {
+                    console.error(`Unable to insert into ${collection}`, e);
+                }
+            } else {
+                console.info(`Ignoring ${collection}`);
             }
         }
     });

@@ -8,7 +8,10 @@
             "type": "node",
             "request": "launch",
             "name": "Start Server",
-            "program": "${workspaceFolder}/bin/www"
+            "program": "${workspaceFolder}/bin/www",
+            "env": {
+                "SUPERSIX_NO_OVERWRITE": "bets,users"
+            }
         }
     ]
 }
