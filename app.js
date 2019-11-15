@@ -63,22 +63,35 @@ MongoClient.connect('mongodb://localhost:27017',
         const db = client.db('super6db');
         app.set('super6db', db);
         if (app.get('isDevelopment')) {
-            await reSeedDatabase('./super6db', db);
+            await reSeedDatabase(db, './super6db');
         }
         app.emit('db-ready')
     }
 );
 
+/**
+ * Checks if a collection exists in the database or not
+ * @param {*} db The database connection
+ * @param {*} collection The database collection name we're looking for
+ */
+const hasCollection = async (db, collection) => {
+    try{
+        const collections = await db.collections()
+        return collections.map(c=>c.collectionName).includes(collection);
+    }
+    catch(e) {
+        return false;
+    }
+}
 
-const reSeedDatabase = async (jsonDir, db) => {
-    // Add required data to db when it does not exist
-    // usersModule.createUser(
-    //     app.get("super6db"),
-    //     "admin@super6.com",
-    //     "password",
-    //     true,
-    //     () => { }
-    // );
+/**
+ * Seeds the database with the contents of ./super6db .json files.
+ * This will overwrite any DB changes you have, however it respects any comma separated collection names in `SUPERSIX_NO_OVERWRITE` environment variable.
+ * Be default, `.vscode/launch.json` injects the following to the environment variables: `SUPERSIX_NO_OVERWRITE=users,bets`
+ * @param {*} db 
+ * @param {*} jsonDir 
+ */
+const reSeedDatabase = async (db, jsonDir) => {
     const files = fs.readdirSync(jsonDir);
     files.forEach(async (file) => {
         if (file.endsWith(".json")) {
@@ -88,12 +101,11 @@ const reSeedDatabase = async (jsonDir, db) => {
                 .map((item) => {
                     return item.trim();
                 })
-            if (!doNotTouch.includes(collection)) {
+            const collectionExists = await hasCollection(db, collection);
+            if (!doNotTouch.includes(collection) || !collectionExists) {
                 const data = require(`${jsonDir}/${collection}`);
-                try {
+                if(collectionExists){
                     await db.dropCollection(collection);
-                } catch (ignored) {
-                    //don't really care
                 }
                 try {
                     await db.collection(collection).insertMany(data);
