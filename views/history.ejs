@@ -26,7 +26,7 @@
                 <div><h2 class="vertical-align-middle"><%= "Round " + (parseInt(rounds[round].index)+1) %></h2></div>
                 <div>Your points!:<span id="totalPointsRound<%=round%>"></span> </div>
                 <div>Golden Try:<span class="iconify large-icon" style="color: gold" data-icon="mdi-rugby" title="Golden Try"></span>
-                    <%=goldenTries[rounds[round]._id]%>
+                    <%=goldenTries[rounds[round].index]%>/<% const goldenTryResult = goldenTryResults[rounds[round]._id]; if(goldenTryResult){%><%=goldenTryResult.goldenTry%><%}%>
                 </div>
             </div>
 

@@ -26,9 +26,10 @@ router.get('/history', wrap(async (req, res, next) => {
     const db = req.app.get('super6db');
     const gamesByRound = await gameService.fetchIndexedByRoundAndDate(db, {}); // Maybe this should be fetchPast?
     const rounds = await roundsService.fetchRoundsByIndex(db, {});
-    const bets = await betsService.betsForUserByGame(db, new ObjectId(req.session.user._id));
-    const goldenTries = await betsService.goldenTriesForUserByRound(db, new ObjectId(req.session.user._id));
+    const bets = await betsService.betsForUserByGame(db, req.session.user._id);
+    const goldenTries = await betsService.goldenTriesForUserByRound(db, req.session.user._id);
     const results = await resultsService.getGameResults();
+    const goldenTryResults = await resultsService.getGoldenTryResults();
     res.render('history', {
         title: 'Super6 Rugby - Your History',
         loggedIn: !!req.session.user,
@@ -37,7 +38,8 @@ router.get('/history', wrap(async (req, res, next) => {
         games: gamesByRound,
         bets: bets,
         goldenTries: goldenTries,
-        results: results
+        results: results,
+        goldenTryResults: goldenTryResults
     });
 }));
 
