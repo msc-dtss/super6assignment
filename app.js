@@ -21,7 +21,7 @@ app.use(express.static(path.join(__dirname, "public"))); // use express-sessio
 app.use(
     session({
         key: "sid",
-        secret: "verySecretStuff", //userService.getNewToken, //from users Service?
+        secret: "verySecretStuff",
         resave: false,
         saveUninitialized: false
     })

@@ -34,11 +34,12 @@ router.post("/login", wrap(async (req, res, next) => {
     let password = req.body.password;
     const db = req.app.get("super6db");
     try {
-        await userService.checkLogin(db, email, password);{
-        req.session.user = await userService.fetchUser(db, email)
-        req.session.login = true;
-        console.log(req.session.user.email)
-        res.redirect("/bets/play");
+        const result = await userService.checkLogin(db, email, password);
+        if (result) {
+            req.session.user = await userService.fetchUser(db, email)
+            req.session.login = true;
+            console.log(req.session.user.email)
+            res.redirect("/bets/play");
         }
     } catch (e) {
         if (e instanceof errors.InvalidCredentialsError) {
