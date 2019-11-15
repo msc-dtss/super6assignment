@@ -18,7 +18,7 @@ const refreshResults = async (db) => {
 
 /**
  * The purpose of this is to simulate getting the results from an API.
- * We looked at using live API results but the rugby championship as passed :(
+ * We looked at using live API results but the rugby championship has passed :(
  * @returns {Array} An array with all the results
  */
 const getResultsFromApi = async () => {
