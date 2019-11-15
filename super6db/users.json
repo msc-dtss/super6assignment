@@ -1,1 +1,10 @@
-{"_id":{"$oid":"5dbb59a524a8c8398c3a0f8a"},"emailAddress":"test@testuser.com","password":"Hashedpa$$word","sysAdmin":"0","Active":"1"}
+[{
+	"_id": "5dce9fcb973d0747e843d1fe",
+	"email": "admin@rugbysuper6.com",
+	"password": "$2b$10$xHiT.koRCS0Zeb8elKyNbe4Lfp.4wWsFfl8iLOTFasOVlQ25SzcEa",
+	"firstName": "Test",
+	"surname": "Administrator",
+	"isAdmin": true,
+	"isActive": true
+}]
+

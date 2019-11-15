@@ -1,4 +1,5 @@
 const createError = require('http-errors');
+const fs = require('fs');
 const express = require('express');
 const path = require('path');
 const session = require('express-session');
@@ -30,7 +31,7 @@ app.use(
 app.use((req, res, next) => {
     res.locals.user = req.session.user;
     next();
-  }); 
+});
 
 // Load all the routes inside ./routes/
 routesAutoLoader.load(app);
@@ -58,23 +59,52 @@ MongoClient.connect('mongodb://localhost:27017',
         useNewUrlParser: true,
         useUnifiedTopology: true
     },
-    (err, client) => {
-        app.set('super6db', client.db('super6db'));
-        // startUpDataChecks(); // TODO: Should this really be comented out?
+    async (err, client) => {
+        const db = client.db('super6db');
+        app.set('super6db', db);
+        if (app.get('isDevelopment')) {
+            await reSeedDatabase('./super6db', db);
+        }
         app.emit('db-ready')
     }
 );
 
 
-const startUpDataChecks = () => {
+const reSeedDatabase = async (jsonDir, db) => {
     // Add required data to db when it does not exist
-    usersModule.createUser(
-        app.get("super6db"),
-        "admin@super6.com",
-        "password",
-        true,
-        () => { }
-    );
+    // usersModule.createUser(
+    //     app.get("super6db"),
+    //     "admin@super6.com",
+    //     "password",
+    //     true,
+    //     () => { }
+    // );
+    const files = fs.readdirSync(jsonDir);
+    files.forEach(async (file) => {
+        if (file.endsWith(".json")) {
+            const collection = file.split('.').slice(0, -1).join('.');
+            const doNotTouch = (process.env.SUPERSIX_NO_OVERWRITE || "")
+                .split(',')
+                .map((item) => {
+                    return item.trim();
+                })
+            if (!doNotTouch.includes(collection)) {
+                const data = require(`${jsonDir}/${collection}`);
+                try {
+                    await db.dropCollection(collection);
+                } catch (ignored) {
+                    //don't really care
+                }
+                try {
+                    await db.collection(collection).insertMany(data);
+                } catch (e) {
+                    console.error(`Unable to insert into ${collection}`, e);
+                }
+            } else {
+                console.info(`Ignoring ${collection}`);
+            }
+        }
+    });
 };
 
 module.exports = app;

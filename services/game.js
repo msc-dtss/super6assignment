@@ -52,12 +52,11 @@ const fetchIndexedByRound = async db => {
     const byRound = {};
     const games = await fetch(db, {});
     for (let i = 0; i < games.length; i++) {
-        let round = games[i].round;
-        let roundId = round.round_id;
-        if (!(roundId in byRound)) {
-            byRound[roundId] = [];
+        let roundIndex = games[i].roundIndex;
+        if (!(roundIndex in byRound)) {
+            byRound[roundIndex] = [];
         }
-        byRound[roundId].push(games[i]);
+        byRound[roundIndex].push(games[i]);
     }
     return byRound;
 };

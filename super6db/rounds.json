@@ -1,7 +1,57 @@
-{"_id":{"$oid":"5dc9d60cc46c6d373ce167fd"},"index":0,"dateRange":{"start":"2019/09/20","end":"2019/09/22"}}
-{"_id":{"$oid":"5dc9d71ba48afe373caee7e3"},"index":1,"dateRange":{"start":"2019/09/23","end":"2019/09/25"}}
-{"_id":{"$oid":"5dc9d747a48afe373caee7e4"},"index":2,"dateRange":{"start":"2019/09/28","end":"2019/09/30"}}
-{"_id":{"$oid":"5dc9d782a48afe373caee7e5"},"index":3,"dateRange":{"start":"2019/10/02","end":"2019/10/05"}}
-{"_id":{"$oid":"5dc9d79ca48afe373caee7e6"},"index":4,"dateRange":{"start":"2019/10/06","end":"2019/10/09"}}
-{"_id":{"$oid":"5dc9d7b1a48afe373caee7e7"},"index":5,"dateRange":{"start":"2019/10/11","end":"2019/10/12"}}
-{"_id":{"$oid":"5dc9d7fca48afe373caee7e8"},"index":6,"dateRange":{"start":"2019/10/13","end":"2019/10/14"}}
+[{
+	"_id": "5dc9d60cc46c6d373ce167fd",
+	"index": 0,
+	"dateRange": {
+		"start": "2019/09/20",
+		"end": "2019/09/22"
+	}
+},
+{
+	"_id": "5dc9d71ba48afe373caee7e3",
+	"index": 1,
+	"dateRange": {
+		"start": "2019/09/23",
+		"end": "2019/09/25"
+	}
+},
+{
+	"_id": "5dc9d747a48afe373caee7e4",
+	"index": 2,
+	"dateRange": {
+		"start": "2019/09/28",
+		"end": "2019/09/30"
+	}
+},
+{
+	"_id": "5dc9d782a48afe373caee7e5",
+	"index": 3,
+	"dateRange": {
+		"start": "2019/10/02",
+		"end": "2019/10/05"
+	}
+},
+{
+	"_id": "5dc9d79ca48afe373caee7e6",
+	"index": 4,
+	"dateRange": {
+		"start": "2019/10/06",
+		"end": "2019/10/09"
+	}
+},
+{
+	"_id": "5dc9d7b1a48afe373caee7e7",
+	"index": 5,
+	"dateRange": {
+		"start": "2019/10/11",
+		"end": "2019/10/12"
+	}
+},
+{
+	"_id": "5dc9d7fca48afe373caee7e8",
+	"index": 6,
+	"dateRange": {
+		"start": "2019/10/13",
+		"end": "2019/10/14"
+	}
+}]
+

@@ -12,7 +12,7 @@ const resolveClientBet = (clientBet) => {
     if (clientBet.games.length > 6) {
         throw new errors.ValidationError("Each round only has 6 games");
     }
-    if (clientBet.roundId !== 0 && !clientBet.roundId || isNaN(clientBet.roundId)) { //0 is falsy, hence why we need to explicitely check for it
+    if (clientBet.roundIndex !== 0 && !clientBet.roundIndex || isNaN(clientBet.roundIndex)) { //0 is falsy, hence why we need to explicitely check for it
         throw new errors.ValidationError("Bad round provided");
     }
     if (!clientBet.goldenTry) {
@@ -20,7 +20,7 @@ const resolveClientBet = (clientBet) => {
     }
 
     const verifiedBet = {
-        roundId: clientBet.roundId,
+        roundIndex: clientBet.roundIndex,
         gameBets: [],
         goldenTry: clientBet.games[6].goldenTrySelection // Why does this come in games[6]?
     };
@@ -114,12 +114,12 @@ const fetchUnscoredBets = async (db) => {
  * Gets the bet made by a user for a round
  * @param {*} db The connection to the database
  * @param {Number} userId The ID of the user
- * @param {Number} roundId The ID of the round
+ * @param {Number} roundIndex The index of the round
  * @return {Array} An array of bets
  */
-const madeByUser = async (db, roundId, userId) => {
+const madeByUser = async (db, roundIndex, userId) => {
     return await fetch(db, {
-        roundId,
+        roundIndex,
         userId
     });
 };
@@ -149,7 +149,7 @@ const goldenTriesForUserByRound = async(db, userId) => {
     const goldenTries = {};
     const dbBets = await fetch(db, { userId: new ObjectId(userId) });
     dbBets.forEach(dbBet => {
-        goldenTries[dbBet.roundId] = dbBet.goldenTry;
+        goldenTries[dbBet.roundIndex] = dbBet.goldenTry;
     });
     return goldenTries;
 }
@@ -157,23 +157,23 @@ const goldenTriesForUserByRound = async(db, userId) => {
 /**
  * Gets a collection of bets made by users for a given round
  * @param {*} db The connection to the database
- * @param {Number} roundId The ID of the round
+ * @param {Number} roundIndex The index of the round
  * @return {Array} An array of bets
  */
-const forRound = async (db, roundId) => {
-    return await fetch(db, { roundId });
+const forRound = async (db, roundIndex) => {
+    return await fetch(db, { roundIndex });
 };
 
 /**
  * Gets the winning bets by building the result into the criteria of the query
  * @param {*} db The connection to the database
- * @param {Number} roundId The ID of the round
+ * @param {Number} roundIndex The index of the round
  * @param {*} results The actual game results. These should be in the same format as `bet.gameBets`
  * @return {Array} An array of bets
  */
-const findRoundWinners = async (db, roundId, results) => {
+const findRoundWinners = async (db, roundIndex, results) => {
     return await fetch(db, {
-        roundId,
+        roundIndex,
         gameBets: results.games
     });
 };
