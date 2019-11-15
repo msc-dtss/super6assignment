@@ -29,6 +29,7 @@ app.on('db-ready', () => {
   server.listen(port);
   server.on('error', onError);
   server.on('listening', onListening);
+  console.log(`Started on http://localhost${port}`);
 });
 
 /**
