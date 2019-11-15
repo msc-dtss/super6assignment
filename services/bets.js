@@ -85,7 +85,8 @@ const deleteBet = async (db, betId, userId) => {
 const update = async (db, betId, updateObject, replace) => {
     const replaceAllContent = replace || false;
     const updates = replaceAllContent ? updateObject : { $set: updateObject }
-    db.collection('bets').update({ _id: betId }, updates);
+    db.collection('bets').updateOne({ _id: betId }, updates);
+    console.log(`Updating`, await fetch(db, {}))
 }
 
 /**
@@ -129,7 +130,7 @@ const madeByUser = async (db, roundIndex, userId) => {
  * @param {*} db The connection to the database
  * @param {*} userId The ID of the user
  */
-const betsForUserByGame = async(db, userId) => {
+const betsForUserByGame = async (db, userId) => {
     const bets = {}
     const dbBets = await fetch(db, { userId: new ObjectId(userId) });
     dbBets.forEach(dbBet => {
@@ -145,7 +146,7 @@ const betsForUserByGame = async(db, userId) => {
  * @param {*} db 
  * @param {*} userId 
  */
-const goldenTriesForUserByRound = async(db, userId) => {
+const goldenTriesForUserByRound = async (db, userId) => {
     const goldenTries = {};
     const dbBets = await fetch(db, { userId: new ObjectId(userId) });
     dbBets.forEach(dbBet => {
@@ -180,24 +181,30 @@ const findRoundWinners = async (db, roundIndex, results) => {
 
 /**
  * Updates all provided bets with their total points based on the results (if a matching one is found).
- * This method should run when we get a new result.
+ * This method should run when we get a new result and on application startup.
  * @param {*} db The connection to the database
  * @param {*} unscoredBets A list of bets that have not yet been scored
  * @param {*} results All results
  */
 const score = async (db, unscoredBets, results) => {
-    // TODO - I think this needs updating to support gameBets being a child of a bet (ie match bets are nested within 1 bet object)
     unscoredBets.forEach(async (bet) => {
         const matchingResult = results.find((result) => {
-            return result.gameId === bet.gameId
+            return result.roundIndex === bet.roundIndex
         });
+        let totalPoints = 0;
         if (matchingResult) {
-            const resultPoints = matchingResult.winTeam === bet.winTeam ? pointsConfig.result : 0;
-            const triesPoints = matchingResult.teamATries === bet.teamATries && matchingResult.teamBTries === bet.teamBTries ? pointsConfig.tries : 0;
-            await update(db, bet._id, {
-                points: resultPoints + triesPoints
+            matchingResult.games.forEach(async (game) => {
+                const betGame = bet.gameBets.find(g => g.id === game.gameId);
+                if(!!betGame){
+                    const resultPoints = game.winTeam === betGame.winTeam ? pointsConfig.result : 0;
+                    const triesPoints = game.teamATries === betGame.teamATries && game.teamBTries === betGame.teamBTries ? pointsConfig.tries : 0;
+                    totalPoints += resultPoints + triesPoints;
+                }
             });
         }
+        await update(db, bet._id, {
+            points: totalPoints
+        });
     });
 }
 
