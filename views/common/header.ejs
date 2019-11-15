@@ -1,36 +1,41 @@
 <div>
 
-<div class="navbar">
-    <a href="/" id="home">HOME</a>
-    <% if(loggedIn){ %>
-    <a href="/bets/play" id="play">PLAY SUPER 6</a>
-    <%}%>
+    <!-- TOOD: Remove this comment, and uncomment the line below -->
+    <!-- <div class="logo_image_mobile"><img src="/images/logo.svg" width="160px"></div> -->
+
+    <div class="navbar">
+        <a href="/" id="home">HOME</a>
+        <% if(loggedIn){ %>
+        <a href="/bets/play" id="play">PLAY SUPER 6</a>
+        <%}%>
     <a href="" id="about">ABOUT</a>
     <a href="" id="retults">RESULTS</a>
     <a href="" id="leader">LEADERBOARD</a>
     <% if(loggedIn){ %>
-    <label class="navright"><a href="/profile"><%= 'USER:' + ' ' + user.firstName + ' ' + user.surname%></a></label>
-    <a href="/users/logout">LOGOUT</a>
-    <%}%>
+        <label class="navright"><a href="/profile"><%= 'USER:' + ' ' + user.firstName + ' ' + user.surname%></a></label>
+        <a href="/users/logout">LOGOUT</a>
+        <%}%>
 </div>
 
+<!-- <div class="logo_image_desktop"><img src="/images/logo.svg" width="160px"></div> -->
+<!-- Use something like the comment above and remove the line below -->
 <div class="logo_image"><img src="/images/logo.svg" width="160px"></div>
 
 <div class="head-image">
     <div class="head-grad">
     
         <% if(!loggedIn){ %>
-    <button class="open-button" onclick="showUserForm('login')">LOGIN</button>
-    <br />
-    <br />
-    <button class="open-button button-margin-bottom" onclick="showUserForm('register')">REGISTER</button>
-    <%}%>
+        <button class="open-button" onclick="showUserForm('login')">LOGIN</button>
+        <br />
+        <br />
+        <button class="open-button button-margin-bottom" onclick="showUserForm('register')">REGISTER</button>
+        <%}%>
 
     </div>
     <% include loginForm.ejs %>
-    <% include userForm.ejs %>
+        <% include userForm.ejs %>
 
-</div>
+    </div>
 
 
 </div>
