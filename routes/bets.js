@@ -24,7 +24,7 @@ router.get('/play', wrap(async (req, res, next) => {
 
 router.get('/history', wrap(async (req, res, next) => {
     const db = req.app.get('super6db');
-    const gamesByRound = await gameService.fetchIndexedByRound(db, {}); // Maybe this should be fetchPast?
+    const gamesByRound = await gameService.fetchIndexedByRoundAndDate(db, {}); // Maybe this should be fetchPast?
     const rounds = await roundsService.fetchRoundsByIndex(db, {});
     const bets = await betsService.betsForUserByGame(db, new ObjectId(req.session.user._id));
     const goldenTries = await betsService.goldenTriesForUserByRound(db, new ObjectId(req.session.user._id));
