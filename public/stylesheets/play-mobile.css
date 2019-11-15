@@ -14,3 +14,9 @@
         display:none;
     }
 }
+
+@media only screen and (max-width: 800px) {
+    .logo_image_desktop{
+        display:none;
+    }
+}
