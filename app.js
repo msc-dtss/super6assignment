@@ -32,6 +32,15 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use(function (req, res, next) {
+    res.locals = {
+        isDev: req.app.get('env') === 'development',
+        loggedIn: !!req.session.user,
+        user: req.session.user || null,
+    };
+    next();
+});
+
 // Load all the routes inside ./routes/
 routesAutoLoader.load(app);
 
@@ -44,11 +53,13 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
     // set locals, only providing error in development
     res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
+    res.locals.error = err;
 
     // render the error page
     res.status(err.status || 500);
-    res.render('error');
+    res.render('error', {
+        title: `${err.status} ${err.message}`
+    });
 });
 
 dbOps.initialize(app, "localhost", 27017);
