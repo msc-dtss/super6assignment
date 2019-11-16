@@ -9,13 +9,6 @@
 }
 
 @media only screen and (min-width: 740px) {
-    .head-image {
-        height: 6em;
-        background-image: url('https://rugbymadrid.com/wp-content/uploads/RugbyBalon.jpg');
-    }
-    .head-grad {
-        background-image: linear-gradient(to right, rgba(28, 96, 173, 0.4), #503580);
-    }
     /*-------------------------Betting Area CSS--------------------------- */
     .bet_area {
         background-image: linear-gradient(to right, rgba(28, 96, 173, 0.4), #503580);
@@ -23,8 +16,6 @@
         flex-direction: column;
         align-content: space-around;
         min-width: 720px;
-        width: 95%;
-        margin: 5px auto;
     }
 
     .fixture {
@@ -32,7 +23,7 @@
     }
 
     .game_row {
-        border: 0.5px solid lightgray;
+        border-bottom: 1px solid lightgray;
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;

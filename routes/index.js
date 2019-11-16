@@ -16,8 +16,7 @@ router.get(
     res.render("index", {
       title: "Super6 Rugby",
       games: games,
-      loggedIn: !!req.session.user,
-      user: req.session.user || null
+      mainPage: true
     });
   })
 );

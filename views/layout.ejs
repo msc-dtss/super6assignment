@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include common/head-items.ejs %>
+        <title><%= typeof title === 'undefined' ? '?' : title %></title>
+    </head>
+    <body>
+        <div class="content">
+            <%- include common/header.ejs %>
+            <%- body %>
+            <%- include common/footer.ejs %>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,39 @@
+@media only screen and (max-width: 645px) {
+    .game-fixture {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .mobile-only {
+        display: block;
+    }
+    .desktop-only {
+        display: none;
+    }
+    .navbar-container,
+    .navbar {
+        flex-direction: column;
+    }
+    .head-image.main {
+        height: auto;
+        font-size: 3vh;
+        text-align: center;
+    }
+    .head-grad {
+        align-items: center;
+    }
+    .home-fixtures, .home-rules, .content-middle {
+        margin: 0px;
+        width: 100%;
+        background-color: white;
+        flex-direction: column;
+        text-align: center;
+        float: center;
+        font-size: 3vh;
+    }
+    .col-title-grad {
+        height: 70px;
+        justify-content: center;
+    }
+}

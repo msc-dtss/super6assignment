@@ -2,6 +2,7 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const session = require('express-session');
+const expressLayouts = require('express-ejs-layouts');
 const logger = require('morgan');
 const routesAutoLoader = require('./routes/autoloader');
 const dbOps = require('./super6db/db-operations');
@@ -12,6 +13,7 @@ app.set('isDevelopment', app.get('env') === 'development');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.use(expressLayouts);
 
 app.use(logger('dev'));
 app.use(express.json());

@@ -1,54 +1,36 @@
-<!DOCTYPE html>
-<html>
+<%- contentFor('body') %>
+<div class="content-middle">
 
-<head>
-    <%- include common/head-items.ejs %>
-    <title><%= title %></title>
-    <link href="/stylesheets/play-mobile.css" rel="stylesheet" type="text/css" />
-</head>
-
-<body>
-    <%- include common/header.ejs %>
-    <div class="content-middle">
-        <div class="col1">
-            <div class="col-title">
-                <div class="col-title-grad">
-                    <span class="col-title-span">Upcoming Fixtures</span>
-                </div>
-            </div>
-            <%- include common/games.ejs %>
+    <div class="home-fixtures">
+        <div class="col-title-grad fixtures-title">
+            <span class="col-title-span">Upcoming Fixtures</span>
         </div>
-
-            <div class="col2">
-                <div class="col-title-grad">
-                    <span class="col-title-span">How To Play</span>
-                </div>
-                <div class="col-text">
-                    <p>
-                        It's FREE to play Rugby  Super 6
-                        First you must register to play Soccer Saturday Super 6. All you need to do is click and complete your details to register.
-                        Simply predict the correct scores for our six selected matches for your chance to win £250,000 (unless otherwise specified)!<br><br>
-
-                        To make your predictions you will need to login at the top of this page.<br><br>
-
-                        Super 6 games will be chosen from any domestic leagues. You must submit your predictions before the kick off of the first game of the round.<br><br>
-
-                        Scoring system<br>
-                        You now get 2 points for correctly predicting the result of a Game.<br><br>
-
-                        The Golden Goal tiebreaker is used to determine the winner of the guaranteed weekly, monthly and season competitions, but only as a way of separating the people who have the same total points, same amount of correct scores and the same amount of correct results.<br><br>
-
-                        You get a maximum of 5 points for each match (2 points for a correct result or 5 points for a correct score). In the event of two or more players having the same number of points, the Golden Goal will come into play as part of the tie breaker process.<br>
-                        Don't forget, if you correctly predict all 6 matches in one week you could net yourself our jackpot of £250,000 (unless otherwise specified)!
-                    </p>
-
-            </div>
-        </div>
+        <%- include common/games.ejs %>
     </div>
 
-    <%- include common/footer.ejs %>
+    <div class="home-rules">
+        <div class="col-title-grad rules-title">
+            <span class="col-title-span">How To Play</span>
+        </div>
+        <div class="col-text">
+            <h2>It's FREE to play Rugby Super 6!</h2>
+            <p>First you must register to play Soccer Saturday Super 6. All you need to do is click and complete your details to register.</p>
+            <p>Simply predict the correct scores for our six selected matches for your chance to win £250,000 (unless otherwise specified)!</p>
+            <p>To make your predictions you will need to login at the top of this page.</p>
+            <p>Super 6 games will be chosen from any domestic leagues. You must submit your predictions before the kick off of the first game of the round.</p>
 
+            <h2>Scoring system</h2>
+            <p>You now get 2 points for correctly predicting the result of a Game.</p>
+            <p>
+                The Golden Goal tiebreaker is used to determine the winner of the guaranteed weekly, monthly and season competitions,
+                but only as a way of separating the people who have the same total points, same amount of correct scores and the same amount of correct results.
+            </p>
 
-</body>
+            <p>You get a maximum of 5 points for each match (2 points for a correct result or 5 points for a correct
+            score). In the event of two or more players having the same number of points, the Golden Goal will come
+            into play as part of the tie breaker process.</p>
+            <p>Don't forget, if you correctly predict all 6 matches in one week you could net yourself our jackpot of £250,000 (unless otherwise specified)!</p>
 
-</html>
+        </div>
+    </div>
+</div>

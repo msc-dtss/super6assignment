@@ -1,53 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <%- include common/head-items.ejs %>
-  <title><%= title %></title>
-  <link href="/stylesheets/profile.css" media="only screen and (min-width : 740px)" rel="stylesheet" type="text/css" />
-</head>
-
-<body>
-  <%- include common/header.ejs %>
-  <div class="page_content">
+<%- contentFor('body') %>
+<% const defaultUserInfo = {firstName:'Anonymous', surname:'User', email:'who@knows.com', isAdmin:false, isActive:false} %>
+<% const u = typeof user === 'undefined' ? defaultUserInfo : user %>
+<div class="page_content">
     <div class="user_info_box">
-      PROFILE INFO
-      <div class="avatar_image"><img src="https://education.fsu.edu/wp-content/uploads/2016/09/staff-avatar-man.png">
-      </div>
-      <div>
-        <h3>UserName</h3>
-        <div class="profile_information">
-          name: John Doe<br>
-          email: blbblblbl@aol.com<br>
-          Total bets: NUM<br>
-          Rank: NUM<br>
-          Points: NUM<br>
-          Times won: NUM<br>
+        PROFILE INFO
+        <div class="avatar_image"><img src="https://education.fsu.edu/wp-content/uploads/2016/09/staff-avatar-man.png">
         </div>
-      </div>
+        <div>
+            <div class="profile_information">
+                name: <%= `${u.firstName} ${u.surname}` %><br>
+                email: <%= u.email %><br>
+                Total bets: NUM<br>
+                Rank: NUM<br>
+                Points: NUM<br>
+                Times won: NUM<br>
+            </div>
+        </div>
     </div>
     <div class="user_history_box">
-      USERS BETS HISTORY
-      <div class="bet_table">
-        <div class="history_item">
-          <h5>Date: 1999/07/29</h5>
-          <h5>Points: NUM</h5>
+        USERS BETS HISTORY
+        <div class="bet_table">
+            <div class="history_item">
+                <h5>Date: 1999/07/29</h5>
+                <h5>Points: NUM</h5>
+            </div>
+            <div class="history_item">
+                <h5>Date: 1998/07/29</h5>
+                <h5>Points: NUM</h5>
+            </div>
         </div>
-        <div class="history_item">
-          <h5>Date: 1998/07/29</h5>
-          <h5>Points: NUM</h5>
+        <div class="show_more_bet_history">
+            <h6><a href="/bets/history">Show Full History</a></h6>
         </div>
-      </div>
-      <div class="show_more_bet_history">
-        <h6><a href="/bets/history">Show Full History</a></h6>
-      </div>
     </div>
-  </div>
-  <%- include common/footer.ejs %>
-</body>
-
-</html>
-
+</div>
 <!-- TODO!<br />
     <br />
     Include user information<br />
