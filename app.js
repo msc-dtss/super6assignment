@@ -18,7 +18,7 @@ app.use(expressLayouts);
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, "public"))); // use express-session to track user across session
+app.use(express.static(path.join(__dirname, "public")));
 app.use(
     session({
         key: "sid",
