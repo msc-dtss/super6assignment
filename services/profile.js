@@ -9,7 +9,7 @@ const betService = require('../services/bets');
  */
 const fetchProfileBundle = async (db, userId) => {
     const users = await userService.fetchById(db, userId);
-    const bets = await betService.fetchByUser(db, users[0]);
+    const bets = await betService.fetchByUser(db, userId);
     return {
         user: users[0],
         bets: bets
