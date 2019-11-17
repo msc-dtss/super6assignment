@@ -101,6 +101,19 @@ const fetch = async (db, criteria) => {
 };
 
 /**
+ * Fetch a bets by user id
+ * @param {*} db The connection to the database
+ * @param {*} userId The ID of the user
+ * @return {*} An object with the users bet information
+ */
+const fetchByUser = async (db, userId) => {
+    const bets = await fetch(db, {
+        userId: userId
+    });
+    return bets;
+};
+
+/**
  * Fetches any bet that does not have a `points` field.
  * @param {*} db The connection to the database
  */
@@ -214,6 +227,7 @@ module.exports = {
     madeByUser,
     forRound,
     findRoundWinners,
+    fetchByUser,
     update,
     score,
     delete: deleteBet,
