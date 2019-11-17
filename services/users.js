@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const ObjectId = require('mongodb').ObjectId;
 const errors = require('../errors/super6exceptions');
 
 /**
@@ -39,7 +40,7 @@ const fetchUser = async (db, email) => {
  */
 const fetchById = async (db, userId) => {
     const users = await fetch(db, {
-        _id: userId
+        _id: new ObjectId(userId)
     });
     if (users.length === 0) {
         throw new errors.UserNotFoundError();
