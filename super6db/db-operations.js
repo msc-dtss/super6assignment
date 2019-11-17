@@ -57,7 +57,7 @@ const reSeedDatabase = async (db) => {
         const file = files[f];
         if (file.endsWith(".json")) {
             const collection = file.split('.').slice(0, -1).join('.');
-            const doNotTouch = (process.env.SUPERSIX_NO_OVERWRITE || "")
+            const doNotTouch = (process.env.SUPERSIX_NO_OVERWRITE || "users,bets")
                 .split(',')
                 .map((item) => {
                     return item.trim();
