@@ -26,7 +26,7 @@ var makeRequest = function (content) {
  */
 var placeBet = function (roundIndex, nrGames) {
     var bet = getBetValues(roundIndex, nrGames);
-    console.table(bet) //TODO Why is this not logging
+    console.table(bet)
     makeRequest(bet);
 };
 
