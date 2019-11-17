@@ -1,28 +1,24 @@
 <%- contentFor('body') %>
-<!-- GAMES TABLE -->
 <div class="bet_area bet_background">
 
-    <div class="game_row">
-        <div class="column">
-            <h4>Fixtures</h4>
-        </div>
-        <div class="column">
-            <h4>Betting Area</h4>
-        </div>
+    <div class="help-button" help_toggle="[how_to_play]"></div>
+    <div class="help invisible" how_to_play>
+        <ol>
+            <li>Press on the country you want to choose as the winner of a match, or on "vs" to select a tie</li>
+            <li>Select how many tries for each country</li>
+            <li>Predict the golden try</li>
+        </ol>
     </div>
-
-    <!-- <% include common/games.ejs %> -->
     <% for (let i = 0; i < games.length; i++) { %>
-    <div game_block game_block_<%=i%> class="game_row">
+    <div game_block game_block_<%=i%> class="game_row" game_id="<%= games[i]._id %>">
         <div class="column">
             <%- include('common/fixture.ejs', {teamA: games[i].teamA, teamB: games[i].teamB, isBet: true, blockNumber: i}) %>
         </div>
-        <div class="user_input_col">
-            <p>Select Match Winner:<select game_winner name="Winner">
-                    <option value="<%= games[i].teamA.name %>"><%= games[i].teamA.name %></option>
-                    <option value="<%= games[i].teamB.name %>"><%= games[i].teamB.name %></option>
-                </select></p>
-        </div>
+        <select class="invisible" game_winner name="Winner">
+            <option value="<%= games[i].teamA.name %>"><%= games[i].teamA.name %></option>
+            <option value="<%= games[i].teamB.name %>"><%= games[i].teamB.name %></option>
+            <option value="draw">Draw</option>
+        </select>
     </div>
     <% } %>
 </div>

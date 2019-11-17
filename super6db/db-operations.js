@@ -67,12 +67,17 @@ const reSeedDatabase = async (db) => {
                 console.info(`Seeding ${collection}`);
                 const data = require(`../super6db/${collection}`);
                 if (collectionExists) {
-                    await db.dropCollection(collection);
+                    try{
+                        console.info(`  Dropped ${collection}:`, await db.dropCollection(collection));
+                    } catch(ignore){
+                        console.info(`  Problem while dropping ${collection}`, ignore)
+                    }
                 }
                 try {
-                    await db.collection(collection).insertMany(data);
+                    const inserted = await db.collection(collection).insertMany(data)
+                    console.log(`  Seeded ${collection}: `, inserted.result.ok === 1);
                 } catch (e) {
-                    console.error(`Unable to insert into ${collection}`, e);
+                    console.error(`  Unable to insert into ${collection}:`, e);
                 }
             } else {
                 console.info(`Ignoring ${collection}`);

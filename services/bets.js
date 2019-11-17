@@ -15,18 +15,18 @@ const resolveClientBet = (clientBet) => {
     if (clientBet.roundIndex !== 0 && !clientBet.roundIndex || isNaN(clientBet.roundIndex)) { //0 is falsy, hence why we need to explicitely check for it
         throw new errors.ValidationError("Bad round provided");
     }
-    if (!clientBet.goldenTry) {
+    if (!clientBet.goldenTrySelection) {
         throw new errors.ValidationError("Bad goldenTry provided");
     }
 
     const verifiedBet = {
         roundIndex: clientBet.roundIndex,
         gameBets: [],
-        goldenTry: clientBet.games[6].goldenTrySelection // Why does this come in games[6]?
+        goldenTry: clientBet.goldenTrySelection
     };
 
     clientBet.games.forEach(game => {
-        if (game.id !== 0 && !game.id || isNaN(game.id)) {
+        if (game.id !== 0 && !game.id) {
             throw new errors.ValidationError(`Bad id provided for game`);
         }
         if (game.teamATries !== 0 && !game.teamATries || isNaN(game.teamATries)) {

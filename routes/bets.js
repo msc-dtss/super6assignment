@@ -14,11 +14,10 @@ router.get('/play', wrap(async (req, res, next) => {
     const db = req.app.get('super6db');
     const debugDate = req.app.get('isDevelopment') ? req.query.debugDate : null;
     const games = await gameService.fetchFuture(db, debugDate);
+    console.table(games)
     res.render('play', {
         title: 'Super6 Rugby - Play',
-        games: games,
-        loggedIn: !!req.session.user,
-        user: req.session.user || null
+        games: games
     });
 }));
 

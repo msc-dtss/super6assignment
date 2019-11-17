@@ -17,7 +17,6 @@
     }
     .head-image.main {
         height: auto;
-        font-size: 3vh;
         text-align: center;
     }
     .head-grad {
@@ -30,7 +29,6 @@
         flex-direction: column;
         text-align: center;
         float: center;
-        font-size: 3vh;
     }
     .col-title-grad {
         height: 70px;
