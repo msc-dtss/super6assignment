@@ -1,6 +1,10 @@
 <%- contentFor('body') %>
 <% const defaultUserInfo = {firstName:'Anonymous', surname:'User', email:'who@knows.com', isAdmin:false, isActive:false} %>
 <% const u = typeof user === 'undefined' ? defaultUserInfo : user %>
+<% let totalPoints = 0; %>
+<% for (i = 0; i < response.bets.length; i++) { %> 
+    <%  totalPoints = totalPoints + response.bets[i].points; %>
+    <% }; %> <!--TODO THIS CODE NEEDS TO BE MOVED TO PROFILE BUNDLE-->
 <div class="page_content">
     <div class="user_info_box">
         PROFILE INFO
@@ -10,25 +14,23 @@
             <div class="profile_information">
                 name: <%= `${u.firstName} ${u.surname}` %><br>
                 email: <%= u.email %><br>
-                Total bets: NUM<br>
-                Rank: NUM<br>
-                Points: NUM<br>
-                Times won: NUM<br>
+                Total bets: <%= response.bets.length %><br>
+                Points: <%=totalPoints%><br>
             </div>
         </div>
     </div>
-    <div class="user_history_box">
-        USERS BETS HISTORY
+    <div class="user_history_box">        
+        MOST RECENT BET
         <div class="bet_table">
-            <div class="history_item">
+            <% for (let index = 0; index < response.bets.length; index++) { %>
+            <div class="history_item" class="history_index_<%=index%>">
                 <h5>Date: 1999/07/29</h5>
-                <h5>Points: NUM</h5>
+                <h5>Points: <%=response.bets[index].points%></h5>
+                <h5>Golen Try Guess: <%= response.bets[index].goldenTry%></h5>
             </div>
-            <div class="history_item">
-                <h5>Date: 1998/07/29</h5>
-                <h5>Points: NUM</h5>
-            </div>
+            <% } %>
         </div>
+        <div>Edit Bet</div>
         <div class="show_more_bet_history">
             <h6><a href="/bets/history">Show Full History</a></h6>
         </div>

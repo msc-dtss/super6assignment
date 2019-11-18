@@ -108,7 +108,7 @@ const fetch = async (db, criteria) => {
  */
 const fetchByUser = async (db, userId) => {
     const bets = await fetch(db, {
-        userId: new ObjectId(userId)
+        userId: userId
     });
     return bets;
 };
