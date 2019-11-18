@@ -1,6 +1,6 @@
-const ObjectId = require('mongodb').ObjectId;
 const pointsConfig = require('../config/points.json');
 const errors = require('../errors/super6exceptions');
+const dbHelper = require('../services/helpers/db-helper.js');
 
 /**
  * Ensures a bet coming in from the client is valid and strips out any invalid attributes
@@ -56,6 +56,7 @@ const resolveClientBet = (clientBet) => {
  */
 const create = async (db, bet) => {
     try {
+        bet._id = dbHelper.newId();
         await db.collection("bets").insertOne(bet);
         return true;
     } catch (e) {
@@ -131,7 +132,7 @@ const madeByUser = async (db, roundIndex, userId) => {
  */
 const betsForUserByGame = async (db, userId) => {
     const bets = {}
-    const dbBets = await fetch(db, { userId: new ObjectId(userId) });
+    const dbBets = await fetch(db, { userId: userId });
     dbBets.forEach(dbBet => {
         dbBet.gameBets.forEach(gameBet => {
             bets[gameBet.id] = gameBet;
@@ -147,7 +148,7 @@ const betsForUserByGame = async (db, userId) => {
  */
 const goldenTriesForUserByRound = async (db, userId) => {
     const goldenTries = {};
-    const dbBets = await fetch(db, { userId: new ObjectId(userId) });
+    const dbBets = await fetch(db, { userId: userId });
     dbBets.forEach(dbBet => {
         goldenTries[dbBet.roundIndex] = dbBet.goldenTry;
     });

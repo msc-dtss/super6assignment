@@ -3,7 +3,6 @@ const betsService = require('../services/bets.js');
 const gameService = require('../services/game.js');
 const roundsService = require('../services/rounds.js');
 const resultsService = require('../services/results.js');
-const ObjectId = require('mongodb').ObjectId;
 
 const wrap = require('./helpers/exceptionHandler').exceptionWrapper;
 const router = express.Router();
