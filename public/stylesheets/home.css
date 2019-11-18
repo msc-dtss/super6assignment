@@ -278,42 +278,37 @@ body {
     outline: none;
 }
 
-/* Set a style for the submit/login button */
+/* Set a style all buttons */
 
-.form-container .btn {
-    background-color: rgb(126, 29, 86);
+button {
+    background-color: rgb(119, 119, 150);
     color: white;
     padding: 16px 20px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
     margin-bottom: 10px;
-    opacity: 0.8;
-}
-
-.form-container .btn {
-    background-color: rgb(126, 29, 86);
-    color: white;
-    padding: 16px 20px;
-    border: none;
     cursor: pointer;
-    width: 100%;
-    margin-bottom: 10px;
     opacity: 0.8;
+    border: none;
     text-align: center;
     float: center;
 }
 
-/* Add a red background color to the cancel button */
-
-.form-container .cancel {
-    background-color: blue;
+button.main {
+    background-color: rgb(126, 29, 86);
 }
 
-/* Add some hover effects to buttons */
+button.full-width {
+    width: 100%;
+}
 
-.form-container .btn:hover, .open-button:hover {
+button:hover {
     opacity: 1;
+}
+
+button.centred {
+    display:block;
+    max-width: 150px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .game-fixture {

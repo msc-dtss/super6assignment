@@ -1,49 +1,49 @@
 <%- contentFor('body') %>
-    <div class="bet-area">
-        <div class="help-button" help_toggle="[how_to_play]"></div>
-        <div class="help invisible" how_to_play>
-            <ol>
-                <li>Press on the country you want to choose as the winner of a match, or on "vs" to select a tie</li>
-                <li>Select how many tries for each country</li>
-                <li>Predict the golden try (tie-breaker for jackpot)</li>
-                <li>Press "Place Bet"</li>
-            </ol>
+<div class="bet-area">
+    <div class="help-button" help_toggle="[how_to_play]"></div>
+    <div class="help invisible" how_to_play>
+        <ol>
+            <li>Press on the country you want to choose as the winner of a match, or on "vs" to select a tie</li>
+            <li>Select how many tries for each country</li>
+            <li>Predict the golden try (tie-breaker for jackpot)</li>
+            <li>Press "Place Bet"</li>
+        </ol>
+    </div>
+    <% for (let i = 0; i < games.length; i++) { %>
+    <div game_block game_block_<%=i%> game_id="<%= games[i]._id %>">
+        <div class="column">
+            <%- include('common/fixture.ejs', {teamA: games[i].teamA, teamB: games[i].teamB, isBet: true, blockNumber: i}) %>
         </div>
-        <% for (let i = 0; i < games.length; i++) { %>
-            <div game_block game_block_<%=i%> game_id="
-                <%= games[i]._id %>">
-                    <div class="column">
-                        <%- include('common/fixture.ejs', {teamA: games[i].teamA, teamB: games[i].teamB, isBet: true, blockNumber: i}) %>
-                    </div>
-                    <select class="invisible" game_winner name="Winner">
+        <select class="invisible" game_winner name="Winner">
             <option value="<%= games[i].teamA.name %>"><%= games[i].teamA.name %></option>
             <option value="<%= games[i].teamB.name %>"><%= games[i].teamB.name %></option>
             <option value="draw">Draw</option>
         </select>
-            </div>
-            <% } %>
     </div>
+    <% } %>
+</div>
 
-    <% if (games.length > 0) { %>
-        <div class="bet-area">
-            <div class="golden-try">
-                <div class="label-placeholders">
-                    <input id="golden_try" golden_try_input name="goldenTry" type="number" placeholder="Golden Try Prediction" min="0">
-                    <label for="golden_try">Golden Try Prediction</label>
-                </div>
-            </div>
+<% if (games.length > 0) { %>
+<div class="bet-area">
+    <div class="golden-try">
+        <div class="label-placeholders">
+            <input id="golden_try" golden_try_input name="goldenTry" type="number" placeholder="Golden Try Prediction" min="0">
+            <label for="golden_try">Golden Try Prediction</label>
         </div>
-        <% } %>
+    </div>
+</div>
+<% } %>
 
-            <div class='bet-area'>
-                <% if (games.length > 0) { %>
-                    <button onclick="placeBet(<%= games[0].roundIndex %>, <%= games.length %>)" type="button" id="bet_button">
-        <h2>Place Bet!</h2>
+<div class='bet-area'>
+    <% if (games.length > 0) { %>
+    <button class="main centred" onclick="placeBet(<%= games[0].roundIndex %>, <%= games.length %>)" type="button" id="bet_button">
+        Place Bet!
     </button>
-                    <% } else { %>
-                        <button disabled type="button" id="bet_button">
+    <% } else { %>
+    <button disabled type="button" id="bet_button">
         <h2>No games!</h2>
     </button>
-                        <% } %>
-            </div>
-            <script src="/javascript/play.js"></script>
+    <% } %>
+</div>
+
+<script src="/javascript/play.js"></script>
