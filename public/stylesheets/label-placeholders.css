@@ -1,4 +1,11 @@
-/*See https://codepen.io/team/css-tricks/pen/XVBLRM */
+/* See https://codepen.io/team/css-tricks/pen/XVBLRM */
+
+input {
+    border-radius: 4px;
+    background: #fffffff0;
+    padding: 8px;
+    border: 1px solid gray;
+}
 
 .label-placeholders {
     display: flex;
@@ -7,7 +14,6 @@
 }
 
 .label-placeholders>label {
-    color: lightgray;
     font-size: 0.95em;
 }
 
@@ -39,6 +45,5 @@
 .label-placeholders>input:not(:placeholder-shown)+label,
 .label-placeholders>input:focus+label {
     transform: translate(0, 0) scale(0.8);
-    color: white;
     cursor: pointer;
 }

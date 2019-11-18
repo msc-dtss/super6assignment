@@ -254,28 +254,14 @@ body {
 }
 
 /* Add styles to the form container */
-
 .form-container {
-    max-width: 300px;
+    width: 300px;
     padding: 10px;
     background-color: white;
+    box-shadow: 2px 2px 5px #292929;
 }
-
-/* Full-width input fields */
-
-.form-container input[type='text'], .form-container input[type='firstName'], .form-container input[type='surname'], .form-container input[type='email'], .form-container input[type='password'] {
-    width: 90%;
-    padding: 15px;
-    margin: 5px 0 22px 0;
-    border: none;
-    background: #f1f1f1;
-}
-
-/* When the inputs get focus, do something */
-
-.form-container input[type='text']:focus, .form-container input[type='firstName']:focus, .form-container input[type='surname']:focus, .form-container input[type='password']:focus {
-    background-color: #ddd;
-    outline: none;
+.form-container label {
+    color: #424242;
 }
 
 /* Set a style all buttons */

@@ -36,14 +36,8 @@
         var showUserForm = function (type) {
             // The code below should just decide which login form to open
             if (type === 'login') {
-                document.getElementById("loginFormHeading").innerText = "Login";
-                document.getElementById("loginFormButton").innerText = "Login";
-                document.getElementById("userLoginForm").action = "/users/login";
                 document.querySelector("[login_form]").classList.add("show-form");
             } else if (type === 'register') {
-                document.getElementById("userFormHeading").innerText = "Register";
-                document.getElementById("userFormButton").innerText = "Register";
-                document.getElementById("userFormForm").action = "/users/signup";
                 document.querySelector("[user_form]").classList.add("show-form");
             }
         };
