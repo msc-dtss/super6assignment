@@ -20,13 +20,22 @@ const fetchProfileBundle = async (db, userId) => {
             };
         };
     };
+    let totalPoints = 0;
+    for (i = 0; i < bets.length; i++) {
+        totalPoints = totalPoints + bets[i].points;
+    };
+    const totalBets = bets.length;
+    const roundPoints = 0// TODO get roundpoints here;
     const rounds = await roundService.fetch(db, {index: recentRoundIndex})
     const games = await gameService.fetch(db, {roundIndex: recentRound})
     return {
         user: users[0],
-        bets: bets,
-        rounds: rounds,
-        games: games
+        bets: bets[1], // TODO - only return the full bet matching roundIndex?? Can I execute a find here?
+        round: rounds,  
+        games: games,
+        totalPoints: totalPoints,
+        totalBets: totalBets,
+        roundIndex: recentRound
     }
 }
 
