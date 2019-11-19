@@ -1,6 +1,8 @@
 <%- contentFor('body') %>
-<% const defaultUserInfo = {firstName:'Anonymous', surname:'User', email:'who@knows.com', isAdmin:false, isActive:false} %>
-<% const u = typeof user === 'undefined' ? defaultUserInfo : user %>
+<% const defaultUserInfo = {firstName:'Anonymous', surname:'User', email:'who@knows.com', isAdmin:false, isActive:false}; %>
+<% const u = typeof user === 'undefined' ? defaultUserInfo : user; %>
+
+<!-- Left Profile Bar -->
 
 <div class="page_content">
     <div class="user_info_box">
@@ -16,16 +18,20 @@
             </div>
         </div>
     </div>
-    <div class="user_history_box">        
+
+    <!-- Start of the Recent Bet Box -->
+
+    <div class="user_bet_box">        
         MOST RECENT BET
         <div class="bet_table">
-
+            <!-- Loop through the games to place into rows -->
             <% for (let index = 0; index < response.games.length; index++) { %>
-                <div class="history_item" class="game_index_<%=index%>">
-                    <% let currentGameId = response.games[index]._id %>
+                <div class="game_item" class="game_index_<%=index%>">
+                    <% let currentGameId = response.games[index]._id; %>
+                    <!-- Loop through the gameBets, grabs the id and matches it to the currentGameId. -->
                     <% for (let k = 0; k < response.bets[0].gameBets.length; k++) { %>
                         <% if (response.bets[0].gameBets[k].id === currentGameId){ %>
-                            <% var currentGameBetIndex = k; %> <!-- // Try and not use var here -->
+                            <% var currentGameBetIndex = k; %> <!-- TODO Try and not use var here -->
                             <% }; %>
                         <% }; %>
                         <h5><%= response.games[index].teamA.name %> tries guess: <%= response.bets[0].gameBets[currentGameBetIndex].teamATries %></h5>
@@ -33,19 +39,16 @@
                         <h5>Win guess: <%= response.bets[0].gameBets[currentGameBetIndex].winTeam %></h5>
                         <h5>Points: <%=response.bets[0].gameBets[currentGameBetIndex].points%></h5>
                 </div>
-            <% } %>
+            <% } %> <!-- End of the game loops -->
         </div>
+
         <h5>Round Points: TODO</h5>
         <h5>Golen Try Guess: <%=response.bets[0].goldenTry%></h5>
         <div>Edit Bet</div>
+
+        <!-- Bet History Link -->
         <div class="show_more_bet_history">
             <h6><a href="/bets/history">Show Full History</a></h6>
         </div>
     </div>
 </div>
-<!-- TODO!<br />
-    <br />
-    Include user information<br />
-    This probably should look like a dashboard.<br />
-    <br />
-    Have a link to <a href="/bets/history">/bets/history</a>?-->

@@ -34,7 +34,7 @@
 
 /* ---------------------BET HISTORY BOX------------------------ */
 
-.user_history_box {
+.user_bet_box {
   background-color: white;
   flex: 1;
 }
@@ -44,13 +44,13 @@
   flex-direction: column;
 }
 
-.history_item {
+.game_item {
   border-top: 2px solid rgb(240, 240, 240);
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
 }
 
-.history_item h5 {
+.game_item h5 {
   margin: 10px 10px;
 }
