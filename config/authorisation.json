@@ -1,0 +1,12 @@
+{
+    "routes": {
+        "public": [
+            "/",
+            "/users/login",
+            "/users/logout",
+            "/users/signup",
+            "/bets/.*"
+        ],
+        "admin": []
+    }
+}

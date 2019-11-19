@@ -6,7 +6,7 @@ Here is the breakdown of the modules:
 
 | Module               | Responsibility                                                           |
 | -------------------- | ------------------------------------------------------------------------ |
-| User                 | User creation, user authentication and authorization, session management |
+| User                 | User creation, user authentication and authorisation, session management |
 | Fixtures and Results | List fixtures, list results                                              |
 | Game Logic           | Calculate points, winners                                                |
 | Play                 | Place prediction, retrieve result                                        |

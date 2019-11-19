@@ -1,10 +1,23 @@
+<%- contentFor('head') %>
+<link href="/stylesheets/error.css" rel="stylesheet" type="text/css" />
+
 <%- contentFor('body') %>
 <div class="main-error">
+    <h1>Error: <%= message %></h1>
+    <div class="error-image code<%= error.httpCode %>"></div>
+
+    <div class="error-message">
+        <% if (Number(error.httpCode) >= 500){ %>
+        <p>We're not entirely sure what happened here but it's likely our fault.</p>
+        <p>Please report this issue <a href="https://github.com/msc-dtss/super6assignment/issues">here</a>.</p>
+        <% } else { %>
+        <p>Where did you think you're going?</p>
+        <p>Go back to <a href="/">Home</a>.</p>
+        <% } %>
+    </div>
+
     <% if (isDev){ %>
-    <h1><%= message %></h1>
-    <h2><%= error.status %></h2>
+    <h2><%= error.httpCode %></h2>
     <pre><%= error.stack %></pre>
-    <% } else { %>
-        <h1><%= message %></h1>
     <% } %>
 </div>
