@@ -24,9 +24,10 @@ router.post('/signup', wrap(async (req, res, next) => {
     const surname = req.body.surname;
     //TODO: Maybe do a validator like bets.resolveClientBet?
     await userService.create(db, email, password, firstName, surname);
-
-    // TODO - Do we want to also login the user automatically? Yes ;-)
-    res.send(true); // redirect somewhere?
+    req.session.user = await userService.fetchUser(db, email)
+    req.session.login = true;
+    console.log(req.session.user.email)
+    res.redirect("/bets/play");
 }));
 
 router.post("/login", wrap(async (req, res, next) => {

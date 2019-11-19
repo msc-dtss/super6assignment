@@ -12,6 +12,10 @@ body {
     flex-direction: column;
 }
 
+.invisible {
+    display: none;
+}
+
 .desktop-only {
     display: block;
 }
@@ -250,66 +254,47 @@ body {
 }
 
 /* Add styles to the form container */
-
 .form-container {
-    max-width: 300px;
+    width: 300px;
     padding: 10px;
     background-color: white;
+    box-shadow: 2px 2px 5px #292929;
+}
+.form-container label {
+    color: #424242;
 }
 
-/* Full-width input fields */
+/* Set a style all buttons */
 
-.form-container input[type='text'], .form-container input[type='firstName'], .form-container input[type='surname'], .form-container input[type='email'], .form-container input[type='password'] {
-    width: 90%;
-    padding: 15px;
-    margin: 5px 0 22px 0;
-    border: none;
-    background: #f1f1f1;
-}
-
-/* When the inputs get focus, do something */
-
-.form-container input[type='text']:focus, .form-container input[type='firstName']:focus, .form-container input[type='surname']:focus, .form-container input[type='password']:focus {
-    background-color: #ddd;
-    outline: none;
-}
-
-/* Set a style for the submit/login button */
-
-.form-container .btn {
-    background-color: rgb(126, 29, 86);
+button {
+    background-color: rgb(119, 119, 150);
     color: white;
     padding: 16px 20px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
     margin-bottom: 10px;
-    opacity: 0.8;
-}
-
-.form-container .btn {
-    background-color: rgb(126, 29, 86);
-    color: white;
-    padding: 16px 20px;
-    border: none;
     cursor: pointer;
-    width: 100%;
-    margin-bottom: 10px;
     opacity: 0.8;
+    border: none;
     text-align: center;
     float: center;
 }
 
-/* Add a red background color to the cancel button */
-
-.form-container .cancel {
-    background-color: blue;
+button.main {
+    background-color: rgb(126, 29, 86);
 }
 
-/* Add some hover effects to buttons */
+button.full-width {
+    width: 100%;
+}
 
-.form-container .btn:hover, .open-button:hover {
+button:hover {
     opacity: 1;
+}
+
+button.centred {
+    display:block;
+    max-width: 150px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .game-fixture {
@@ -318,6 +303,7 @@ body {
     flex-direction: column;
     justify-content: center;
     padding: 8px;
+    flex-grow: 1;
 }
 
 .fixture-teams {
@@ -332,16 +318,62 @@ body {
 }
 
 .team {
+    border-radius: 10px;
+    overflow: hidden;
+    background-position: center;
+    background-size: cover;
+    border: 1px solid;
+    border-color: #3f3f3f;
+}
+
+.team-overlay {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 8px;
-    justify-content: space-between;
-    width: 120px;
+    justify-content: center;
+    width: 150px;
     height: 100px;
+}
+
+.team .name {
+    width: 100%;
+    text-align: center;
+    background: #00000059;
+    color: white;
+    text-shadow: 2px 2px #000;
 }
 
 .fixture-date {
     display: flex;
     justify-content: center;
+}
+
+.versus {
+    flex-grow: 1;
+    text-align: center;
+    border-bottom: 1px solid;
+}
+
+
+.help {
+    background: #ffffdb;
+    border: 1px dashed #808000;
+    margin: 8px auto;
+}
+
+.help-button {
+    cursor: help;
+    background:radial-gradient(#6da0ff, #e0d0ff);
+    color: white;
+    text-shadow: 1px 1px black;
+    font-weight: bold;
+    width: 24px;
+    text-align: center;
+    border-radius: 50%;
+    height: 24px;
+    line-height: 24px;
+}
+
+.help-button::before {
+    content:'?'
 }

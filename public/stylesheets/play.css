@@ -1,77 +1,101 @@
-/*-------------------------Common--------------------------- */
-.bet_area {
-    color: white;
+.bet-area {
+    color: black;
+    background: white;
+    margin-top: 16px;
+    padding: 16px;
 }
 
 .game-fixture-try-input {
-    width: 100%;
-    padding:4px;
+    max-width: 170px;
 }
 
-@media only screen and (min-width: 740px) {
-    /*-------------------------Betting Area CSS--------------------------- */
-    .bet_area {
-        background-image: linear-gradient(to right, rgba(28, 96, 173, 0.4), #503580);
-        display: flex;
-        flex-direction: column;
-        align-content: space-around;
-        min-width: 720px;
-    }
+.bet-area label {
+    color: gray;
+}
 
-    .fixture {
-        display: flex;
-    }
+.label-placeholders>input:not(:placeholder-shown)+label,
+.label-placeholders>input:focus+label {
+    color: white;
+}
 
-    .game_row {
-        border-bottom: 1px solid lightgray;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        align-items: center;
-    }
+.bet-area .fixture-teams {
+    max-width: 650px;
+    margin: 0px auto 16px;
+}
 
-    .column {
-        width: 50%;
-    }
+.bet-area .team:hover {
+    margin-left: -2px;
+    margin-top: -2px;
+    box-shadow: 4px 4px 8px 2px #00000080;
+}
 
-    .user_input_col {
-        display: flex;
-        flex-direction: column;
-        width: 50%;
-        flex-wrap: wrap;
-        align-items: center;
-        /* background-color: red; */
-    }
-    .user_input_col p {
-        margin-left: 12px;
-    }
-    .user_input_col input {
-        height: 1em;
-        width: 3em;
-    }
+.bet-area .team-overlay:hover {
+    background: #55ac55c2;
+}
 
-    .golden_try {
-        color: white;
-        width: 400px;
-        text-align: center;
-        background-color: #503580;
-        margin: 0px auto;
-        padding: 5px 5px;
-    }
+.bet-area .team-overlay {
+    color: white;
+    padding: 0;
+    width: 200px;
+    height: 135px;
+    padding-bottom: 8px;
+    justify-content: space-between;
+}
 
-    /*-------------------------Bet Button CSS--------------------------- */
-    .place_bet_button {
-        text-align: center;
-        padding: 10px;
-    }
+.team .description {
+    opacity: 0;
+    font-size: 0.9em;
+    border-bottom: 1px solid;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 4px;
+    background: #00000059;
+}
 
-    #bet_button {
-        background-color: purple;
-        color: whitesmoke;
-        font-size: 0.9em;
-        transition-duration: 0.4s;
-    }
-    #bet_button:hover {
-        background-color: violet;
-    }
+.winner {
+    border-color: #005800;
+}
+
+.loser {
+    border-color: #5a0012;
+}
+
+.draw {
+    border-color: #917b00;
+}
+
+.winner .team-overlay {
+    background: #005800c2;
+}
+
+.loser .team-overlay {
+    background: #5a0012c2;
+}
+
+.draw .team-overlay {
+    background: #917b00c2;
+}
+
+.team.winner .description,
+.team.loser .description,
+.team.draw .description {
+    opacity: 1;
+}
+
+.bet-area .versus {
+    cursor: pointer;
+}
+
+.bet-area .versus:hover {
+    color: #cf9800;
+    border-color: #cf9800;
+}
+
+.golden-try {
+    width: 180px;
+    margin: 0 auto;
+    padding: 8px;
+    background: url('/images/golden-try.png');
+    border: 1px solid #3f3f3f;
+    border-radius: 10px;
 }

@@ -10,7 +10,7 @@
             "name": "Start Server",
             "program": "${workspaceFolder}/bin/www",
             "env": {
-                "SUPERSIX_NO_OVERWRITE": "bets,users"
+                "SUPERSIX_NO_OVERWRITE": ""
             }
         }
     ]

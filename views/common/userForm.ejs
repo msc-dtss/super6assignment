@@ -1,30 +1,32 @@
 <%# TODO: Change this into two separate forms: login and register (this can be the register one %>
 
 <div id="registerForm" class="form-popup" user_form>
-    <form id="userFormForm" action="ACTION" method="post" class="form-container">
-        <h1 id="userFormHeading">HEADING</h1>
-        <label for="register_firstName">
-            <b>First Name</b>
-        </label>
-        <input id="register_firstName" name="firstName" placeholder="Enter First Name" required type="text" />
-
-        <label for="register_surname">
-            <b>Surname</b>
-        </label>
-        <input id="register_surname" name="surname" placeholder="Enter Surname" required type="text" />
-
-        <label for="register_email">
-            <b>Email</b>
-        </label>
-        <input id="register_email" name="email" placeholder="Enter Email" required type="email" />
-
-        <label for="register_password">
-            <b>Password</b>
-        </label>
-        <input id="register_password" name="password" placeholder="Enter Password" required type="password" />
-
-        <button class="btn" type="submit" id="userFormButton">BUTTON</button>
-
-        <button class="btn cancel" onclick="closeUserForm()" type="button">Close</button>
+    <form id="userFormForm" action="/users/signup" method="post" class="form-container">
+        <h1 id="userFormHeading">Register</h1>
+        
+        <div class="label-placeholders">
+            <input id="register_firstName" name="firstName" placeholder="Enter First Name" required type="text" />
+            <label for="register_firstName">First Name</label>
+        </div>
+        
+        <div class="label-placeholders">
+            <input id="register_surname" name="surname" placeholder="Enter Surname" required type="text" />
+            <label for="register_surname">Surname</label>
+        </div>
+        
+        <div class="label-placeholders">
+            <input id="register_email" name="email" placeholder="Enter Email" required type="email" />
+            <label for="register_email">Email</label>
+        </div>
+        
+        <div class="label-placeholders">
+            <input id="register_password" name="password" placeholder="Enter Password" required type="password"
+                pattern="(?=.*[a-z])(?=.*[A-Z]).{7,}"
+                title="Minimum 7 characters, and atleast 1 lowercase and uppercase letter" />
+            <label for="register_password">Password</label>
+        </div>
+        
+        <button class="main full-width" type="submit" id="userFormButton">Register</button>
+        <button class="full-width" onclick="closeUserForm()" type="button">Close</button>
     </form>
 </div>

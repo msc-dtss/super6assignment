@@ -1,5 +1,7 @@
+<% const _isBet = typeof isBet === 'undefined' ? false : isBet %>
+<% const _blockNumber = typeof blockNumber === 'undefined' ? false : blockNumber %>
 <div class="fixture-teams">
-    <%- include('game.ejs', {team: teamA, isBet, teamSide: 'A', blockNumber}) %>
-    vs
-    <%- include('game.ejs', {team: teamB, isBet, teamSide: 'B', blockNumber}) %>
+    <%- include('game.ejs', {team: teamA, isBet: _isBet, teamSide: 'A', blockNumber: _blockNumber}) %>
+    <div class="versus" team_draw_selector block_number="<%= _blockNumber %>">vs</div>
+    <%- include('game.ejs', {team: teamB, isBet: _isBet, teamSide: 'B', blockNumber: _blockNumber}) %>
 </div>

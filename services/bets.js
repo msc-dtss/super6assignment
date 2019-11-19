@@ -1,6 +1,6 @@
-const ObjectId = require('mongodb').ObjectId;
 const pointsConfig = require('../config/points.json');
 const errors = require('../errors/super6exceptions');
+const dbHelper = require('../services/helpers/db-helper.js');
 
 /**
  * Ensures a bet coming in from the client is valid and strips out any invalid attributes
@@ -15,18 +15,18 @@ const resolveClientBet = (clientBet) => {
     if (clientBet.roundIndex !== 0 && !clientBet.roundIndex || isNaN(clientBet.roundIndex)) { //0 is falsy, hence why we need to explicitely check for it
         throw new errors.ValidationError("Bad round provided");
     }
-    if (!clientBet.goldenTry) {
+    if (!clientBet.goldenTrySelection) {
         throw new errors.ValidationError("Bad goldenTry provided");
     }
 
     const verifiedBet = {
         roundIndex: clientBet.roundIndex,
         gameBets: [],
-        goldenTry: clientBet.games[6].goldenTrySelection // Why does this come in games[6]?
+        goldenTry: clientBet.goldenTrySelection
     };
 
     clientBet.games.forEach(game => {
-        if (game.id !== 0 && !game.id || isNaN(game.id)) {
+        if (game.id !== 0 && !game.id) {
             throw new errors.ValidationError(`Bad id provided for game`);
         }
         if (game.teamATries !== 0 && !game.teamATries || isNaN(game.teamATries)) {
@@ -56,6 +56,7 @@ const resolveClientBet = (clientBet) => {
  */
 const create = async (db, bet) => {
     try {
+        bet._id = dbHelper.newId();
         await db.collection("bets").insertOne(bet);
         return true;
     } catch (e) {
@@ -144,7 +145,7 @@ const madeByUser = async (db, roundIndex, userId) => {
  */
 const betsForUserByGame = async (db, userId) => {
     const bets = {}
-    const dbBets = await fetch(db, { userId: new ObjectId(userId) });
+    const dbBets = await fetch(db, { userId: userId });
     dbBets.forEach(dbBet => {
         dbBet.gameBets.forEach(gameBet => {
             bets[gameBet.id] = gameBet;
@@ -160,7 +161,7 @@ const betsForUserByGame = async (db, userId) => {
  */
 const goldenTriesForUserByRound = async (db, userId) => {
     const goldenTries = {};
-    const dbBets = await fetch(db, { userId: new ObjectId(userId) });
+    const dbBets = await fetch(db, { userId: userId });
     dbBets.forEach(dbBet => {
         goldenTries[dbBet.roundIndex] = dbBet.goldenTry;
     });

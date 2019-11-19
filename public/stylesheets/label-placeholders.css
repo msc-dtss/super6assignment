@@ -1,0 +1,49 @@
+/* See https://codepen.io/team/css-tricks/pen/XVBLRM */
+
+input {
+    border-radius: 4px;
+    background: #fffffff0;
+    padding: 8px;
+    border: 1px solid gray;
+}
+
+.label-placeholders {
+    display: flex;
+    flex-flow: column-reverse;
+    margin-bottom: 1.5em;
+}
+
+.label-placeholders>label {
+    font-size: 0.95em;
+}
+
+.label-placeholders>label,
+.label-placeholders>input {
+    transition: all 0.2s;
+    touch-action: manipulation;
+}
+
+.label-placeholders>input:placeholder-shown+label {
+    cursor: text;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transform-origin: left bottom;
+    transform: translate(0.5rem, 1.8rem) scale(1);
+}
+
+.label-placeholders> ::placeholder {
+    opacity: 0;
+    transition: inherit;
+}
+
+.label-placeholders>input:focus::placeholder {
+    opacity: 1;
+}
+
+.label-placeholders>input:not(:placeholder-shown)+label,
+.label-placeholders>input:focus+label {
+    transform: translate(0, 0) scale(0.8);
+    cursor: pointer;
+}

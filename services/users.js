@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const ObjectId = require('mongodb').ObjectId;
 const errors = require('../errors/super6exceptions');
+const dbHelper = require('../services/helpers/db-helper');
 
 /**
  * Fetch users matching a given criteria
@@ -96,6 +97,7 @@ const create = async (db, email, plainTextPassword, firstName, surname, isAdmin)
     const exists = await userExists(db, email);
     if (!exists) {
         await db.collection('users').insertOne({
+            _id: dbHelper.newId(),
             email: email,
             password: getHashedPassword(plainTextPassword),
             firstName: firstName,

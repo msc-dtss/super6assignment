@@ -3,7 +3,6 @@ const betsService = require('../services/bets.js');
 const gameService = require('../services/game.js');
 const roundsService = require('../services/rounds.js');
 const resultsService = require('../services/results.js');
-const ObjectId = require('mongodb').ObjectId;
 
 const wrap = require('./helpers/exceptionHandler').exceptionWrapper;
 const router = express.Router();
@@ -14,11 +13,10 @@ router.get('/play', wrap(async (req, res, next) => {
     const db = req.app.get('super6db');
     const debugDate = req.app.get('isDevelopment') ? req.query.debugDate : null;
     const games = await gameService.fetchFuture(db, debugDate);
+    console.table(games)
     res.render('play', {
         title: 'Super6 Rugby - Play',
-        games: games,
-        loggedIn: !!req.session.user,
-        user: req.session.user || null
+        games: games
     });
 }));
 
