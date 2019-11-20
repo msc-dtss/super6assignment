@@ -18,8 +18,8 @@ const fetch = async (db, criteria) => {
  * @return {Array} An array of games
  */
 const fetchFuture = async (db, debugDate) => { //TODO HANDLE WHEN THE REQUEST DATE IS ABOVE ANY GAMES IN THE DATABASE
-    // Default to 20th September if no debug date since we have now passed end of tournament
-    const now = debugDate ? new Date(debugDate) : new Date('2019-09-20');
+    // Default to 1st September if no debug date since we have now passed end of tournament
+    const now = debugDate ? new Date(debugDate) : new Date('2019-09-01');
     const oneIndexMonth = now.getMonth() + 1;
     const paddedMonth = oneIndexMonth > 9 ? `${oneIndexMonth}` : `0${oneIndexMonth}`;
     const paddedDay = now.getDate() > 9 ? `${now.getDate()}` : `0${now.getDate()}`;
@@ -32,7 +32,7 @@ const fetchFuture = async (db, debugDate) => { //TODO HANDLE WHEN THE REQUEST DA
         "dateRange.start": 1
     }).toArray();
 
-    let currentRoundIndex = 1;
+    let currentRoundIndex = -1;
     if (currentRoundInfo.length > 0) {
         currentRoundIndex = currentRoundInfo[0].index;
     };
