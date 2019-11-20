@@ -40,7 +40,7 @@ const fetchUser = async (db, email) => {
  */
 const fetchById = async (db, userId) => {
     const users = await fetch(db, {
-        _id: dbHelper.newId(userId)
+        _id: userId
     });
     if (users.length === 0) {
         throw new errors.UserNotFoundError();
