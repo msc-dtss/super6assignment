@@ -51,6 +51,6 @@
   justify-content: space-evenly;
 }
 
-.game_item h5 {
+.game_item {
   margin: 10px 10px;
 }

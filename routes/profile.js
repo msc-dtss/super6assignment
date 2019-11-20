@@ -37,6 +37,7 @@ router.get('/', wrap(async (req, res, next) => {
             totalPoints: 58,
             totalBets: 2,
             roundIndex: 1,
+            todaysDate: "20/08/2019",
             },
         user: { "_id": "5dd1c029f05a9b161cabbef6", "email": "bob@hello.com", "password": "$2b$10$KjIMxK98etqsaQ6BOCb/DOHSnTESkffKUlIOfMJahZWOf/N//Vx9a", "firstName": "chris", "surname": "smith", "isAdmin": false, "isActive": true },
     });

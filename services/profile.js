@@ -28,6 +28,14 @@ const fetchProfileBundle = async (db, userId) => {
     const roundPoints = 0// TODO get roundpoints here;
     const rounds = await roundService.fetch(db, {index: recentRoundIndex})
     const games = await gameService.fetch(db, {roundIndex: recentRound})
+    const todaysDate = () => {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+        today = mm + '/' + dd + '/' + yyyy;
+        return today;
+    };
     return {
         user: users[0],
         bets: bets[1], // TODO - only return the full bet matching roundIndex?? Can I execute a find here?
@@ -35,9 +43,10 @@ const fetchProfileBundle = async (db, userId) => {
         games: games,
         totalPoints: totalPoints,
         totalBets: totalBets,
-        roundIndex: recentRound
-    }
-}
+        roundIndex: recentRound,
+        todaysDate: todaysDate
+    };
+};
 
 module.exports = {
     fetchProfileBundle
