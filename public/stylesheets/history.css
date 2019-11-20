@@ -84,3 +84,13 @@
     font-size: 12px;
     font-weight: bold;
 }
+
+.history-flag{
+    height: 14px;
+    width: 21px;
+    border: 1px solid black;
+}
+
+.history-game-header{
+    background-color: black
+}
