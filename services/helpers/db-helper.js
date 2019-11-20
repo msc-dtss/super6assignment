@@ -1,6 +1,6 @@
 const ObjectId = require('mongodb').ObjectId;
 
-function newId(){
+const newId = () => {
     return new ObjectId().toString();
 }
 
