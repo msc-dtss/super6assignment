@@ -12,38 +12,52 @@ const gameService = require ('../services/game')
 const fetchProfileBundle = async (db, userId) => {
     const users = await userService.fetchById(db, userId); // TODO do we need this becuase of session info?
     const bets = await betService.fetchByUser(db, userId);
+    
+    // Get the most recent round Index of bets placed
     const recentRoundIndex = () => {
-        let recentRound = 0
+        var recentRound = 0
         for (let i = 0; i < bets.length; i++) {
             if (recentRound < bets[i].roundIndex){
                 recentRound = bets[i].roundIndex;
             };
         };
+        return recentRound;
     };
+    const mostRecentRound = recentRoundIndex();
+    
+    const recentBet = await betService.fetch(db, {userId: userId, roundIndex: mostRecentRound});
+
+    // Gets the total points from all placed bets
     let totalPoints = 0;
     for (i = 0; i < bets.length; i++) {
-        totalPoints = totalPoints + bets[i].points;
+        totalPoints = totalPoints + bets[i].points; //TODO Bet in Db has no points key.
     };
+
+    // Gets the number of times the user has bet on rounds previously
     const totalBets = bets.length;
-    const roundPoints = 0// TODO get roundpoints here;
-    const rounds = await roundService.fetch(db, {index: recentRoundIndex})
-    const games = await gameService.fetch(db, {roundIndex: recentRound})
-    const todaysDate = () => {
+
+    const rounds = await roundService.fetch(db, {index: mostRecentRound});
+    const games = await gameService.fetch(db, {roundIndex: mostRecentRound});
+
+    // Grabs todays date & formats to "yyyy/mm/dd"
+    const todaysDateGetter = () => {
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
         var mm = String(today.getMonth() + 1).padStart(2, '0');
         var yyyy = today.getFullYear();
-        today = mm + '/' + dd + '/' + yyyy;
+        today = yyyy + '/' + mm + '/' + dd;
         return today;
     };
+    const todaysDate = todaysDateGetter();
+
     return {
         user: users[0],
-        bets: bets[1], // TODO - only return the full bet matching roundIndex?? Can I execute a find here?
+        bets: recentBet,
         round: rounds,  
         games: games,
         totalPoints: totalPoints,
         totalBets: totalBets,
-        roundIndex: recentRound,
+        roundIndex: mostRecentRound,
         todaysDate: todaysDate
     };
 };

@@ -71,10 +71,10 @@
 
         <!-- Round Points to show if round end date has passed -->
         <% if (response.todaysDate > response.round[0].dateRange.end) { %>
-            <h5>Round Points: TODO</h5>
+            <h5>Round Points: <%= response.bets[0].points %></h5>
             <% }; %>
 
-        <!-- Edit Bet Button -->
+        <!-- Edit Bet Button  -->
         <% if (response.todaysDate < response.round[0].dateRange.start) { %> 
             <button class="edit_bet_button" onclick="editTheBets(event)">Edit Bet</button>
             <button class="save_bet_button" onclick="saveTheBets(event)" style="display: none;">Save Bets</button>
