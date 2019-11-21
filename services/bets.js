@@ -72,17 +72,6 @@ const create = async (db, bet) => {
 };
 
 /**
- * Deletes a bet owned by a user
- * @param {*} db The connection to the database
- * @param {Number} betId The id of the bet
- * @param {Number} userId The id of the user that owns this bet (to make sure we're not deleting someone else's bet)
- * @return {boolean} Whether or not the bet was deleted
- */
-const deleteBet = async (db, betId, userId) => {
-    // do the thing
-}
-
-/**
  * Updates a bet given a bet ID
  * @param {*} db The connection to the database
  * @param {*} betId The id of the bet
