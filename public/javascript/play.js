@@ -10,7 +10,7 @@ var makeRequest = function (content) {
     } else {
         httpRequest.onreadystatechange = function () {
             if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-                console.log(httpRequest.responseText);
+                window.location.href = '/profile';
             }
         };
         httpRequest.open("POST", "/bets");
