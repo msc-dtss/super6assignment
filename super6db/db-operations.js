@@ -63,24 +63,35 @@ const reSeedDatabase = async (db) => {
                     return item.trim();
                 })
             const collectionExists = await hasCollection(db, collection);
-            if (!doNotTouch.includes(collection) || !collectionExists) {
+            if(!collectionExists){
                 console.info(`Seeding ${collection}`);
                 const data = require(`../super6db/${collection}`);
-                if (collectionExists) {
-                    try{
-                        console.info(`  Dropped ${collection}:`, await db.dropCollection(collection));
-                    } catch(ignore){
-                        console.info(`  Problem while dropping ${collection}`, ignore)
-                    }
-                }
                 try {
                     const inserted = await db.collection(collection).insertMany(data)
                     console.log(`  Seeded ${collection}: `, inserted.result.ok === 1);
                 } catch (e) {
                     console.error(`  Unable to insert into ${collection}:`, e);
                 }
-            } else {
-                console.info(`Ignoring ${collection}`);
+            } else{
+                if (!doNotTouch.includes(collection) && (process.env.SUPERSIX_NO_OVERWRITE || !['bets', 'users'].includes(collection))) {
+                    console.info(`Seeding ${collection}`);
+                    const data = require(`../super6db/${collection}`);
+                    if (collectionExists) {
+                        try{
+                            console.info(`  Dropped ${collection}:`, await db.dropCollection(collection));
+                        } catch(ignore){
+                            console.info(`  Problem while dropping ${collection}`, ignore)
+                        }
+                    }
+                    try {
+                        const inserted = await db.collection(collection).insertMany(data)
+                        console.log(`  Seeded ${collection}: `, inserted.result.ok === 1);
+                    } catch (e) {
+                        console.error(`  Unable to insert into ${collection}:`, e);
+                    }
+                } else {
+                    console.info(`Ignoring ${collection}`);
+                }
             }
         }
     };

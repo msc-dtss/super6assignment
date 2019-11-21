@@ -214,6 +214,15 @@ const score = async (db, unscoredBets, results) => {
     });
 }
 
+const scoreForUserByRound = async (db, userId) => {
+    let byRound = {};
+    const dbBets = await fetch(db, { userId: userId });
+    dbBets.forEach(dbBet => {
+        byRound[dbBet.roundIndex] = dbBet.points;
+    });
+    return byRound;
+};
+
 module.exports = {
     resolveClientBet,
     create,
@@ -226,5 +235,6 @@ module.exports = {
     delete: deleteBet,
     fetchUnscoredBets,
     betsForUserByGame,
-    goldenTriesForUserByRound
+    goldenTriesForUserByRound,
+    scoreForUserByRound
 };
