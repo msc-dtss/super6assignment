@@ -38,12 +38,97 @@ const getResultsFromApi = async () => {
                             teamBTries: 1
                         },
                         {
+                            gameId: '5dbb5ba824a8c8398c3a0f96',
+                            winTeam: 'Australia',
+                            teamAScore: 39,
+                            teamBScore: 21,
+                            teamATries: 6,
+                            teamBTries: 2
+                        },
+                        {
+                            gameId: '5dbb5ba824a8c8398c3a0fa1',
+                            winTeam: 'France',
+                            teamAScore: 23,
+                            teamBScore: 21,
+                            teamATries: 2,
+                            teamBTries: 2
+                        },
+                        {
+                            gameId: '5dbb5ba824a8c8398c3a0fac',
+                            winTeam: 'NewZealand',
+                            teamAScore: 23,
+                            teamBScore: 13,
+                            teamATries: 2,
+                            teamBTries: 1
+                        },
+                        {
                             gameId: '5dbb5ba824a8c8398c3a0f8d',
-                            winTeam: 'Canada',
-                            teamAScore: 12,
-                            teamBScore: 5,
-                            teamATries: 1,
+                            winTeam: 'Italy',
+                            teamAScore: 48,
+                            teamBScore: 7,
+                            teamATries: 7,
+                            teamBTries: 1
+                        },
+                        {
+                            gameId: '5dbb5ba824a8c8398c3a0fae',
+                            winTeam: 'Italy',
+                            teamAScore: 47,
+                            teamBScore: 22,
+                            teamATries: 7,
+                            teamBTries: 3
+                        }
+                    ]
+                },
+                {
+                    roundIndex: 1,
+                    games:[
+                        {
+                            gameId: '5dbb5ba824a8c8398c3a0faf',
+                            winTeam: 'Ireland',
+                            teamAScore: 27,
+                            teamBScore: 3,
+                            teamATries: 4,
                             teamBTries: 0
+                        },
+                        {
+                            gameId: '5dbb5ba824a8c8398c3a0fb0',
+                            winTeam: 'England',
+                            teamAScore: 35,
+                            teamBScore: 3,
+                            teamATries: 4,
+                            teamBTries: 0
+                        },
+                        {
+                            gameId: '5dbb5ba824a8c8398c3a0fb1',
+                            winTeam: 'Wales',
+                            teamAScore: 43,
+                            teamBScore: 14,
+                            teamATries: 6,
+                            teamBTries: 2
+                        },
+                        {
+                            gameId: '5dbb5ba824a8c8398c3a0fb2',
+                            winTeam: 'Samoa',
+                            teamAScore: 9,
+                            teamBScore: 34,
+                            teamATries: 0,
+                            teamBTries: 6
+                        },
+                        {
+                            gameId: '5dbb5ba824a8c8398c3a0f8c',
+                            winTeam: 'Uruguay',
+                            teamAScore: 27,
+                            teamBScore: 30,
+                            teamATries: 5,
+                            teamBTries: 3
+                        },
+                        {
+                            gameId: '5dbb5ba824a8c8398c3a0f8e',
+                            winTeam: 'England',
+                            teamAScore: 45,
+                            teamBScore: 7,
+                            teamATries: 7,
+                            teamBTries: 1
                         }
                     ]
                 }
@@ -92,7 +177,10 @@ const getGoldenTryResults = async () => {
         resolve(
             {
                 '5dc9d60cc46c6d373ce167fd': {
-                    goldenTry: 13
+                    goldenTry: 5
+                },
+                '5dc9d71ba48afe373caee7e3': {
+                    goldenTry: 5
                 }
 
             }

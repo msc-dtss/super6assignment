@@ -44,7 +44,7 @@ router.get('/history', wrap(async (req, res, next) => {
 router.post('/', wrap(async (req, res, next) => {
     const bet = betsService.resolveClientBet(req.body);
     // Attach userId from the session? We should return a 401 error if there is no authenticated session
-    bet.userId = req.session.userId;
+    bet.userId = req.session.user._id;
 
     const db = req.app.get('super6db');
     try {

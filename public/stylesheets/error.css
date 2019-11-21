@@ -1,0 +1,17 @@
+.error-image {
+    width: 100%;
+    height: 330px;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url('/images/unknown-error.png');
+}
+
+.error-message {
+    margin: 8px 0;
+    text-align: center;
+}
+
+.code401 {
+    background-image: url('/images/401.jpg');
+}

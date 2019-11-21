@@ -1,35 +1,35 @@
 /* -------------------CONTENT MAIN BODY-------------------------- */
 .page_content {
-  display: flex;
-  flex-direction: row;
+    display: flex;
+    flex-direction: row;
 }
 
 /* ---------------------USER BOX------------------------ */
 
 .user_info_box {
-  background-color: lightgray;
-  min-height: 500px;
-  min-width: 300px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  align-content: center;
-  align-items: center;
+    background-color: lightgray;
+    min-height: 500px;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+    align-items: center;
 }
 
 .avatar_image {
-  max-width: 150px;
-  max-height: 150px;
-  /* margin-top: 50px; */
+    max-width: 150px;
+    max-height: 150px;
+    /* margin-top: 50px; */
 }
 
 .avatar_image img {
-  max-width: 150px;
+    max-width: 150px;
 }
 
 .profile_information {
-  color: darkgray;
+    color: darkgray;
 }
 
 /* ---------------------BET HISTORY BOX------------------------ */
@@ -40,8 +40,8 @@
 }
 
 .bet_table {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .game_item {

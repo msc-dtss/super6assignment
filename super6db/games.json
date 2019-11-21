@@ -2,11 +2,11 @@
 	"_id": "5dbb5ba824a8c8398c3a0f8b",
 	"teamA": {
 		"name": "Japan",
-		"flag": "japan.png"
+		"flag": "japan.svg"
 	},
 	"teamB": {
 		"name": "Russia",
-		"flag": "russia.png"
+		"flag": "russia.svg"
 	},
 	"gameDate": "2019/09/20",
 	"roundIndex": 0

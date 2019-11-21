@@ -1,5 +1,6 @@
 <% const isLoggedIn = typeof loggedIn === 'undefined' ? false : loggedIn %>
 <% const isMain = typeof mainPage === 'undefined' ? false : mainPage %>
+<% const hasError = typeof error === 'undefined' ? false : !!error %>
     <div class="head-image <%= isMain ? 'main' : '' %>">
         <div class="navbar-container">
             <div class="logo-image mobile-only"><img src="/images/logo.svg" width="160px"></div>
@@ -27,8 +28,10 @@
                 <%}%>
 
         </div>
+        <% if(!hasError) { %>
         <% include loginForm.ejs %>
         <% include userForm.ejs %>
+        <% } %>
 
     </div>
 

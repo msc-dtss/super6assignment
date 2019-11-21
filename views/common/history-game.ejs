@@ -1,0 +1,91 @@
+<div class="fb-column thin-border">
+    <div class="fb-column" class="padding-5px">
+        <div class="fb-row" class="padding-5px">
+            <div class="fb-column" style="width: 75%;">
+                <div class="text-align-center" class="padding-top-5px" style="background-color: black"><span class="iconify large-icon"
+                                                                                                             data-icon="mdi-account-group" style="color: white" title="Team"></span></div>
+                <div class="text-align-center history-small-text"><%=game.teamA.name%> </div>
+                <div class="text-align-center"><img src="/images/flags/<%=game.teamA.flag%>" class="history-flag"></div>
+                <div class="text-align-center">V</div>
+                <div class="text-align-center history-small-text"><%=game.teamB.name%></div>
+                <div class="text-align-center"><img src="/images/flags/<%=game.teamB.flag%>" class="history-flag"></div>
+            </div>
+            <div class="fb-row">
+                <% let bet = bets[game._id];
+                let result = results[game._id]; %>
+                <div class="fb-column" >
+                    <div class="history-game-header"><span class="iconify large-icon" data-icon="mdi-rugby" style="color: white"
+                                                               title="Number of Tries"></span></div>
+                    <div class="text-align-center history-small-text" style="height: 45%">
+                        <% if (bet) {
+                            let triesClass = "history-wrong";
+                            if(result === undefined){
+                                triesClass = "";
+                            } else if(result && bet.teamATries === result.teamATries){
+                                triesClass = "history-correct";
+                            }%>
+                        <span class="<%=triesClass%>"> <%= bet.teamATries%></span>
+                        <%}%>
+                    </div>
+                    <div class="text-align-center history-small-text">
+                        <% if (bet) {
+                            let triesClass = "history-wrong";
+                            if(result === undefined){
+                                triesClass = "";
+                            } else if(bet.teamBTries === result.teamBTries){
+                                triesClass = "history-correct";
+                            }%>
+                        <span class="<%=triesClass%>"> <%= bet.teamBTries%></span>
+                        <%}%>
+                    </div>
+                </div>
+                <div class="fb-column">
+                    <div class="history-game-header">
+                        <span class="iconify large-icon" data-icon="mdi-trophy" style="color: white;"  title="Winning Team"></span>
+                    </div>
+                    <div class="text-align-center" style="min-height: 40%">
+                        <% if(bet) {
+                            let teamA = game.teamA.name;
+                        if(result === undefined && bet.winTeam === teamA){%>
+                            <span class="iconify medium-icon" data-icon="mdi-medal"></span>
+                        <% }
+                        else if(result && bet.winTeam === teamA && result.winTeam === teamA){%>
+                            <span class="iconify medium-icon history-correct"
+                                  data-icon="mdi-medal"></span>
+                        <%}
+                        else if(result && bet.winTeam === teamA){%>
+                            <span class="iconify medium-icon history-wrong"
+                                  data-icon="mdi-medal"></span>
+                        <%}%>
+                        <%}%>
+                    </div>
+                    <div class="text-align-center" style="min-height: 40%;">
+                        <% if(bet) {
+                            let teamB = game.teamB.name;
+                        if(result === undefined && bet.winTeam === teamB){
+                        %><span class="iconify large-icon" data-icon="mdi-medal"></span><%
+                        }
+                        else if(result && bet.winTeam === teamB && result.winTeam === teamB){
+                        %><span class="iconify large-icon history-correct"
+                                data-icon="mdi-medal"></span><%
+                        } else if(result && bet.winTeam === teamB){
+                        %><span class="iconify large-icon history-wrong" data-icon="mdi-medal"></span><%
+                        }
+                        }%>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="fb-column history-h-middle">
+        <div class="fb-row history-h-middle">
+            <div class="padding-5px history-small-text text-align-center" style="width: 100%;">
+                <% if(bet && result) {roundPoints+= bet.points;%>
+                <%=bet.points%>Points
+                <%} else {%>
+                    0 Points
+                <%}%>
+            </div>
+        </div>
+    </div>
+</div>
