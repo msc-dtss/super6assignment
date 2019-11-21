@@ -9,33 +9,39 @@ const dbHelper = require('../services/helpers/db-helper.js');
  * @throws {errors.ValidationError} An input validation error when there is missing/invalid information
  */
 const resolveClientBet = (clientBet) => {
-    if (clientBet.games.length > 6) {
-        throw new errors.ValidationError("Each round only has 6 games");
+    if(!clientBet){
+        throw new errors.ValidationError("No bet!");
     }
-    if (clientBet.roundIndex !== 0 && !clientBet.roundIndex || isNaN(clientBet.roundIndex)) { //0 is falsy, hence why we need to explicitely check for it
+    if (!clientBet.games || !Array.isArray(clientBet.games)) {
+        throw new errors.ValidationError("Games need to be listed as an array");
+    }
+    if (clientBet.games.length !== 6) {
+        throw new errors.ValidationError("Each round must have 6 games");
+    }
+    if (clientBet.roundIndex !== 0 && !clientBet.roundIndex || isNaN(clientBet.roundIndex || Number(clientBet.roundIndex) < 0)) { //0 is falsy, hence why we need to explicitely check for it
         throw new errors.ValidationError("Bad round provided");
     }
-    if (!clientBet.goldenTrySelection) {
+    if (clientBet.goldenTrySelection !== 0 && !clientBet.goldenTrySelection || isNaN(clientBet.goldenTrySelection) || Number(clientBet.goldenTrySelection) < 0) {
         throw new errors.ValidationError("Bad goldenTry provided");
     }
 
     const verifiedBet = {
-        roundIndex: clientBet.roundIndex,
+        roundIndex: Number(clientBet.roundIndex),
         gameBets: [],
-        goldenTry: clientBet.goldenTrySelection
+        goldenTry: Number(clientBet.goldenTrySelection)
     };
 
     clientBet.games.forEach(game => {
         if (game.id !== 0 && !game.id) {
-            throw new errors.ValidationError(`Bad id provided for game`);
+            throw new errors.ValidationError(`Bad id provided for game (${game.id})`);
         }
-        if (game.teamATries !== 0 && !game.teamATries || isNaN(game.teamATries)) {
+        if (game.teamATries !== 0 && !game.teamATries || isNaN(game.teamATries) || Number(game.teamATries) < 0) {
             throw new errors.ValidationError(`Bad teamATries provided for game ${game.id}`);
         }
-        if (game.teamBTries !== 0 && !game.teamBTries || isNaN(game.teamBTries)) {
+        if (game.teamBTries !== 0 && !game.teamBTries || isNaN(game.teamBTries) || Number(game.teamBTries) < 0) {
             throw new errors.ValidationError(`Bad teamBTries provided for game ${game.id}`);
         }
-        if (!game.gameVictor) {
+        if (!game.gameVictor || typeof game.gameVictor !== "string") {
             throw new errors.ValidationError(`Bad gameVictor provided for game ${game.id}`);
         }
         verifiedBet.gameBets.push({
