@@ -32,11 +32,11 @@ const fetchFuture = async (db, debugDate) => { //TODO HANDLE WHEN THE REQUEST DA
         "dateRange.start": 1
     }).toArray();
 
-    let currentRoundIndex = -1;
+    let nextRoundIndex = 0;
     if (currentRoundInfo.length > 0) {
-        currentRoundIndex = currentRoundInfo[0].index;
+        nextRoundIndex = currentRoundInfo[0].index + 1;
     };
-    const nextRound = await db.collection("rounds").find({ index: { $eq: currentRoundIndex + 1 } }).toArray();
+    const nextRound = await db.collection("rounds").find({ index: { $eq: nextRoundIndex} }).toArray();
     if (nextRound.length > 0) {
         return await fetch(db, { $and: [{ "gameDate": { $gte: nextRound[0].dateRange.start } }, { "gameDate": { $lte: nextRound[0].dateRange.end } }] });
     }
