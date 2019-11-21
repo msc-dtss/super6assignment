@@ -28,6 +28,7 @@ router.get('/history', wrap(async (req, res, next) => {
     const goldenTries = await betsService.goldenTriesForUserByRound(db, req.session.user._id);
     const results = await resultsService.getGameResults();
     const goldenTryResults = await resultsService.getGoldenTryResults();
+    const scores = await betsService.scoreForUserByRound(db, req.session.user._id);
     res.render('history', {
         title: 'Super6 Rugby - Your History',
         loggedIn: !!req.session.user,
@@ -37,7 +38,8 @@ router.get('/history', wrap(async (req, res, next) => {
         bets: bets,
         goldenTries: goldenTries,
         results: results,
-        goldenTryResults: goldenTryResults
+        goldenTryResults: goldenTryResults,
+        scores: scores
     });
 }));
 
