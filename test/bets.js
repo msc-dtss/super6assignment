@@ -32,7 +32,7 @@ describe('resolveClientBet', () => {
         { goldenTrys: 2, another: "hi" },
         { goldenTrys: 2, another: "hi" },
     ].forEach((extraFields, i) => {
-        it(`should clean extra elements ${i}`, () => {
+        it(`[${i}] should clean extra elements`, () => {
             const cleanBet = {
                 roundIndex: 0,
                 games: [
@@ -232,7 +232,7 @@ describe('resolveClientBet', () => {
             output: 'Bad id provided for game'
         },
     ].forEach((params, i) => {
-        it(`should throw error when missing fields (${i})`, () => {
+        it(`[${i}] should throw error when missing fields`, () => {
             //For testing errors being thrown, chai need a function, rather than the result of one.
             expect(() => { betsService.resolveClientBet(params.input) }).to.throw(errors.ValidationError, params.output);
         });

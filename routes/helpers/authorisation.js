@@ -10,7 +10,7 @@ const errors = require('../../errors/super6exceptions');
  */
 const regexIncludes = (regexList, text) => {
     for (let i = 0; i < regexList.length; i++) {
-        if (regexList[i].match(text)) {
+        if (text.match("^" + regexList[i] + "$")) {
             return true;
         }
     };
@@ -33,13 +33,15 @@ const _isAuthorised = (user, path, paths) => {
         return true;
     }
 
+    const hasUser = !!user && typeof user === 'object' && !!user.isActive;
+
     // Restrict admin-only routes
-    if (user && regexIncludes(paths.admin, path)) {
-        return user.isAdmin;
+    if (hasUser && regexIncludes(paths.admin, path)) {
+        return !!user.isAdmin;
     }
 
     // Only allow any other route if the user is logged in
-    return !!user;
+    return hasUser;
 };
 
 /**
@@ -49,7 +51,7 @@ const _isAuthorised = (user, path, paths) => {
  * @returns {Boolean} True if the user is allowed access to that route
  */
 const isAuthorised = (user, path) => {
-    return _isAuthorised(user, paths, config.routes);
+    return _isAuthorised(user, path, config.routes);
 };
 
 
@@ -65,7 +67,7 @@ const verifyAuthorisation = (req, res, next) => {
     if (isAuthorised(req.session.user, req.path)) {
         next();
     }
-    else{
+    else {
         throw new errors.UnauthorizedException();
     }
 };
