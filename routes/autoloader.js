@@ -3,7 +3,7 @@ const fs = require('fs');
 /**
  * Loads every js module in it's directory as a route.
  * The module's name will be the endpoint (`/moduleName`), except any file called index.js, which will mount on `/`
- * @param {string} routesDir relative path to the directory containing this module from the root of the application
+ * @param {String} routesDir relative path to the directory containing this module from the root of the application
  * @return {Object} An object with the endpoints and the respective route module
  */
 const requireRouteModules = (routesDir) => {

@@ -34,7 +34,7 @@ const fetchUser = async (db, email) => {
 /**
  * Fetch a user by id
  * @param {*} db The connection to the database
- * @param {string} userId The ID of the user
+ * @param {String} userId The ID of the user
  * @return {*} An object with the user information
  * @throws {erros.UserNotFoundError} When no user is found
  */
@@ -71,8 +71,8 @@ const fetchByEmail = async (db, email, activeUsersOnly) => {
 
 /**
  * Turn the password into a hash using the one-way bcrypt algo with salt.
- * @param {string} password The clear-text password
- * @return {string} The hashed password
+ * @param {String} password The clear-text password
+ * @return {String} The hashed password
  */
 const getHashedPassword = (password) => {
     // Password will be saved as a hash and login will be verified by comparing hashed passwords.
@@ -83,8 +83,8 @@ const getHashedPassword = (password) => {
  * Creates a user given an email and a password.
  * Optionally this user can be an admin.
  * @param {*} db The connection to the database
- * @param {string} email The email that uniquely identifies this user
- * @param {string} plainTextPassword The clear-text password
+ * @param {String} email The email that uniquely identifies this user
+ * @param {String} plainTextPassword The clear-text password
  * @param {boolean} isAdmin (Optional) Whether or not this user is an admin [Default: false]
  * @return {boolean} Whether or not a user was inserted
  * @throws {errors.ValidationError} In case a user already exists
@@ -113,7 +113,7 @@ const create = async (db, email, plainTextPassword, firstName, surname, isAdmin)
 /**
  * Checks if a user exists by searching the user collection for an entry with that email
  * @param {*} db The connection to the database
- * @param {string} email The email that uniquely identifies this user
+ * @param {String} email The email that uniquely identifies this user
  * @return {boolean} Whether or not a user exists
  */
 const userExists = async (db, email) => {
@@ -139,8 +139,8 @@ const list = async (db) => {
 /**
  * Check the login against the database
  * @param {*} db The connection to the database
- * @param {string} email The email that uniquely identifies this user
- * @param {string} password Clear-text password
+ * @param {String} email The email that uniquely identifies this user
+ * @param {String} password Clear-text password
  * @return {boolean} true if credentials are valid, exception otherwise
  */
 const checkLogin = async (db, email, password) => {

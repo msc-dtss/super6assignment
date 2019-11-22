@@ -7,7 +7,7 @@ const resultsService = require('../services/results');
  * Available across the system with req.app.get('super6db').
  * Seeds the database in dev mode or if `SUPERSIX_FORCE_SEED` environment variable is set to `"true"`
  * @param {*} app The express application to bind the database connecion to.
- * @param {string} host IP or domain name of the database host.
+ * @param {String} host IP or domain name of the database host.
  * @param {number} port Port that MongoDB is listening on
  * @emits db-ready Once the connection is established and the database has been (optionally) seeded
  */
