@@ -10,26 +10,27 @@
             </div>
             <div>Total Points: <%=scores[rounds[round].index]%></div>
             <div class="fb-row"><span class="iconify large-icon" style="color: gold" data-icon="mdi-rugby"
-                    title="Golden Try"></span><div class="fb-column"><div>Guess: <%=goldenTries[rounds[round].index]%></div>
-                    <div>Result:  <% const goldenTryResult = goldenTryResults[round]; if(goldenTryResult){%><%=goldenTryResult.goldenTry%><%}%></div>
+                    title="Golden Try"></span>
+                <div class="fb-column">
+                    <div>Guess: <%=goldenTries[rounds[round].index]%></div>
+                    <div>Result: <% const goldenTryResult = goldenTryResults[rounds[round].index]; if(goldenTryResult === 0 || goldenTryResult){%><%=goldenTryResult%><%}%></div>
                 </div>
 
                 </div>
             </div>
 
             <% for(var date in games[round]) { const fixtures = games[round][date];%>
-                <div class="fb-column">
-                    <div class="history-h-middle">
-                        <h3><%=date%></h3>
-                    </div>
+            <div class="fb-column">
+                <div class="history-h-middle">
+                    <h3><%=date%></h3>
+                </div>
 
-                    <% for(var gameNum in fixtures){ let game = fixtures[gameNum];%>
+                <% for(var gameNum in fixtures){ let game = fixtures[gameNum];%>
                     <%- include common/history-game.ejs%>
-
-                    <% }%>
-                                </div>
-                                <% }%>
-                                <div style="min-height: 1em"></div>
-                            </div>
-                            <% }%>
-                        </div>
+                <% }%>
+            </div>
+            <% }%>
+        <div style="min-height: 1em"></div>
+    </div>
+    <% }%>
+</div>

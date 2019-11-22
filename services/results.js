@@ -176,7 +176,7 @@ const getGameResults = async (isForced) => {
 
 
 /**
- * Returns the goldenTry results 
+ * Returns the goldenTry results indexed by the round
  * @returns {*} A json object of round indexed by it's roundIndex
  */
 const getGoldenTryResults = async (isForced) => {
