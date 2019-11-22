@@ -40,7 +40,7 @@ const _isAuthorised = (user, path, paths) => {
 
     // Only allow any other route if the user is logged in
     return !!user;
-});
+};
 
 /**
  * Check whether or not a user is allowed to access a given route
@@ -72,5 +72,6 @@ const verifyAuthorisation = (req, res, next) => {
 
 module.exports = {
     verify: verifyAuthorisation,
-    _isAuthorised
+    _isAuthorised,
+    _regexIncludes: regexIncludes
 }
