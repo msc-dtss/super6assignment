@@ -34,7 +34,7 @@ const fetchUser = async (db, email) => {
 /**
  * Fetch a user by id
  * @param {*} db The connection to the database
- * @param {*} userId The ID of the user
+ * @param {string} userId The ID of the user
  * @return {*} An object with the user information
  * @throws {erros.UserNotFoundError} When no user is found
  */

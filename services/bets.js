@@ -74,7 +74,7 @@ const create = async (db, bet) => {
 /**
  * Updates a bet given a bet ID
  * @param {*} db The connection to the database
- * @param {*} betId The id of the bet
+ * @param {string} betId The id of the bet
  * @param {*} updateObject The object containing the updates to the fields
  * @param {boolean} replace Whether or not to replace the document completely
  */
@@ -109,7 +109,7 @@ const fetchUnscoredBets = async (db) => {
 /**
  * Gets the bet made by a user for a round
  * @param {*} db The connection to the database
- * @param {Number} userId The ID of the user
+ * @param {string} userId The ID of the user
  * @param {Number} roundIndex The index of the round
  * @return {Array} An array of bets
  */
@@ -123,7 +123,7 @@ const madeByUser = async (db, roundIndex, userId) => {
 /**
  * Gets all the bets for a user, keyed by game id
  * @param {*} db The connection to the database
- * @param {*} userId The ID of the user
+ * @param {string} userId The ID of the user
  */
 const betsForUserByGame = async (db, userId) => {
     const bets = {}
@@ -138,8 +138,8 @@ const betsForUserByGame = async (db, userId) => {
 
 /**
  * Gets all the golden try predictions for a user, keyed by user id
- * @param {*} db 
- * @param {*} userId 
+ * @param {*} db The connection to the database
+ * @param {string} userId The ID of the user
  */
 const goldenTriesForUserByRound = async (db, userId) => {
     const goldenTries = {};
@@ -201,8 +201,14 @@ const score = async (db, unscoredBets, results) => {
             points: totalPoints
         });
     });
-}
+};
 
+/**
+ * Gets the score for a user for each round
+ * @param {*} db The connection to the database
+ * @param {string} userId The id of the user
+ * @returns {*} An object with the points of a user by roundIndex
+ */
 const scoreForUserByRound = async (db, userId) => {
     let byRound = {};
     const dbBets = await fetch(db, { userId: userId });
