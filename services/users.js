@@ -17,9 +17,9 @@ const fetch = async (db, criteria) => {
 
 /** 
  * fetch user details for session, exlcuding password
- * @param {*} db database
- * @param {*} email email input
- * @return {Array}
+ * @param {*} db The connection to the database
+ * @param {String} email Email of the user we want to fetch
+ * @return {*} An object with the user information or null
 */
 const fetchUser = async (db, email) => {
     const users = await db
@@ -51,8 +51,8 @@ const fetchById = async (db, userId) => {
 /**
  * Fetch a user by email
  * @param {*} db The connection to the database
- * @param {*} email The email of a user
- * @param {*} activeUsersOnly Filter the results by listing only active users
+ * @param {String} email The email of a user
+ * @param {Boolean} activeUsersOnly Filter the results by listing only active users
  * @return {*} An object with the user information
  * @throws {erros.UserNotFoundError} When no user is found
  */
@@ -85,8 +85,8 @@ const getHashedPassword = (password) => {
  * @param {*} db The connection to the database
  * @param {String} email The email that uniquely identifies this user
  * @param {String} plainTextPassword The clear-text password
- * @param {boolean} isAdmin (Optional) Whether or not this user is an admin [Default: false]
- * @return {boolean} Whether or not a user was inserted
+ * @param {Boolean} isAdmin (Optional) Whether or not this user is an admin [Default: false]
+ * @return {Boolean} Whether or not a user was inserted
  * @throws {errors.ValidationError} In case a user already exists
  */
 const create = async (db, email, plainTextPassword, firstName, surname, isAdmin) => {
@@ -114,7 +114,7 @@ const create = async (db, email, plainTextPassword, firstName, surname, isAdmin)
  * Checks if a user exists by searching the user collection for an entry with that email
  * @param {*} db The connection to the database
  * @param {String} email The email that uniquely identifies this user
- * @return {boolean} Whether or not a user exists
+ * @return {Boolean} Whether or not a user exists
  */
 const userExists = async (db, email) => {
     try {
@@ -130,7 +130,7 @@ const userExists = async (db, email) => {
 /**
  * Lists all registered users in the database
  * @param {*} db The connection to the database
- * @return {Array} An array of users
+ * @return {Array} An array of all users
  */
 const list = async (db) => {
     return fetch(db, {});
@@ -141,7 +141,7 @@ const list = async (db) => {
  * @param {*} db The connection to the database
  * @param {String} email The email that uniquely identifies this user
  * @param {String} password Clear-text password
- * @return {boolean} true if credentials are valid, exception otherwise
+ * @return {Boolean} true if credentials are valid, exception otherwise
  */
 const checkLogin = async (db, email, password) => {
     // Check user creds against the database

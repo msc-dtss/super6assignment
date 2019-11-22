@@ -33,7 +33,7 @@ const initialize = (app, host, port) => {
  * Checks if a collection exists in the database or not
  * @param {*} db The database connection
  * @param {*} collection The database collection name we're looking for
- * @returns {boolean} `true` if the collection exists in the database
+ * @returns {Boolean} `true` if the collection exists in the database
  */
 const hasCollection = async (db, collection) => {
     try {

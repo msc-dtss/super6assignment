@@ -142,7 +142,7 @@ const getResultsFromApi = async () => {
 
 /**
  * Fetches the cached game results. If `isForced` is `true` then it will refresh the cache with the new results before returning it.
- * @param {boolean} isForced
+ * @param {Boolean} isForced
  * @returns {Array} The array of results
  */
 const getResults = async (isForced) => {
@@ -154,7 +154,7 @@ const getResults = async (isForced) => {
 
 /**
  * Fetches the games from the cached results. If `isForced` is `true` then it will refresh the cache with the new results before returning.
- * @param {boolean} isForced 
+ * @param {Boolean} isForced
  * @returns {*} A json object of each game indexed by the game Id
  */
 const getGameResults = async (isForced) => {

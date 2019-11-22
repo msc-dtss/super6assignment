@@ -58,7 +58,7 @@ const resolveClientBet = (clientBet) => {
  * Creates a bet for a user
  * @param {*} db The connection to the database
  * @param {*} bet A valid bet
- * @return {boolean} Whether or not we managed to create the bet
+ * @return {Boolean} Whether or not we managed to create the bet
  */
 const create = async (db, bet) => {
     try {
@@ -76,7 +76,7 @@ const create = async (db, bet) => {
  * @param {*} db The connection to the database
  * @param {String} betId The id of the bet
  * @param {*} updateObject The object containing the updates to the fields
- * @param {boolean} replace Whether or not to replace the document completely
+ * @param {Boolean} replace Whether or not to replace the document completely
  */
 const update = async (db, betId, updateObject, replace) => {
     const replaceAllContent = replace || false;
