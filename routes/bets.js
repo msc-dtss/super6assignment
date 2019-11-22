@@ -9,7 +9,6 @@ const router = express.Router();
 
 
 router.get('/play', wrap(async (req, res, next) => {
-    // TODO: Logged in needs to reflect cookie value and needs to be checked against db
     const db = req.app.get('super6db');
     const debugDate = req.app.get('isDevelopment') ? req.query.debugDate : null;
     const games = await gameService.fetchFuture(db, debugDate);
@@ -22,7 +21,7 @@ router.get('/play', wrap(async (req, res, next) => {
 
 router.get('/history', wrap(async (req, res, next) => {
     const db = req.app.get('super6db');
-    const gamesByRound = await gameService.fetchIndexedByRoundAndDate(db, {}); // Maybe this should be fetchPast?
+    const gamesByRound = await gameService.fetchIndexedByRoundAndDate(db, {});
     const rounds = await roundsService.fetchRoundsByIndex(db, {});
     const bets = await betsService.betsForUserByGame(db, req.session.user._id);
     const goldenTries = await betsService.goldenTriesForUserByRound(db, req.session.user._id);
@@ -44,19 +43,18 @@ router.get('/history', wrap(async (req, res, next) => {
 }));
 
 router.post('/', wrap(async (req, res, next) => {
-    const bet = betsService.resolveClientBet(req.body);
-    // Attach userId from the session? We should return a 401 error if there is no authenticated session
-    bet.userId = req.session.user._id;
 
     const db = req.app.get('super6db');
     try {
+        const bet = betsService.resolveClientBet(req.body);
+        bet.userId = req.session.user._id;
         await betsService.create(db, bet);
         res.json(true);
     } catch (e) {
         // TODO: Need to verify why we couldn't create the bet.
         // Basically need to check if the error came from the client side (4**) or if it's an actual server error (5**)
-        res.statusCode = 500; // (or 400ish if error is caused by the input coming from the client)
-        res.send('Error create bet');
+        res.statusCode = e.httpCode || 500;
+        res.send(e.message || 'Error creating bet');
     }
 }));
 

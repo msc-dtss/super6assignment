@@ -25,7 +25,7 @@ const fetchUser = async (db, email) => {
     const users = await db
         .collection('users')
         .find({ email: email })
-        .project({ _id: 1, email: 1, firstName: 1, surname: 1 })
+        .project({ password: 0 })
         .toArray()
     return users.length > 0 ? users[0] : null;
 };
