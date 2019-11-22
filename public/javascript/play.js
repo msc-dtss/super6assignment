@@ -59,6 +59,12 @@ var getBetValues = function (roundIndex, nrGames) {
     return bet;
 };
 
+
+/**
+ * Selects the game victor
+ * @param {*} gameTeam The element that contains the team representation (flag and such) or the "vs" element
+ * @param {*} type `draw` or `null`/`undefined`. By default this assumes you're trying to set the loser/winner. With `draw` it sets the bet to a draw
+ */
 var select = function (gameTeam, type) {
     var resetClass = type === "draw" ? "draw" : "loser";
     var resetText = type === "draw" ? "Draw" : "Loser";
@@ -78,13 +84,16 @@ var select = function (gameTeam, type) {
     var selector = document.querySelector("[game_block_" + blockNumber + "]").querySelector("[game_winner]");
     selector.value = value;
 
-    if(type !== "draw"){
+    if (type !== "draw") {
         gameTeam.classList.remove(resetClass);
         gameTeam.classList.add("winner");
         gameTeam.querySelector("[bet_winner_selection]").innerHTML = "Victor";
     }
 }
 
+/**
+ * Attach the winner/loser selection event listener to each flag
+ */
 var attachVictorListeners = function () {
     var selectors = document.querySelectorAll("[team_win_selector]");
     for (var i = 0; i < selectors.length; i++) {
@@ -96,6 +105,9 @@ var attachVictorListeners = function () {
     }
 }
 
+/**
+ * Attach the draw selection event listener to the vs element
+ */
 var attachTieListeners = function () {
     var selectors = document.querySelectorAll("[team_draw_selector]");
     for (var i = 0; i < selectors.length; i++) {
@@ -107,13 +119,16 @@ var attachTieListeners = function () {
     }
 }
 
+/**
+ * Attach the help toggles to the help buttons
+ */
 var attachHelpListeners = function () {
     var helpBtns = document.querySelectorAll("[help_toggle]");
     for (var i = 0; i < helpBtns.length; i++) {
         helpBtns[i].addEventListener('click', function (event) {
             var helpMessages = document.querySelectorAll(this.getAttribute("help_toggle"));
             for (var j = 0; j < helpMessages.length; j++) {
-                if(helpMessages[j].classList.contains("invisible")){
+                if (helpMessages[j].classList.contains("invisible")) {
                     helpMessages[j].classList.remove("invisible");
                 } else {
                     helpMessages[j].classList.add("invisible");
