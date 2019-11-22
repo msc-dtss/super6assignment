@@ -227,7 +227,6 @@ module.exports = {
     findRoundWinners,
     update,
     score,
-    delete: deleteBet,
     fetchUnscoredBets,
     betsForUserByGame,
     goldenTriesForUserByRound,
