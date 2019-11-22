@@ -1,36 +1,36 @@
 <%- contentFor('body') %>
 <script src="//code.iconify.design/1/1.0.0-rc1/iconify.min.js"></script>
 <div class="history-area history-small-text">
-    <%for(var round in rounds){ let roundPoints = 0;%>
+    <%for(var round in rounds){%>
     <div class="history-round">
         <div class="history-h-middle">
             <div><span class="iconify large-icon" data-icon="mdi-calendar-outline"></span></div>
             <div>
                 <h2 class="vertical-align-middle"><%= "Round " + (parseInt(rounds[round].index)+1) %></h2>
             </div>
-            <div>Total Points:<span id="totalPointsRound<%=round%>"></span> </div>
+            <div>Total Points: <%=scores[rounds[round].index]%></div>
             <div class="fb-row"><span class="iconify large-icon" style="color: gold" data-icon="mdi-rugby"
-                    title="Golden Try"></span><div class="fb-column"><div>Guess: <%=goldenTries[rounds[round].index]%></div>
-                    <div>Result:  <% const goldenTryResult = goldenTryResults[rounds[round]._id]; if(goldenTryResult){%><%=goldenTryResult.goldenTry%><%}%></div>
+                    title="Golden Try"></span>
+                <div class="fb-column">
+                    <div>Guess: <%=goldenTries[rounds[round].index]%></div>
+                    <div>Result: <% const goldenTryResult = goldenTryResults[rounds[round].index]; if(goldenTryResult === 0 || goldenTryResult){%><%=goldenTryResult%><%}%></div>
                 </div>
 
                 </div>
             </div>
 
             <% for(var date in games[round]) { const fixtures = games[round][date];%>
-                <div class="fb-column">
-                    <div class="history-h-middle">
-                        <h3><%=date%></h3>
-                    </div>
+            <div class="fb-column">
+                <div class="history-h-middle">
+                    <h3><%=date%></h3>
+                </div>
 
-                    <% for(var gameNum in fixtures){ let game = fixtures[gameNum];%>
+                <% for(var gameNum in fixtures){ let game = fixtures[gameNum];%>
                     <%- include common/history-game.ejs%>
-
-                    <% }%>
-                                </div>
-                                <% }%>
-                                <script>document.getElementById('totalPointsRound<%=round%>').innerText = "<%=roundPoints%>";</script>
-                                <div style="min-height: 1em"></div>
-                            </div>
-                            <% }%>
-                        </div>
+                <% }%>
+            </div>
+            <% }%>
+        <div style="min-height: 1em"></div>
+    </div>
+    <% }%>
+</div>

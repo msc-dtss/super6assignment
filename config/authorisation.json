@@ -4,8 +4,7 @@
             "/",
             "/users/login",
             "/users/logout",
-            "/users/signup",
-            "/bets/.*"
+            "/users/signup"
         ],
         "admin": []
     }

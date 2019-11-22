@@ -7,7 +7,7 @@ const resultsService = require('../services/results');
  * Available across the system with req.app.get('super6db').
  * Seeds the database in dev mode or if `SUPERSIX_FORCE_SEED` environment variable is set to `"true"`
  * @param {*} app The express application to bind the database connecion to.
- * @param {string} host IP or domain name of the database host.
+ * @param {String} host IP or domain name of the database host.
  * @param {number} port Port that MongoDB is listening on
  * @emits db-ready Once the connection is established and the database has been (optionally) seeded
  */
@@ -33,7 +33,7 @@ const initialize = (app, host, port) => {
  * Checks if a collection exists in the database or not
  * @param {*} db The database connection
  * @param {*} collection The database collection name we're looking for
- * @returns {boolean} `true` if the collection exists in the database
+ * @returns {Boolean} `true` if the collection exists in the database
  */
 const hasCollection = async (db, collection) => {
     try {

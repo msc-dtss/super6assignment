@@ -32,7 +32,7 @@ app.use(
 
 app.use(viewAutoInjectData);
 
-app.use(authorisationLayer);
+app.use(authorisationLayer.verify);
 
 // Load all the routes inside ./routes/
 routesAutoLoader.load(app);

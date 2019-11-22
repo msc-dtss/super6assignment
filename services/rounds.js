@@ -12,8 +12,9 @@ const fetch = async (db, criteria) => {
 };
 
 /**
- * Fetch rounds by the round number
- * @param {} db The connecion to the database
+ * Fetch rounds by the round index
+ * @param {*} db The connecion to the database
+ * @returns {*} An object containing each round indexed by it's Index
  */
 const fetchRoundsByIndex = async(db) => {
     const rounds = {};

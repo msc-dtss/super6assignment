@@ -9,33 +9,39 @@ const dbHelper = require('../services/helpers/db-helper.js');
  * @throws {errors.ValidationError} An input validation error when there is missing/invalid information
  */
 const resolveClientBet = (clientBet) => {
-    if (clientBet.games.length > 6) {
-        throw new errors.ValidationError("Each round only has 6 games");
+    if(!clientBet){
+        throw new errors.ValidationError("No bet!");
     }
-    if (clientBet.roundIndex !== 0 && !clientBet.roundIndex || isNaN(clientBet.roundIndex)) { //0 is falsy, hence why we need to explicitely check for it
+    if (!clientBet.games || !Array.isArray(clientBet.games)) {
+        throw new errors.ValidationError("Games need to be listed as an array");
+    }
+    if (clientBet.games.length !== 6) {
+        throw new errors.ValidationError("Each round must have 6 games");
+    }
+    if (clientBet.roundIndex !== 0 && !clientBet.roundIndex || isNaN(clientBet.roundIndex || Number(clientBet.roundIndex) < 0)) { //0 is falsy, hence why we need to explicitely check for it
         throw new errors.ValidationError("Bad round provided");
     }
-    if (!clientBet.goldenTrySelection) {
+    if (clientBet.goldenTrySelection !== 0 && !clientBet.goldenTrySelection || isNaN(clientBet.goldenTrySelection) || Number(clientBet.goldenTrySelection) < 0) {
         throw new errors.ValidationError("Bad goldenTry provided");
     }
 
     const verifiedBet = {
-        roundIndex: clientBet.roundIndex,
+        roundIndex: Number(clientBet.roundIndex),
         gameBets: [],
-        goldenTry: clientBet.goldenTrySelection
+        goldenTry: Number(clientBet.goldenTrySelection)
     };
 
     clientBet.games.forEach(game => {
         if (game.id !== 0 && !game.id) {
-            throw new errors.ValidationError(`Bad id provided for game`);
+            throw new errors.ValidationError(`Bad id provided for game (${game.id})`);
         }
-        if (game.teamATries !== 0 && !game.teamATries || isNaN(game.teamATries)) {
+        if (game.teamATries !== 0 && !game.teamATries || isNaN(game.teamATries) || Number(game.teamATries) < 0) {
             throw new errors.ValidationError(`Bad teamATries provided for game ${game.id}`);
         }
-        if (game.teamBTries !== 0 && !game.teamBTries || isNaN(game.teamBTries)) {
+        if (game.teamBTries !== 0 && !game.teamBTries || isNaN(game.teamBTries) || Number(game.teamBTries) < 0) {
             throw new errors.ValidationError(`Bad teamBTries provided for game ${game.id}`);
         }
-        if (!game.gameVictor) {
+        if (!game.gameVictor || typeof game.gameVictor !== "string") {
             throw new errors.ValidationError(`Bad gameVictor provided for game ${game.id}`);
         }
         verifiedBet.gameBets.push({
@@ -52,7 +58,7 @@ const resolveClientBet = (clientBet) => {
  * Creates a bet for a user
  * @param {*} db The connection to the database
  * @param {*} bet A valid bet
- * @return {boolean} Whether or not we managed to create the bet
+ * @return {Boolean} Whether or not we managed to create the bet
  */
 const create = async (db, bet) => {
     try {
@@ -66,22 +72,11 @@ const create = async (db, bet) => {
 };
 
 /**
- * Deletes a bet owned by a user
- * @param {*} db The connection to the database
- * @param {Number} betId The id of the bet
- * @param {Number} userId The id of the user that owns this bet (to make sure we're not deleting someone else's bet)
- * @return {boolean} Whether or not the bet was deleted
- */
-const deleteBet = async (db, betId, userId) => {
-    // do the thing
-}
-
-/**
  * Updates a bet given a bet ID
  * @param {*} db The connection to the database
- * @param {*} betId The id of the bet
+ * @param {String} betId The id of the bet
  * @param {*} updateObject The object containing the updates to the fields
- * @param {boolean} replace Whether or not to replace the document completely
+ * @param {Boolean} replace Whether or not to replace the document completely
  */
 const update = async (db, betId, updateObject, replace) => {
     const replaceAllContent = replace || false;
@@ -127,7 +122,7 @@ const fetchUnscoredBets = async (db) => {
 /**
  * Gets the bet made by a user for a round
  * @param {*} db The connection to the database
- * @param {Number} userId The ID of the user
+ * @param {String} userId The ID of the user
  * @param {Number} roundIndex The index of the round
  * @return {Array} An array of bets
  */
@@ -139,25 +134,36 @@ const madeByUser = async (db, roundIndex, userId) => {
 };
 
 /**
- * Gets all the bets for a user, keyed by game id
- * @param {*} db The connection to the database
- * @param {*} userId The ID of the user
+ * Organises all bets to be indexed by game id
+ * @param {Array} betsList An array of bets to transform into a map of games
+ * @return {*} A map of the game bets that were passed in but with the game ID as each bet's key
  */
-const betsForUserByGame = async (db, userId) => {
+const indexBetsByGameId = (betsList) => {
     const bets = {}
-    const dbBets = await fetch(db, { userId: userId });
-    dbBets.forEach(dbBet => {
+    betsList.forEach(dbBet => {
         dbBet.gameBets.forEach(gameBet => {
             bets[gameBet.id] = gameBet;
-        })
-    })
+        });
+    });
     return bets;
+}
+
+
+/**
+ * Fetches all bets, for the given user, indexed by game id
+ * @param {*} db The connection to the database
+ * @param {String} userId The ID of the user
+ * @return {*} A map with all the game bets created by a user with the game ID as each bet's key
+ */
+const betsForUserByGame = async (db, userId) => {
+    const dbBets = await fetch(db, { userId: userId });
+    return indexBetsByGameId(dbBets);
 }
 
 /**
  * Gets all the golden try predictions for a user, keyed by user id
- * @param {*} db 
- * @param {*} userId 
+ * @param {*} db The connection to the database
+ * @param {String} userId The ID of the user
  */
 const goldenTriesForUserByRound = async (db, userId) => {
     const goldenTries = {};
@@ -219,7 +225,22 @@ const score = async (db, unscoredBets, results) => {
             points: totalPoints
         });
     });
-}
+};
+
+/**
+ * Gets the score for a user for each round
+ * @param {*} db The connection to the database
+ * @param {String} userId The id of the user
+ * @returns {*} An object with the points of a user by roundIndex
+ */
+const scoreForUserByRound = async (db, userId) => {
+    let byRound = {};
+    const dbBets = await fetch(db, { userId: userId });
+    dbBets.forEach(dbBet => {
+        byRound[dbBet.roundIndex] = dbBet.points;
+    });
+    return byRound;
+};
 
 module.exports = {
     resolveClientBet,
@@ -231,8 +252,9 @@ module.exports = {
     fetchByUser,
     update,
     score,
-    delete: deleteBet,
     fetchUnscoredBets,
     betsForUserByGame,
-    goldenTriesForUserByRound
+    goldenTriesForUserByRound,
+    scoreForUserByRound,
+    _indexBetsByGameId: indexBetsByGameId
 };

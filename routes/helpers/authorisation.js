@@ -1,37 +1,79 @@
 const config = require('../../config/authorisation.json');
 const errors = require('../../errors/super6exceptions');
 
-const regexIncludes = (paths, path) => {
-    for (let i = 0; i < paths.length; i++) {
-        if (paths[i].match(path)) {
+/**
+ * Checks if `text` matches a regular expression in `regexList`. Sort of like a `.includes` but with regex.
+ * (Might move it out if needed elsewhere.)
+ * @param {Array} regexList An array of regular expressions to match with `text`
+ * @param {String} text The text we want to see if it's matches any of the regular expressions
+ * @returns {Boolean} True when `text` matches a regular expression in `regexList`
+ */
+const regexIncludes = (regexList, text) => {
+    for (let i = 0; i < regexList.length; i++) {
+        if (text.match("^" + regexList[i] + "$")) {
             return true;
         }
     };
     return false;
 };
 
-const isAuthorised = (user, path) => {
+
+/**
+ * Check whether or not a user is allowed to access a given route
+ * @param {*} user The user session information
+ * @param {String} path The path of the route that is being accessed
+ * @param {*} paths An object containing the keys:
+ *                  * `public` - Contains a list of regex to identify the public routes
+ *                  * `admin` - Contains a list of regex to identify the routes that only admin users can go to
+ * @returns {Boolean} True if the user is allowed access to that route
+ */
+const _isAuthorised = (user, path, paths) => {
     // Open public routes
-    if (regexIncludes(config.routes.public, path)) {
+    if (regexIncludes(paths.public, path)) {
         return true;
     }
 
+    const hasUser = !!user && typeof user === 'object' && !!user.isActive;
+
     // Restrict admin-only routes
-    if (user && regexIncludes(config.routes.admin, path)) {
-        return user.isAdmin;
+    if (hasUser && regexIncludes(paths.admin, path)) {
+        return !!user.isAdmin;
     }
 
     // Only allow any other route if the user is logged in
-    return !!user;
+    return hasUser;
 };
 
+/**
+ * Check whether or not a user is allowed to access a given route
+ * @param {*} user The user session information
+ * @param {String} path The path of the route that is being accessed
+ * @returns {Boolean} True if the user is allowed access to that route
+ */
+const isAuthorised = (user, path) => {
+    return _isAuthorised(user, path, config.routes);
+};
+
+
+/**
+ * Middleware function to block access if a user does not have access to a route.
+ * Will execute the `next()` middleware if the user has access.
+ * @param {*} req The request
+ * @param {*} res The response
+ * @param {Function} next The next middleware function
+ * @throws {errors.UnauthorizedException} When the user is unauthorised. This will be picked up by the error handler (see `app.js`)
+ */
 const verifyAuthorisation = (req, res, next) => {
     if (isAuthorised(req.session.user, req.path)) {
         next();
     }
-    else{
+    else {
         throw new errors.UnauthorizedException();
     }
 };
 
-module.exports = verifyAuthorisation;
+module.exports = {
+    verify: verifyAuthorisation,
+    _isAuthorised,
+    _regexIncludes: regexIncludes
+}
