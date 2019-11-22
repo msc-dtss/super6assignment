@@ -121,19 +121,30 @@ const madeByUser = async (db, roundIndex, userId) => {
 };
 
 /**
- * Gets all the bets for a user, keyed by game id
- * @param {*} db The connection to the database
- * @param {String} userId The ID of the user
+ * Organises all bets to be indexed by game id
+ * @param {Array} betsList An array of bets to transform into a map of games
+ * @return {*} A map of the game bets that were passed in but with the game ID as each bet's key
  */
-const betsForUserByGame = async (db, userId) => {
+const indexBetsByGameId = (betsList) => {
     const bets = {}
-    const dbBets = await fetch(db, { userId: userId });
-    dbBets.forEach(dbBet => {
+    betsList.forEach(dbBet => {
         dbBet.gameBets.forEach(gameBet => {
             bets[gameBet.id] = gameBet;
-        })
-    })
+        });
+    });
     return bets;
+}
+
+
+/**
+ * Fetches all bets, for the given user, indexed by game id
+ * @param {*} db The connection to the database
+ * @param {String} userId The ID of the user
+ * @return {*} A map with all the game bets created by a user with the game ID as each bet's key
+ */
+const betsForUserByGame = async (db, userId) => {
+    const dbBets = await fetch(db, { userId: userId });
+    return indexBetsByGameId(dbBets);
 }
 
 /**
@@ -230,5 +241,6 @@ module.exports = {
     fetchUnscoredBets,
     betsForUserByGame,
     goldenTriesForUserByRound,
-    scoreForUserByRound
+    scoreForUserByRound,
+    _indexBetsByGameId: indexBetsByGameId
 };
