@@ -25,7 +25,8 @@ const fetchProfileBundle = async (db, userId) => {
     };
     const mostRecentRound = recentRoundIndex();
 
-    const recentBet = await betService.fetch(db, { userId: userId, roundIndex: mostRecentRound });
+    const recentBet = await betService.betsForUserAndRoundGame(db, userId, mostRecentRound);
+    const fullBet = await betService.fetch(db, {userId: userId, roundIndex: mostRecentRound})
 
     // Gets the total points from all placed bets
     let totalPoints = 0;
@@ -49,10 +50,11 @@ const fetchProfileBundle = async (db, userId) => {
         return today;
     };
     const todaysDate = todaysDateGetter();
-
+    console.log(recentBet)
     return {
         user: users[0],
-        bets: recentBet,
+        bets: fullBet,
+        gameBets: recentBet,
         round: rounds,
         games: games,
         totalPoints: totalPoints,

@@ -161,6 +161,17 @@ const betsForUserByGame = async (db, userId) => {
 }
 
 /**
+ * Fetches all bets, for the given user, indexed by game id
+ * @param {*} db The connection to the database
+ * @param {String} userId The ID of the user
+ * @return {*} A map with all the game bets created by a user with the game ID as each bet's key
+ */
+const betsForUserAndRoundGame = async (db, userId, roundId) => {
+    const dbBets = await fetch(db, { userId: userId, roundIndex: roundId });
+    return indexBetsByGameId(dbBets);
+}
+
+/**
  * Gets all the golden try predictions for a user, keyed by user id
  * @param {*} db The connection to the database
  * @param {String} userId The ID of the user
@@ -243,6 +254,7 @@ const scoreForUserByRound = async (db, userId) => {
 };
 
 module.exports = {
+    betsForUserAndRoundGame,
     resolveClientBet,
     create,
     fetch,
