@@ -1,7 +1,7 @@
 <%- contentFor('body') %>
 <% const defaultUserInfo = {firstName:'Anonymous', surname:'User', email:'who@knows.com', isAdmin:false, isActive:false}; %>
 <% const u = typeof user === 'undefined' ? defaultUserInfo : user; %>
-
+<% const games = response.games %>
 <!-- Left Profile Bar -->
 
 <div class="page_content">
@@ -13,8 +13,18 @@
             <div class="profile_information">
                 name: <%= `${u.firstName} ${u.surname}` %><br>
                 email: <%= u.email %><br>
-                Total bets: <%= response.totalBets %><br>
-                Points: <%=response.totalPoints%><br>
+                <!-- If any bets exist -->
+                <% if(response.totalBets) { %>
+                    Total bets: <%= response.totalBets %><br>
+                <% } else { %>
+                    Total bets: 0 So far!
+                <% } %>
+                <!-- If any points exist -->
+                <% if(response.totalPoints) { %>
+                    Points: <%=response.totalPoints%><br>
+                <% } else { %>
+                    Points: 0 So far!
+                <% } %>
             </div>
         </div>
     </div>
@@ -24,47 +34,24 @@
         <div>MOST RECENT BET</div>
 
         <% if (response.todaysDate < response.round[0].dateRange.start) { %> 
-            <div Round_starts>Round starts: <%= response.round[0].dateRange.start %></div>
+            <div class="round_starts">Round starts: <%= response.round[0].dateRange.start %></div>
         <% } else { %>
-            <div Round_starts>Round already started on: <%= response.round[0].dateRange.start %></div>
+            <div class="round_starts">Round already started on: <%= response.round[0].dateRange.start %></div>
         <% }; %>
 
-        <div class="bet_table">
-            <!-- Loop through the games to place into rows -->
-            <% for (let index = 0; index < response.games.length; index++) { %>
-                <div class="game_item game_index_<%=index%>">
-                    <% let currentGameId = response.games[index]._id; %>
-                    <!-- Loop through the gameBets, grabs the id and matches it to the currentGameId. -->
-                    <% for (let k = 0; k < response.bets[0].gameBets.length; k++) { %>
-                        <% if (response.bets[0].gameBets[k].id === currentGameId){ %>
-                            <% var currentGameBetIndex = k; %> <!-- TODO Try and not use var here -->
-                            <% }; %>
-                        <% }; %>
-                            <div><%= response.games[index].teamA.name %> : 
-                                <div class="bets_text"><%= response.bets[0].gameBets[currentGameBetIndex].teamATries %></div>
-                                <input class="bets_edit" style="display: none" type="number" value="<%= response.bets[0].gameBets[currentGameBetIndex].teamATries %>"></input>
-                            </div>
-                            <div><%= response.games[index].teamB.name %> :
-                                <div class="bets_text"><%= response.bets[0].gameBets[currentGameBetIndex].teamBTries %></div>
-                                <input class="bets_edit" style="display: none" type="number" value="<%= response.bets[0].gameBets[currentGameBetIndex].teamBTries %>"></input>
-                            </div>
-                            <div>Win guess:
-                                <div class="bets_text"><%= response.bets[0].gameBets[currentGameBetIndex].winTeam %></div>
-                                <select class="bets_edit" game_winner name="Winner" style="display: none" value="<%= response.bets[0].gameBets[currentGameBetIndex].winTeam %>">
-                                        <option value="<%= response.games[index].teamA.name %>"><%= response.games[index].teamA.name %></option>
-                                        <option value="<%= response.games[index].teamB.name %>"><%= response.games[index].teamB.name %></option>
-                                        <option value="draw">Draw</option>
-                                    </select>
-                            </div>
-                            <div> Points:
-                                <% if (response.todaysDate > response.games[index].gameDate) { %>
-                                    <div><%=response.bets[0].gameBets[currentGameBetIndex].points%></div>
-                                <% } else { %>
-                                    <div>No result yet</div>
-                                    <% }; %>
-                            </div>
+        <div class="bet-area">
+            <% for (let i = 0; i < response.games.length; ++i) { %>
+            <div game_block game_block_<%=i%> game_id="<%= response.games[i]._id %>">
+                <div class="column">
+                    <%- include('common/fixture.ejs', {teamA: response.games[i].teamA, teamB: response.games[i].teamB, isBet: false, isProfile: true, blockNumber: i}) %>
                 </div>
-            <% } %> <!-- End of the game loops -->
+                <select class="invisible" game_winner name="Winner">
+                    <option value="<%= response.games[i].teamA.name %>"><%= response.games[i].teamA.name %></option>
+                    <option value="<%= response.games[i].teamB.name %>"><%= response.games[i].teamB.name %></option>
+                    <option value="draw">Draw</option>
+                </select>
+            </div>
+            <% }; %>
         </div>
 
         <h5>Golen Try Guess: <%=response.bets[0].goldenTry%></h5>
@@ -76,9 +63,8 @@
 
         <!-- Edit Bet Button  -->
         <% if (response.todaysDate < response.round[0].dateRange.start) { %> 
-            <button class="edit_bet_button" onclick="editTheBets(event)">Edit Bet</button>
-            <button class="save_bet_button" onclick="saveTheBets(event)" style="display: none;">Save Bets</button>
-            <% }; %>
+            <button class="edit_bet_button" onclick="editTheBets(event)"><a href="/bets/play">Edit Bet</a></button>
+            <% }; %> 
 
         <!-- Bet History Link -->
         <div class="show_more_bet_history">

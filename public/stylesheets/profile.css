@@ -4,7 +4,7 @@
     flex-direction: row;
 }
 
-/* ---------------------USER BOX------------------------ */
+/* --------------------- USER BOX------------------------ */
 
 .user_info_box {
     background-color: lightgray;
@@ -31,8 +31,9 @@
 .profile_information {
     color: darkgray;
 }
+/* ---------------------NEW GAME BOX------------------------ */
 
-/* ---------------------BET HISTORY BOX------------------------ */
+/* ---------------------BET GAME BOX------------------------ */
 
 .user_bet_box {
   background-color: white;
