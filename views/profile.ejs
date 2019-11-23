@@ -42,8 +42,8 @@
         <div class="bet-area">
             <% for (let i = 0; i < response.games.length; ++i) { %>
             <div game_block game_block_<%=i%> game_id="<%= response.games[i]._id %>">
-                <div class="column">
-                    <%- include('common/fixture.ejs', {teamA: response.games[i].teamA, teamB: response.games[i].teamB, isBet: false, isProfile: true, blockNumber: i}) %>
+                <div class="column"> 
+                    <%- include('common/fixture.ejs', {teamA: response.games[i].teamA, teamB: response.games[i].teamB, gameBet: response.gameBets[response.games[i]._id], isBet: false, blockNumber: i}) %>
                 </div>
                 <select class="invisible" game_winner name="Winner">
                     <option value="<%= response.games[i].teamA.name %>"><%= response.games[i].teamA.name %></option>

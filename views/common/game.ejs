@@ -12,6 +12,10 @@
                 <%= teamSide %>Tries" type="number" min="0">
                 <label for="block_<%= blockNumber %>_team_<%= teamSide %>_tries"><%= team.name %> Tries</label>
             </div>
+        <% } else if (teamTries !== null) { %>
+            <div class="profile_page_team_tries">
+                Your Team Try Guess:<%= teamTries %>
+            </div>
         <% } %>
     </div>
 </div>
