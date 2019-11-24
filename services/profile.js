@@ -50,7 +50,6 @@ const fetchProfileBundle = async (db, userId) => {
         return today;
     };
     const todaysDate = todaysDateGetter();
-    console.log(recentBet)
     return {
         user: users[0],
         bets: fullBet,

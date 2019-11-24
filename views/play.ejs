@@ -1,4 +1,5 @@
 <%- contentFor('body') %>
+<% const bet = typeof betInformation === 'undefined' ? null : betInformation %>
 <div class="bet-area">
     <div class="help-button" help_toggle="[how_to_play]"></div>
     <div class="help invisible" how_to_play>
@@ -12,7 +13,7 @@
     <% for (let i = 0; i < games.length; i++) { %>
     <div game_block game_block_<%= i %> game_id="<%= games[i]._id %>">
         <div class="column">
-            <%- include('common/fixture.ejs', {teamA: games[i].teamA, teamB: games[i].teamB, isBet: true, blockNumber: i, gameBet: null}) %>
+            <%- include('common/fixture.ejs', {teamA: games[i].teamA, teamB: games[i].teamB, isBet: true, blockNumber: i, gameBet: !bet ? null : bet.gameBets[i]}) %>
         </div>
         <select class="invisible" game_winner name="Winner">
             <option value="<%= games[i].teamA.name %>"><%= games[i].teamA.name %></option>
@@ -47,3 +48,9 @@
 </div>
 
 <script src="/javascript/play.js"></script>
+<script>
+    var betInformation = <%= JSON.stringify(bet) %>;
+    fillSelection(betInformation);
+    // Inside play.js we have fillSelection which will iterate through the keys of betInformation and do:
+    // select(document.querySelector("[game_id='5dbb5ba824a8c8398c3a0f8b']").querySelector("[team_name='"+betInformation['5dbb5ba824a8c8398c3a0f8b'].winTeam+"']"))
+</script>

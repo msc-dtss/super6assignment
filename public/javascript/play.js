@@ -82,7 +82,9 @@ var select = function (gameTeam, type) {
     var blockNumber = info.getAttribute("block_number");
 
     var selector = document.querySelector("[game_block_" + blockNumber + "]").querySelector("[game_winner]");
-    selector.value = value;
+    if(!!selector){
+        selector.value = value;
+    }
 
     if (type !== "draw") {
         gameTeam.classList.remove(resetClass);
@@ -95,7 +97,7 @@ var select = function (gameTeam, type) {
  * Attach the winner/loser selection event listener to each flag
  */
 var attachVictorListeners = function () {
-    var selectors = document.querySelectorAll("[team_win_selector]");
+    var selectors = document.querySelectorAll("[team_win_selector][is_writable='true']");
     for (var i = 0; i < selectors.length; i++) {
         selectors[i].addEventListener('click', function (event) {
             if (event.srcElement.tagName.toLowerCase() !== "input") {
@@ -109,7 +111,7 @@ var attachVictorListeners = function () {
  * Attach the draw selection event listener to the vs element
  */
 var attachTieListeners = function () {
-    var selectors = document.querySelectorAll("[team_draw_selector]");
+    var selectors = document.querySelectorAll("[team_draw_selector][is_writable='true']");
     for (var i = 0; i < selectors.length; i++) {
         selectors[i].addEventListener('click', function (event) {
             if (event.srcElement.tagName.toLowerCase() !== "input") {

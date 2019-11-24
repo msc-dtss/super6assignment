@@ -1,20 +1,16 @@
 <div class="team" team_win_selector team_name="<%= team.name %>" style="background-image: url('/images/flags/<%= team.flag %>')">
     <div class="team-overlay">
-        <% if(isBet){ %>
+        
             <div class="description" bet_winner_selection>Victor</div>
-        <% } %>
+       
         <div class="name"><%= team.name %></div>
-        <% if(isBet){ %>
+        <% if(isBet || teamTries){ %>
             <span class="invisible" bet_info team_side="<%= teamSide %>" block_number=<%= blockNumber %>></span>
             <div class="label-placeholders">
-                <input id="block_<%= blockNumber %>_team_<%= teamSide %>_tries" class="game-fixture-try-input" placeholder="<%= team.name %> Tries" team_<%= teamSide %>_tries name="block
+                <input <%= isBet ? '' : 'disabled' %> id="block_<%= blockNumber %>_team_<%= teamSide %>_tries" value="<%= !teamTries ? "" : teamTries %>" class="game-fixture-try-input" placeholder="<%= team.name %> Tries" team_<%= teamSide %>_tries name="block
                 <%= blockNumber %>Team
                 <%= teamSide %>Tries" type="number" min="0">
                 <label for="block_<%= blockNumber %>_team_<%= teamSide %>_tries"><%= team.name %> Tries</label>
-            </div>
-        <% } else if (teamTries !== null) { %>
-            <div class="profile_page_team_tries">
-                Your Team Try Guess: <strong><%= teamTries %></strong>
             </div>
         <% } %>
     </div>

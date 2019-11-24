@@ -4,7 +4,11 @@
     flex-direction: row;
 }
 /* --------------------- USER BOX------------------------ */
-
+.user_info_title {
+  margin: 10px auto;
+  width: 90%;
+  text-align: center;
+}
 .user_info_box {
     background-color: lightgray;
     min-height: 500px;
@@ -28,13 +32,25 @@
 }
 
 .profile_information {
-    color: darkgray;
+    color: rgb(59, 59, 59);
 }
 /* ---------------------NEW GAME BOX------------------------ */
 .profile_page_team_tries {
   background: rgba(49, 10, 43, 0.7);
   width: 100%;
   text-align: center;
+}
+.result_selection {
+  color: black;
+  text-align: center;
+}
+.result_bottom_border {
+  height: 4px;
+  width: 80%;
+  background-color: rgb(197, 197, 197);
+  margin: 1px auto;
+  margin-bottom: 20px;
+  border-radius: 5px;
 }
 /* ---------------------BET GAME BOX------------------------ */
 
@@ -48,6 +64,12 @@
     flex-direction: column;
 }
 
+.round_starts{
+  width: 90%;
+  margin: auto;
+  text-align: center;
+  border-top: 1px dotted rgb(77, 77, 77);
+}
 .game_item {
   border-top: 2px solid rgb(240, 240, 240);
   display: flex;
@@ -59,6 +81,12 @@
   margin: 10px 10px;
 }
 
+.bottom_elements {
+  width: 90%;
+  margin: auto;
+  text-align: center;
+  border-top: 1px dotted rgb(77, 77, 77);
+}
 /* ---------------------ALERT BOX------------------------ */
 .edit_bet_alert {
   border: black solid 5px;
