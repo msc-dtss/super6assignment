@@ -44,7 +44,10 @@ router.post("/login", wrap(async (req, res, next) => {
         }
     } catch (e) {
         if (e instanceof errors.InvalidCredentialsError) {
-            res.redirect("/"); //TODO: Provide feedback to user that login was unsuccessful
+            req.session.error = e
+            console.log(e)
+            res.redirect("/");
+            //res.render('/', {message: 'Incorrect Login Details'}); //TODO: Provide feedback to user that login was unsuccessful
         }
     }
 }));

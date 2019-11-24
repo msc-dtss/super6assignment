@@ -1,6 +1,7 @@
 class SuperSixError extends Error {
-    constructor(message, httpCode) {
+    constructor(message, httpCode, code) {
         super(message);
+        this.code = code || "000";
         this.httpCode = httpCode;
     }
 }
@@ -19,7 +20,7 @@ class UserNotFoundError extends SuperSixError {
 
 class InvalidCredentialsError extends SuperSixError {
     constructor(message, httpCode) {
-        super(message || "Invalid credentials", httpCode || "401");
+        super(message || "Invalid credentials", httpCode || "401", "001");
     }
 }
 
