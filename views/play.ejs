@@ -10,7 +10,7 @@
         </ol>
     </div>
     <% for (let i = 0; i < games.length; i++) { %>
-    <div game_block game_block_<%=i%> game_id="<%= games[i]._id %>">
+    <div game_block game_block_<%= i %> game_id="<%= games[i]._id %>">
         <div class="column">
             <%- include('common/fixture.ejs', {teamA: games[i].teamA, teamB: games[i].teamB, isBet: true, blockNumber: i, gameBet: null}) %>
         </div>
