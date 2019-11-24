@@ -3,7 +3,6 @@
     display: flex;
     flex-direction: row;
 }
-
 /* --------------------- USER BOX------------------------ */
 
 .user_info_box {
@@ -12,16 +11,16 @@
     min-width: 300px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: initial;
     text-align: center;
     align-content: center;
     align-items: center;
 }
 
 .avatar_image {
+    margin-top: 100px;
     max-width: 150px;
     max-height: 150px;
-    /* margin-top: 50px; */
 }
 
 .avatar_image img {
@@ -32,7 +31,11 @@
     color: darkgray;
 }
 /* ---------------------NEW GAME BOX------------------------ */
-
+.profile_page_team_tries {
+  background: rgba(49, 10, 43, 0.7);
+  width: 100%;
+  text-align: center;
+}
 /* ---------------------BET GAME BOX------------------------ */
 
 .user_bet_box {
@@ -54,4 +57,47 @@
 
 .game_item {
   margin: 10px 10px;
+}
+
+/* ---------------------ALERT BOX------------------------ */
+.edit_bet_alert {
+  border: black solid 5px;
+  position: fixed;
+  left: 46%;
+  top: 50%;
+  background-color: red;
+  padding: 10px;
+  min-width: 30%;
+  text-align: center;
+}
+.closebtn, .back_out_btn {
+  margin-top: 20px;
+  color: white;
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover, .back_out_btn:hover {
+  color: black;
+}
+.yes_no_select {
+  height: 100px;
+  padding-top: 50px;
+  display: flex;
+  justify-content: space-around;
+}
+/* ---------------------MOBILE DESIGN------------------------ */
+@media only screen and (max-width: 740px) {
+  .page_content {
+    flex-direction: column;  
+  }
+  .user_info_box {
+    min-height: 30px;
+  }
+  .avatar_image {
+    margin-top: 20px;
+  }
 }

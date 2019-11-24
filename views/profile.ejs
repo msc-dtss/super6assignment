@@ -54,6 +54,14 @@
             <% }; %>
         </div>
 
+        <!-- Delete Bet Alert Box -->
+        <div class="edit_bet_alert" style="display: none;">
+            <p>Are you sure you wish to continue?</p>
+            <strong>Danger!</strong> Clicking yes will delete your current bet! 
+            <div class="yes_no_select">
+                <span class="closebtn" onclick="yesAlertSelect(event);">YES
+                </span> <span class="back_out_btn" onclick= "noAlertSelect(event);">NO</span></div>
+        </div>
         <h5>Golen Try Guess: <%=response.bets[0].goldenTry%></h5>
 
         <!-- Round Points to show if round end date has passed -->
@@ -62,8 +70,9 @@
             <% }; %>
 
         <!-- Edit Bet Button  -->
-        <% if (response.todaysDate < response.round[0].dateRange.start) { %> 
-            <button class="edit_bet_button" onclick="editTheBets(event)"><a href="/bets/play">Edit Bet</a></button>
+        <% if (1) { %>
+            <!-- response.todaysDate < response.round[0].dateRange.start  -->
+            <button class="edit_bet_button" onclick="displayEditBetAlert(event)">Edit Bet</a></button>
             <% }; %> 
 
         <!-- Bet History Link -->
