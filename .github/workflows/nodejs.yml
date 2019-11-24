@@ -35,5 +35,4 @@ jobs:
           body: "Auto-generated release"
           commit: master
           tag: latest
-          name: $GITHUB_SHA
           token: ${{ secrets.GITHUB_TOKEN }}
