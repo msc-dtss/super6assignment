@@ -60,7 +60,10 @@ typings/
 # next.js build output
 .next
 
+# Submission products
+submission
+submission*.zip
 
 # Experiments
-gource.sh
+graph.sh
 *.replacements
