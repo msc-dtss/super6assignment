@@ -10,7 +10,7 @@
   "scripts": {
     "start": "nodemon ./bin/www",
     "test": "mocha",
-    "build": "./build.sh -y"
+    "build": "./build.sh -y --name='rugbysuper6'"
   },
   "repository": {
     "type": "git",

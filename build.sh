@@ -16,11 +16,10 @@ ERROR="\e[1;31m"
 SUCCESS="\e[1;32m"
 END="\e[0m"
 
-# Settings
-PACKAGE_NAME="shu-ddsa-rugbysuper6"
-
+timestamp=$(date +%Y-%m-%d_%H-%M-%S)
 # Option defaults
 SKIP_QUESTION="false"
+PACKAGE_NAME="shu-ddsa-rugbysuper6_${timestamp}"
 
 for i in "$@"
 do
@@ -28,6 +27,10 @@ do
         -y)
             # Useful for automated builds
             SKIP_QUESTION="true"
+            shift
+        ;;
+        --name=*)
+            PACKAGE_NAME="${i#*=}"
             shift
         ;;
         *)
@@ -87,8 +90,6 @@ if [[ $? -ne 0 ]]; then
 fi
 success "All tests passed"
 
-timestamp=$(date +%Y-%m-%d_%H-%M-%S)
-
 rm -rf ${PACKAGE_NAME}
 mkdir ${PACKAGE_NAME}
 
@@ -104,7 +105,7 @@ rsync -a \
 --exclude=*.replacements \
 --exclude=entrypoint.sh \
 --exclude=${PACKAGE_NAME} \
---exclude=${PACKAGE_NAME}_*.zip \
+--exclude=${PACKAGE_NAME}.zip \
 * ${PACKAGE_NAME}
 
 if [[ $? -ne 0 ]]; then
@@ -113,10 +114,10 @@ if [[ $? -ne 0 ]]; then
 fi
 
 info "Packaging ${PACKAGE_NAME}..."
-zip -r ${PACKAGE_NAME}_$timestamp.zip ${PACKAGE_NAME} > /dev/null 2>&1
+zip -r ${PACKAGE_NAME}.zip ${PACKAGE_NAME} > /dev/null 2>&1
 if [[ $? -ne 0 ]]; then
     error "Unable to build zip package"
     exit 1
 fi
 success "Done"
-info "Package available at ${PWD}/${PACKAGE_NAME}_$timestamp.zip"
+info "Package available at ${PWD}/${PACKAGE_NAME}.zip"
