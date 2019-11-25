@@ -1,6 +1,11 @@
 name: Node CI
 
-on: [push]
+on:
+  push:
+    paths-ignore:
+    - 'docs/**'
+    - '.vscode'
+    - '.idea'
 
 jobs:
   build:
@@ -21,6 +26,8 @@ jobs:
           npm ci
           npm test
           npm run build --if-present
+          PACKAGE_JSON_VERSION=$(./version.sh show)
+          echo "::set-env name=release_version::${PACKAGE_JSON_VERSION}"
         env:
           CI: true
       - name: Archive production artifacts
@@ -34,8 +41,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.sha }}
+          tag_name: ${{ release_version }}
+          release_name: ${{ release_version }} ${{ github.sha }}
           body: To do
           draft: true # All releases default to being a draft. We can publish them manually later.
           prerelease: false
