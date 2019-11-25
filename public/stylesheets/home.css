@@ -274,6 +274,11 @@ body {
 
 /* Set a style all buttons */
 
+.button {
+    display: inline-block; /* to match the button element */
+    box-sizing: border-box;
+}
+.button,
 button {
     background-color: rgb(119, 119, 150);
     color: white;
@@ -286,18 +291,22 @@ button {
     float: center;
 }
 
+.button.main,
 button.main {
     background-color: rgb(126, 29, 86);
 }
 
+.button.full-width,
 button.full-width {
     width: 100%;
 }
 
+.button:hover,
 button:hover {
     opacity: 1;
 }
 
+.button.centred,
 button.centred {
     display:block;
     max-width: 150px;

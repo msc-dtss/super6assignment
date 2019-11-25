@@ -1,32 +1,30 @@
-<%# TODO: Change this into two separate forms: login and register (this can be the register one %>
-
 <div id="registerForm" class="form-popup" user_form>
-    <form id="userFormForm" action="/users/signup" method="post" class="form-container">
+    <form id="userFormForm" class="form-container">
         <h1 id="userFormHeading">Register</h1>
-        
+
         <div class="label-placeholders">
             <input id="register_firstName" name="firstName" placeholder="Enter First Name" required type="text" />
             <label for="register_firstName">First Name</label>
         </div>
-        
+
         <div class="label-placeholders">
             <input id="register_surname" name="surname" placeholder="Enter Surname" required type="text" />
             <label for="register_surname">Surname</label>
         </div>
-        
+
         <div class="label-placeholders">
             <input id="register_email" name="email" placeholder="Enter Email" required type="email" />
             <label for="register_email">Email</label>
         </div>
-        
+
         <div class="label-placeholders">
             <input id="register_password" name="password" placeholder="Enter Password" required type="password"
                 pattern="(?=.*[a-z])(?=.*[A-Z]).{7,}"
                 title="Minimum 7 characters, and atleast 1 lowercase and uppercase letter" />
             <label for="register_password">Password</label>
         </div>
-        
-        <button class="main full-width" type="submit" id="userFormButton">Register</button>
-        <button class="full-width" onclick="closeUserForm()" type="button">Close</button>
+
+        <a class="button main full-width" onclick="submitUserInfo('registerForm', '/users/signup')" id="userFormButton">Register</a>
+        <a class="button full-width" onclick="closeUserForm()" type="button">Close</a>
     </form>
 </div>

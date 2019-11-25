@@ -1,7 +1,10 @@
 <% const isLoggedIn = typeof loggedIn === 'undefined' ? false : loggedIn %>
 <% const isMain = typeof mainPage === 'undefined' ? false : mainPage %>
 <% const hasError = typeof error === 'undefined' ? false : !!error %>
-<% if(hasError && error.code === "001" && !loggedIn){ %>
+
+<script src="/javascript/utils.js"></script>
+
+<% if(hasError && error.code === "001" && !loggedIn){ %>   
     <div class="login-failed">
         <h1>Error: Login failed, please try again.</h1>
     </div>
@@ -38,6 +41,49 @@
     </div>
 
     <script>
+        // Need to move all this into a javascript file
+
+        var colourBadFields = function(inputElement) {
+            inputElement.style = "background:red;"; // We need to turn this into a class
+        };
+        
+        var loginError = function(httpStatusCode, responseText, responseJson){
+            if(responseJson) {
+                for(var i=0; i<responseJson.errors.length; i++){
+                    var elementName = responseJson.errors[i].param;
+                    colourBadFields(formElement.querySelector("[name='"+ elementName +"']"));
+                }
+            }
+        };
+
+        var submitUserInfo = function(formId, endpoint) {
+            var formElement = document.querySelector("#"+formId);
+            var allInputFields = formElement.querySelectorAll("input");
+            var formValues = {};
+            var hasErrors = false;
+            for(var i=allInputFields.length-1; i >= 0; i--){
+                formValues[allInputFields[i].getAttribute("name")] = allInputFields[i].value;
+                if(!allInputFields[i].checkValidity()){
+                    allInputFields[i].reportValidity();
+                    hasErrors = true;
+                    colourBadFields(allInputFields[i]);
+                }
+            }
+            
+            if(hasErrors){
+                return false;
+            }
+
+            makeRequest(endpoint,
+                "POST",
+                function() {
+                    location.href = "/bets/play";
+                },
+                loginError,
+                formValues
+            );
+        };
+
         var showUserForm = function (type) {
             // The code below should just decide which login form to open
             if (type === 'login') {
@@ -50,8 +96,4 @@
         var closeUserForm = function () {
             document.querySelector("[user_form].show-form,[login_form].show-form ").classList.remove("show-form");
         };
-
-        var loginError = function () {
-
-        }
     </script>
