@@ -18,6 +18,9 @@ const initialize = (app, host, port) => {
             useUnifiedTopology: true
         },
         async (err, client) => {
+            if(err) {
+                console.error(err);
+            }
             const db = client.db('super6db');
             app.set('super6db', db);
             if (app.get('isDevelopment') || process.env.SUPERSIX_FORCE_SEED === "true") {

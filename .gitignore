@@ -60,7 +60,14 @@ typings/
 # next.js build output
 .next
 
+# Submission products
+submission
+submission*.zip
+shu-ddsa-rugbysuper6
+shu-ddsa-rugbysuper6*.zip
+rugbysuper6
+rugbysuper6.zip
 
 # Experiments
-gource.sh
+graph.sh
 *.replacements
