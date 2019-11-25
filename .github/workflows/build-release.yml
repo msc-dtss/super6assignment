@@ -22,6 +22,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Test and Build
+        id: test_build
         run: |
           npm ci
           npm test
@@ -41,8 +42,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ release_version }}
-          release_name: ${{ release_version }} ${{ github.sha }}
+          tag_name: ${{ steps.test_build.outputs.release_version }}
+          release_name: ${{ steps.test_build.outputs.release_version }} ${{ github.sha }}
           body: To do
           draft: true # All releases default to being a draft. We can publish them manually later.
           prerelease: false
