@@ -8,7 +8,7 @@ class SuperSixError extends Error {
 
 class ValidationError extends SuperSixError {
     constructor(message, httpCode) {
-        super(message || "Validation error", httpCode || "400");
+        super(message || "Validation error", httpCode || "422");
     }
 }
 

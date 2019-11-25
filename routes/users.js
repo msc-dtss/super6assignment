@@ -16,21 +16,21 @@ router.get('/', wrap(async (req, res, next) => {
     });
 }));
 
-router.post('/signup', wrap(async (req, res, next) => {
-    // Save a user - NO AUTH AT PRESENT
+router.post('/signup', [
+    check('email').isEmail(),
+    check('password').isLength({ min: 7 })
+], wrap(async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
+
     const db = req.app.get('super6db');
     const email = req.body.email;
     const password = req.body.password;
     const firstName = req.body.firstName;
     const surname = req.body.surname;
-    //TODO: Maybe do a validator like bets.resolveClientBet? 
-    check(email).isEmail(),
-    check(password).isLength({ min: 7 })
-    const errors = validationResult(req);
-    console.log(req.body);
-        if(!errors.isEmpty()) {
-            return res.status(422).json( { errors: errors.array() });
-        } 
+
     await userService.create(db, email, password, firstName, surname);
     req.session.user = await userService.fetchUser(db, email)
     req.session.login = true;
