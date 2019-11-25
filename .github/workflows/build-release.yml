@@ -31,6 +31,7 @@ jobs:
           npm test
           npm run build --if-present
           PACKAGE_JSON_VERSION=$(node ./version.js show)
+          echo "${PACKAGE_JSON_VERSION}"
           echo "::set-env name=release_version::${PACKAGE_JSON_VERSION}"
         env:
           CI: true
