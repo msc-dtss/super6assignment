@@ -14,8 +14,8 @@
                     <a href="/profile"><%= `${user.firstName} ${user.surname}` %></a>
                     <a href="/users/logout">Logout</a>
                     <%} else {%>
-                    <a class="mobile-only" href="/bets/play" id="play">Login</a>
-                    <a class="mobile-only" href="/bets/play" id="play">Register</a>
+                    <a class="mobile-only" href="#" onclick="showUserForm('login')" id="play">Login</a>
+                    <a class="mobile-only" href="#" onclick="showUserForm('register')" id="play">Register</a>
                     <%}%>
                 </div>
             </div>
