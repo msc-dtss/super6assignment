@@ -4,6 +4,7 @@ const session = require("express-session")
 const userService = require("../services/users");
 const errors = require('../errors/super6exceptions');
 const wrap = require('./helpers/exceptionHandler').exceptionWrapper;
+const { check, validationResult } = require("express-validator");
 
 const router = express.Router();
 
@@ -22,7 +23,14 @@ router.post('/signup', wrap(async (req, res, next) => {
     const password = req.body.password;
     const firstName = req.body.firstName;
     const surname = req.body.surname;
-    //TODO: Maybe do a validator like bets.resolveClientBet?
+    //TODO: Maybe do a validator like bets.resolveClientBet? 
+    check(email).isEmail(),
+    check(password).isLength({ min: 7 })
+    const errors = validationResult(req);
+    console.log(req.body);
+        if(!errors.isEmpty()) {
+            return res.status(422).json( { errors: errors.array() });
+        } 
     await userService.create(db, email, password, firstName, surname);
     req.session.user = await userService.fetchUser(db, email)
     req.session.login = true;
