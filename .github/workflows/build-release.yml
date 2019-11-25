@@ -1,7 +1,10 @@
-name: Node CI
+name: Build & Release
 
+# We only want releases from master
 on:
   push:
+    branches:
+    - master
     paths-ignore:
     - 'docs/**'
     - '.vscode'
@@ -27,7 +30,7 @@ jobs:
           npm ci
           npm test
           npm run build --if-present
-          PACKAGE_JSON_VERSION=$(./version.sh show)
+          PACKAGE_JSON_VERSION=$(node version.sh show)
           echo "::set-env name=release_version::${PACKAGE_JSON_VERSION}"
         env:
           CI: true
