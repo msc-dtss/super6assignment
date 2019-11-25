@@ -34,4 +34,7 @@
         height: 70px;
         justify-content: center;
     }
+    .head-image {
+        height: auto;
+    }
 }
