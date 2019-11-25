@@ -45,9 +45,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.test_build.outputs.release_version }}
-          release_name: ${{ steps.test_build.outputs.release_version }} ${{ github.sha }}
-          body: To do
+          tag_name: v${{ steps.test_build.outputs.release_version }}
+          release_name: ${{ steps.test_build.outputs.release_version }} (${{ github.sha }})
+          body: |
+            Contents to be decided.
           draft: true # All releases default to being a draft. We can publish them manually later.
           prerelease: false
       - name: Upload Release Asset
