@@ -16,8 +16,10 @@ ERROR="\e[1;31m"
 SUCCESS="\e[1;32m"
 END="\e[0m"
 
+timestamp=$(date +%Y-%m-%d_%H-%M-%S)
 # Option defaults
 SKIP_QUESTION="false"
+PACKAGE_NAME="shu-ddsa-rugbysuper6_${timestamp}"
 
 for i in "$@"
 do
@@ -25,6 +27,10 @@ do
         -y)
             # Useful for automated builds
             SKIP_QUESTION="true"
+            shift
+        ;;
+        --name=*)
+            PACKAGE_NAME="${i#*=}"
             shift
         ;;
         *)
@@ -84,34 +90,34 @@ if [[ $? -ne 0 ]]; then
 fi
 success "All tests passed"
 
-timestamp=$(date +%Y-%m-%d_%H-%M-%S)
+rm -rf ${PACKAGE_NAME}
+mkdir ${PACKAGE_NAME}
 
-rm -rf submission
-mkdir submission
-
-info "Preparing submission..."
+info "Preparing ${PACKAGE_NAME}..."
 # Note: No need to exclude hidden files (i.e. starting with `.`) as `*` already excludes those
 rsync -a \
---exclude=submission \
 --exclude=node_modules \
 --exclude=super6assignment.iml \
---exclude=buildSubmission.sh \
+--exclude=build.sh \
+--exclude=Dockerfile \
 --exclude=check_weird_space.sh \
 --exclude=graph.sh \
 --exclude=*.replacements \
---exclude=submission_*.zip \
-* submission
+--exclude=entrypoint.sh \
+--exclude=${PACKAGE_NAME} \
+--exclude=${PACKAGE_NAME}.zip \
+* ${PACKAGE_NAME}
 
 if [[ $? -ne 0 ]]; then
     error "Problem while copying files"
     exit 1
 fi
 
-info "Packaging submission..."
-zip -r submission_$timestamp.zip submission > /dev/null 2>&1
+info "Packaging ${PACKAGE_NAME}..."
+zip -r ${PACKAGE_NAME}.zip ${PACKAGE_NAME} > /dev/null 2>&1
 if [[ $? -ne 0 ]]; then
     error "Unable to build zip package"
     exit 1
 fi
 success "Done"
-info "Package available at ${PWD}/submission_$timestamp.zip"
+info "Package available at ${PWD}/${PACKAGE_NAME}.zip"
