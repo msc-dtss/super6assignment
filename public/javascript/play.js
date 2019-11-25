@@ -140,6 +140,17 @@ var attachHelpListeners = function () {
     }
 }
 
+/**
+ * Fills the values with the bet information
+ */
+var fillSelection = function (betInfo) {
+    var keys = Object.keys(betInfo)
+    for (var i = 0; i < keys.length; ++i) {
+        select(document.querySelector("[game_id='"+keys[i]+"']").querySelector("[team_name='"+betInfo[keys[i]].winTeam+"']"))
+    };
+};
+
+
 attachVictorListeners();
 attachTieListeners();
 attachHelpListeners();

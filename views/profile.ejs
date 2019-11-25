@@ -60,26 +60,27 @@
                 <h3>Round Points: <%= response.bets[0].points %></h3>
                 <% }; %>
 
-            <!-- Edit Bet Button  -->
-            <% if (1) { %> <!-- TODO REMOVE AND REPLACE WITH LINE BELOW - TESTING ONLY -->
-                <!-- response.todaysDate < response.round[0].dateRange.start  -->
-                <button class="edit_bet_button" onclick="displayEditBetAlert(event)">Edit Bet</a></button>
-                <% }; %> 
-
+                <!-- Delete Bet Alert Box -->
+                <div class="edit_bet_alert" edit_bet_alert style="display: none;">
+                    <p>Are you sure you wish to continue?</p>
+                    <strong>Danger!</strong> Clicking yes will change your current bet! 
+                    <div class="yes_no_select">
+                        <span class="closebtn" onclick='yesAlertSelect("<%=response.bets[0]._id%>");'>YES
+                        </span> <span class="back_out_btn" onclick= "noAlertSelect(event);">NO</span></div>
+                </div>
+                
+                <!-- Edit Bet Button  -->
+                <% if (1) { %> <!-- TODO REMOVE AND REPLACE WITH LINE BELOW - TESTING ONLY -->
+                    <!-- response.todaysDate < response.round[0].dateRange.start  -->
+                    <button class="edit_bet_button" onclick="displayEditBetAlert(event)">Edit Bet</a></button>
+                    <% }; %> 
+                    <% } %>
+                    
             <!-- Bet History Link -->
             <div class="show_more_bet_history">
                 <h3><a href="/bets/history">Show Full History</a></h3>
             </div>
         </div>
-        <!-- Delete Bet Alert Box -->
-        <div class="edit_bet_alert" style="display: none;">
-            <p>Are you sure you wish to continue?</p>
-            <strong>Danger!</strong> Clicking yes will delete your current bet! 
-            <div class="yes_no_select">
-                <span class="closebtn" onclick="yesAlertSelect(response.bets[0]._id);">YES
-                </span> <span class="back_out_btn" onclick= "noAlertSelect(event);">NO</span></div>
-        </div>
-        <% } %>
     </div> 
 </div>
 
@@ -88,4 +89,5 @@
 
 <script>
     var betInformation = <%- JSON.stringify(response.gameBets) %>;
+    fillSelection(betInformation);
 </script>

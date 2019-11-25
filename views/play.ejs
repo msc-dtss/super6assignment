@@ -49,8 +49,6 @@
 
 <script src="/javascript/play.js"></script>
 <script>
-    var betInformation = <%= JSON.stringify(bet) %>;
-    fillSelection(betInformation);
-    // Inside play.js we have fillSelection which will iterate through the keys of betInformation and do:
-    // select(document.querySelector("[game_id='5dbb5ba824a8c8398c3a0f8b']").querySelector("[team_name='"+betInformation['5dbb5ba824a8c8398c3a0f8b'].winTeam+"']"))
+    var betInformation = <%- JSON.stringify(bet) %>;
+    fillSelection(betInformation.indexedGames);
 </script>

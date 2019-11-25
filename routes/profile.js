@@ -8,7 +8,7 @@ router.get('/', wrap(async (req, res, next) => {
     const db = req.app.get('super6db');
     const userInfo = await userProfileService.fetchProfileBundle(db, req.session.user._id);
     res.render('profile', {
-        title: 'user name',
+        title: req.session.user.firstName,
         response: userInfo,
         loggedIn: !!req.session.user,
         user: req.session.user || null

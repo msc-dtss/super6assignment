@@ -1,11 +1,10 @@
-function displayEditBetAlert(e) {
-    document.querySelector('.edit_bet_alert').style.display = 'block';
+var displayEditBetAlert = function (e) {
+    document.querySelector('[edit_bet_alert]').style.display = 'block';
 };
 
-function yesAlertSelect(betId) {
-    
+var yesAlertSelect = function (betId) {
+        location.href = "/bets/play/" + betId;
 };
-
-function noAlertSelect(e) {
-    document.querySelector('.edit_bet_alert').style.display = 'none';
+var noAlertSelect = function (e) {
+    document.querySelector('[edit_bet_alert]').style.display = 'none';
 };

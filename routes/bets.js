@@ -73,15 +73,16 @@ router.put('/:betId', wrap(async (req, res, next) => {
     }
 }));
 
-router.get('/play/:betId', wrap(async(req, res, next) => { //TODO Need to modify the profile page edit bet button to send the request with betID
+router.get('/play/:betId', wrap(async(req, res, next) => {
     const db = req.app.get('super6db');
     const betId = req.params.betId;
     const betInformation = await betsService.betOfUserAndBetId(db, req.session.user._id, betId);
+    betInformation.indexedGames = await betsService.indexBetsByGameId([betInformation]);
     if (!betInformation) {
         throw new errors.UnauthorizedException();
     };
 
-    const games = await gameService.fetchGamesByIds(db, betInformation.gameBets.map(game => game.id));
+    const games = await gameService.fetchGamesByIds(db, Object.keys(betInformation.indexedGames));
     res.render('play', {
         title: 'Super6 Rugby - Play',
         games,

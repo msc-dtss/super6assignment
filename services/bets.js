@@ -281,5 +281,5 @@ module.exports = {
     betsForUserByGame,
     goldenTriesForUserByRound,
     scoreForUserByRound,
-    _indexBetsByGameId: indexBetsByGameId
+    indexBetsByGameId
 };
