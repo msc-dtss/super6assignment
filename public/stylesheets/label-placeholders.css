@@ -7,6 +7,24 @@ input {
     border: 1px solid gray;
 }
 
+input:valid {
+    background: #edffe7;
+    border: 1px solid #0a5800;
+}
+
+.label-placeholders.invalid input {
+    background: #ffc1cc;
+    border: 1px solid #8b0000;
+}
+
+.label-placeholders [reason] {
+    display: none;
+}
+
+.label-placeholders.invalid [reason] {
+    display: block;
+}
+
 .label-placeholders {
     display: flex;
     flex-flow: column-reverse;
