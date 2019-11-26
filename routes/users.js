@@ -38,7 +38,6 @@ router.post('/signup', [
         res.redirect("/bets/play");
     } catch (e) {
         if (e instanceof exceptions.ValidationError) {
-            console.log(e);
             return res.status(e.httpCode).json(e.details);
         }
     }
@@ -58,9 +57,10 @@ router.post("/login", wrap(async (req, res, next) => {
         }
     } catch (e) {
         if (e instanceof exceptions.InvalidCredentialsError || e instanceof exceptions.UserNotFoundError) {
-            req.session.error = e
-            console.log(e)
-            res.redirect("/");
+            // In this case we don't want to inform the frontend if the users exists or not.
+            // So we want to always pretend it's an exceptions.InvalidCredentialsError
+            const err = new exceptions.InvalidCredentialsError();
+            return res.status(err.httpCode).json(err.details);
         }
     }
 }));
