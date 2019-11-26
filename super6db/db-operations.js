@@ -28,14 +28,12 @@ const initialize = (app, host, port, username, password, database) => {
  * @emits db-ready Once the connection is established and the database has been (optionally) seeded
  */
 const initializeWithURL = (app, url, database) => {
-    console.log("Connecting to the database...")
     MongoClient.connect(url,
         {
             useNewUrlParser: true,
             useUnifiedTopology: true
         },
         async (err, client) => {
-            console.log("Connected.")
             if(err) {
                 console.error(err);
             }
@@ -44,7 +42,6 @@ const initializeWithURL = (app, url, database) => {
             if (app.get('isDevelopment') || process.env.SUPERSIX_FORCE_SEED === "true") {
                 await reSeedDatabase(db);
             }
-            console.log("Database Ready.")
             app.emit('db-ready');
             resultsService.refreshResults(db);
         }
