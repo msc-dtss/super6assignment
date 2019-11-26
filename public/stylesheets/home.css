@@ -100,6 +100,14 @@ body {
     flex-direction: column;
 }
 
+.login-failed {
+    background-color: #e9aa22;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
 .content-middle {
     display: flex;
     justify-content: space-between;
@@ -256,7 +264,7 @@ body {
 /* Add styles to the form container */
 .form-container {
     width: 300px;
-    padding: 10px;
+    padding: 10px 25px;
     background-color: white;
     box-shadow: 2px 2px 5px #292929;
 }
@@ -266,6 +274,11 @@ body {
 
 /* Set a style all buttons */
 
+.button {
+    display: inline-block; /* to match the button element */
+    box-sizing: border-box;
+}
+.button,
 button {
     background-color: rgb(119, 119, 150);
     color: white;
@@ -278,18 +291,22 @@ button {
     float: center;
 }
 
+.button.main,
 button.main {
     background-color: rgb(126, 29, 86);
 }
 
+.button.full-width,
 button.full-width {
     width: 100%;
 }
 
+.button:hover,
 button:hover {
     opacity: 1;
 }
 
+.button.centred,
 button.centred {
     display:block;
     max-width: 150px;
@@ -324,6 +341,7 @@ button.centred {
     background-size: cover;
     border: 1px solid;
     border-color: #3f3f3f;
+    display: flex;
 }
 
 .team-overlay {

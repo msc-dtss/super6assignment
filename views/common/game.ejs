@@ -7,10 +7,11 @@
         <% if(isBet){ %>
             <span class="invisible" bet_info team_side="<%= teamSide %>" block_number=<%= blockNumber %>></span>
             <div class="label-placeholders">
-                <input id="block_<%= blockNumber %>_team_<%= teamSide %>_tries" class="game-fixture-try-input" placeholder="<%= team.name %> Tries" team_<%= teamSide %>_tries name="block
+                <input id="block_<%= blockNumber %>_team_<%= teamSide %>_tries" class="game-fixture-try-input" placeholder="<%= team.name %> Tries" value="" team_<%= teamSide %>_tries name="block
                 <%= blockNumber %>Team
                 <%= teamSide %>Tries" type="number" min="0">
                 <label for="block_<%= blockNumber %>_team_<%= teamSide %>_tries"><%= team.name %> Tries</label>
+                <div reason></div>
             </div>
         <% } %>
     </div>

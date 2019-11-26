@@ -13,8 +13,8 @@
     color: gray;
 }
 
-.label-placeholders>input:not(:placeholder-shown)+label,
-.label-placeholders>input:focus+label {
+.bet-area .label-placeholders>input:not(:placeholder-shown)+label,
+.bet-area .label-plaeholders>input:focus+label {
     color: white;
 }
 

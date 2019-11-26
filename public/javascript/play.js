@@ -1,32 +1,19 @@
 /**
- * Creates and sends the request with the bet details
- * @param {*} content The array containing all of the user's bets.
- */
-var makeRequest = function (content) {
-    var httpRequest = new XMLHttpRequest();
-    if (!httpRequest) {
-        alert("Giving up :( Cannot create an XMLHTTP instance");
-        return false;
-    } else {
-        httpRequest.onreadystatechange = function () {
-            if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-                window.location.href = '/profile';
-            }
-        };
-        httpRequest.open("POST", "/bets");
-        httpRequest.setRequestHeader("Content-Type", "application/json");
-        httpRequest.send(JSON.stringify(content));
-    }
-};
-
-/**
  * Grabs the betting values from the form and sends them to the server
  * @param {*} roundIndex The round index which the user is betting on.
  * @param {*} nrGames The number of Games which the user is betting on (should always be 6).
  */
 var placeBet = function (roundIndex, nrGames) {
     var bet = getBetValues(roundIndex, nrGames);
-    makeRequest(bet);
+    makeRequest("/bets",
+        "POST",
+        function () {
+            window.location.href = '/profile';
+        },
+        function (httpStatusCode, responseText, responseJson) {
+            //failed function
+        },
+        bet);
 };
 
 /**
@@ -77,7 +64,7 @@ var select = function (gameTeam, type) {
     var selector = document.querySelector("[game_block_" + blockNumber + "]").querySelector("[game_winner]");
     selector.value = value;
 
-    if(type !== "draw"){
+    if (type !== "draw") {
         gameTeam.classList.remove(resetClass);
         gameTeam.classList.add("winner");
         gameTeam.querySelector("[bet_winner_selection]").innerHTML = "Victor";
@@ -88,7 +75,7 @@ var attachVictorListeners = function () {
     var selectors = document.querySelectorAll("[team_win_selector]");
     for (var i = 0; i < selectors.length; i++) {
         selectors[i].addEventListener('click', function (event) {
-            if (event.srcElement.tagName.toLowerCase() !== "input") {
+            if (event.srcElement.tagName.toLowerCase() !== "input" && event.srcElement.tagName.toLowerCase()!== "label") {
                 select(this);
             }
         });
@@ -99,7 +86,7 @@ var attachTieListeners = function () {
     var selectors = document.querySelectorAll("[team_draw_selector]");
     for (var i = 0; i < selectors.length; i++) {
         selectors[i].addEventListener('click', function (event) {
-            if (event.srcElement.tagName.toLowerCase() !== "input") {
+            if (event.srcElement.tagName.toLowerCase() !== "input" && event.srcElement.tagName.toLowerCase() !== "label") { //input
                 select(this, "draw");
             }
         });
@@ -112,7 +99,7 @@ var attachHelpListeners = function () {
         helpBtns[i].addEventListener('click', function (event) {
             var helpMessages = document.querySelectorAll(this.getAttribute("help_toggle"));
             for (var j = 0; j < helpMessages.length; j++) {
-                if(helpMessages[j].classList.contains("invisible")){
+                if (helpMessages[j].classList.contains("invisible")) {
                     helpMessages[j].classList.remove("invisible");
                 } else {
                     helpMessages[j].classList.add("invisible");
