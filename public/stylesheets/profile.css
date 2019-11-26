@@ -9,6 +9,18 @@
   width: 90%;
   text-align: center;
 }
+
+@media only screen and (max-width: 800px) {
+
+    .page_content {
+    
+     display: flex;
+     flex-direction: column;
+}
+}
+
+/* ---------------------USER BOX------------------------ */
+
 .user_info_box {
     background-color: lightgray;
     min-height: 500px;

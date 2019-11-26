@@ -1,13 +1,100 @@
 # Super 6 Rugby
 This is for the First Assignment for the 2019 MSc for Digital &amp; Technology Solutions Specialist.
 
-## Why Rugby?
-The day we started brainstorming our plan together, it was the start of the 2019 Rugby World Cup, so why not?
+Why rugby? The day we started brainstorming our plan together, it was the start of the 2019 Rugby World Cup, so why not?
+
+## Authors:
+
+* [Chris](https://github.com/TheQuietPotato)
+* [Mike](https://github.com/MikeKeightley)
+* [Millan](https://github.com/AMIllan75)
+* [Neil](https://github.com/neilmusgrove)
+* [Tiago](https://github.com/dosaki)
+
 
 # Running
+You can get the application via cloning this repository, getting it from the [releases](), or as a docker container.
 
-## Docker
+## ... from cloned repository
+Dependencies:
+    * `git`
+    * `node` and `npm`
+    * `mongodb`
+
+Assuming you have all dependencies installed and `mongodb` is running with the default settings, you can get the application and start it with the commands below:
 ```bash
+# -----------------
+# For Linux/MacOS
+# -----------------
+git clone https://github.com/msc-dtss/super6assignment.git # Clone the repository
+cd super6assignment                                        # Change directory into the cloned repo
+npm install                                                # Install node dependencies
+SUPERSIX_FORCE_SEED=true                                   # Ensure the database is seeded
+                                                           # (Only use this the first time you run the application.
+                                                           # Otherwise it will reset your DB)
+NODE_ENV=production node ./bin/www                         # Start the application in Production Mode
+```
+
+```bat
+rem -----------------
+rem For Windows
+rem -----------------
+rem Clone the repository
+git clone https://github.com/msc-dtss/super6assignment.git
+rem Change directory into the cloned repo
+cd super6assignment
+rem Install node dependencies
+npm install
+rem Set the environment to production
+set NODE_ENV=production
+rem Ensure the database is seeded (only use this the first time you run the application. Otherwise it will reset your DB)
+set SUPERSIX_FORCE_SEED=true
+rem Start the application
+node bin/www
+```
+
+## ... from release
+Dependencies:
+    * `node` and `npm`
+    * `mongodb`
+
+1. Download `rugbysuper6.zip` in the [latest release](https://github.com/msc-dtss/super6assignment/releases/latest) on the [releases page](https://github.com/msc-dtss/super6assignment/releases/)
+2. Unzip the archive using whatever method you prefer
+3. Start a command-line on the new folder you've just extracted (`rugbysuper6`)
+4. Run the Linux/MacOS or the Windows commands below
+```bash
+# -----------------
+# For Linux/MacOS
+# -----------------
+npm install                        # Install node dependencies
+SUPERSIX_FORCE_SEED=true           # Ensure the database is seeded
+                                   # (Only use this the first time you run the application.
+                                   # Otherwise it will reset your DB)
+NODE_ENV=production node ./bin/www # Start the application in Production Mode
+```
+
+```bat
+rem -----------------
+rem For Windows
+rem -----------------
+rem Install node dependencies
+npm install
+rem Set the environment to production
+set NODE_ENV=production
+rem Ensure the database is seeded (only use this the first time you run the application. Otherwise it will reset your DB)
+set SUPERSIX_FORCE_SEED=true
+rem Start the application
+node bin/www
+```
+
+## ... from Docker
+
+Dependencies:
+    * `docker`
+
+You should be able to run the commands below on Windows, Linux and MacOS:
+
+```
 docker pull mscdtss/rugbysuper6
 docker run -tid \
   --name rugbysuper6 \
@@ -16,17 +103,18 @@ docker run -tid \
   mscddsa/rugbysuper6
 ```
 
-## From Release
+You should be able to access the application on [http://localhost:3000/](http://localhost:3000/).
 
+**Note:** Setting `SUPERSIX_FORCE_SEED=true` will force the seeding of the database (i.e. it will overwrite any changes you might've made).
 
-# Development
+# Contributing
 ## Game Format
 See [Game Format](docs/game_format.md)
 
 ## Technical Documentation
 * [User Interface Views](docs/ui_views.md)
 * [Module Breakdown](docs/code_modules.md)
-
+* [Code Style (vscode)](.vscode/settings.json) (ensure your personal styles don't conflict with these)
 
 ## Using git
 Use the git commands when you make changes (Visual Studio Code has a nice gui for this out of the box)
@@ -39,31 +127,54 @@ Use the git commands when you make changes (Visual Studio Code has a nice gui fo
 ## Get Started
 Ensure MongoDB is running on your system on the default port, the app will attempt to connect to the 'super6db' database on this server.
 
-On a terminal (cmd), follow these steps:
+On a terminal (cmd), copy the code below (depending on your system: Windows or Linux/MacOS)
 
-  1. Clone this repository from github
-    * `git clone https://github.com/msc-dtss/super6assignment.git`
-  2. Navigate into the folder
-    * `cd super6assignment`
-  3. Install the npm packages
-      * `npm install`
-  4. Run the express app with nodemon
-      * In development mode: `npm start`
-      * In production mode: `NODE_ENV=production npm start`
-  5. The app should now be available on [http://localhost:3000](http://localhost:3000)
+```bash
+# -----------------
+# For Linux/MacOS
+# -----------------
+git clone https://github.com/msc-dtss/super6assignment.git # Clone the repository
+cd super6assignment                                        # Change directory into the cloned repo
+npm install                                                # Install node dependencies
+SUPERSIX_FORCE_SEED=true                                   # Ensure the database is seeded
+                                                           # (Only use this the first time you run the application.
+                                                           # Otherwise it will reset your DB)
+npm start                                                  # Start the application in Production Mode
+```
+
+```bat
+rem -----------------
+rem For Windows
+rem -----------------
+rem Clone the repository
+git clone https://github.com/msc-dtss/super6assignment.git
+rem Change directory into the cloned repo
+cd super6assignment
+rem Install node dependencies
+npm install
+rem Ensure the database is seeded (only use this the first time you run the application. Otherwise it will reset your DB)
+set SUPERSIX_FORCE_SEED=true
+rem Start the application
+npm start
+```
+
+`npm start` runs `nodemon ./bin/www` which will run the express server and take care of reloading it when changes are made.
+
+The app should now be available on [http://localhost:3000](http://localhost:3000)
 
 If you'd like to use a different port, change the `port` value in the configuration file `config/config.json`.
 
-**Note:** You can force the Database to be seeded with an environment variable `SUPERSIX_FORCE_SEED` set to `"true"`.
+## Building
+
+### Locally
+Simply run `./build.sh` to create a zip archive locally.
+
+### Automatically
+The code gets tested and packaged into a zip automatically via github actions. This is available as draft releases on the [releases page](https://github.com/msc-dtss/super6assignment/releases/).
+
+Once we're happy with a particular release, we should change the name to match the version in [`package.json`](package.json) and publish that release.
 
 ### Docker
 Docker gets automatically built via the dockerhub automated builds.
 
 You can find it here: https://hub.docker.com/r/mscdtss/rugbysuper6
-
-# Group:
-* [Chris](https://github.com/TheQuietPotato)
-* [Mike](https://github.com/MikeKeightley)
-* [Millan](https://github.com/AMIllan75)
-* [Neil](https://github.com/neilmusgrove)
-* [Tiago](https://github.com/dosaki)
