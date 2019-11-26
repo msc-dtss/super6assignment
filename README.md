@@ -177,4 +177,4 @@ Once we're happy with a particular release, we should change the name to match t
 ### Docker
 Docker gets automatically built via the dockerhub automated builds.
 
-You can find it here: https://hub.docker.com/r/mscdtss/rugbysuper6
+You can find it here: [https://hub.docker.com/r/mscdtss/rugbysuper6](https://hub.docker.com/r/mscdtss/rugbysuper6)
