@@ -1,33 +1,19 @@
 /**
- * Creates and sends the request with the bet details
- * @param {*} content The array containing all of the user's bets.
- */
-var makeRequest = function (content) {
-    var httpRequest = new XMLHttpRequest();
-    if (!httpRequest) {
-        alert("Giving up :( Cannot create an XMLHTTP instance");
-        return false;
-    } else {
-        httpRequest.onreadystatechange = function () {
-            if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-                window.location.href = '/profile';
-            }
-        };
-        httpRequest.open("POST", "/bets");
-        httpRequest.setRequestHeader("Content-Type", "application/json");
-        httpRequest.send(JSON.stringify(content));
-    }
-};
-
-/**
  * Grabs the betting values from the form and sends them to the server
  * @param {*} roundIndex The round index which the user is betting on.
  * @param {*} nrGames The number of Games which the user is betting on (should always be 6).
  */
 var placeBet = function (roundIndex, nrGames) {
     var bet = getBetValues(roundIndex, nrGames);
-    console.table(bet)
-    makeRequest(bet);
+    makeRequest("/bets",
+        "POST",
+        function () {
+            window.location.href = '/profile';
+        },
+        function (httpStatusCode, responseText, responseJson) {
+            //failed function
+        },
+        bet);
 };
 
 /**
@@ -100,7 +86,7 @@ var attachVictorListeners = function () {
     var selectors = document.querySelectorAll("[team_win_selector][is_writable='true']");
     for (var i = 0; i < selectors.length; i++) {
         selectors[i].addEventListener('click', function (event) {
-            if (event.srcElement.tagName.toLowerCase() !== "input") {
+            if (event.srcElement.tagName.toLowerCase() !== "input" && event.srcElement.tagName.toLowerCase()!== "label") {
                 select(this);
             }
         });
@@ -114,7 +100,7 @@ var attachTieListeners = function () {
     var selectors = document.querySelectorAll("[team_draw_selector][is_writable='true']");
     for (var i = 0; i < selectors.length; i++) {
         selectors[i].addEventListener('click', function (event) {
-            if (event.srcElement.tagName.toLowerCase() !== "input") {
+            if (event.srcElement.tagName.toLowerCase() !== "input" && event.srcElement.tagName.toLowerCase() !== "label") { //input
                 select(this, "draw");
             }
         });
