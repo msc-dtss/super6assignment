@@ -75,7 +75,7 @@ var attachVictorListeners = function () {
     var selectors = document.querySelectorAll("[team_win_selector]");
     for (var i = 0; i < selectors.length; i++) {
         selectors[i].addEventListener('click', function (event) {
-            if (event.srcElement.tagName.toLowerCase() !== "input") {
+            if (event.srcElement.tagName.toLowerCase() !== "input" && event.srcElement.tagName.toLowerCase()!== "label") {
                 select(this);
             }
         });
@@ -86,7 +86,7 @@ var attachTieListeners = function () {
     var selectors = document.querySelectorAll("[team_draw_selector]");
     for (var i = 0; i < selectors.length; i++) {
         selectors[i].addEventListener('click', function (event) {
-            if (event.srcElement.tagName.toLowerCase() !== "input") {
+            if (event.srcElement.tagName.toLowerCase() !== "input" && event.srcElement.tagName.toLowerCase() !== "label") { //input
                 select(this, "draw");
             }
         });
