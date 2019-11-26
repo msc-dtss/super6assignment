@@ -1,7 +1,7 @@
 <div class="fb-column thin-border">
     <div class="fb-column" class="padding-5px">
         <div class="fb-row" class="padding-5px">
-            <div class="fb-column" style="width: 75%;">
+            <div class="fb-column" style="width: 100%;">
                 <div class="text-align-center" class="padding-top-5px" style="background-color: black"><span class="iconify large-icon"
                                                                                                              data-icon="mdi-account-group" style="color: white" title="Team"></span></div>
                 <div class="text-align-center history-small-text"><%=game.teamA.name%> </div>
@@ -16,7 +16,7 @@
                 <div class="fb-column" >
                     <div class="history-game-header"><span class="iconify large-icon" data-icon="mdi-rugby" style="color: white"
                                                                title="Number of Tries"></span></div>
-                    <div class="text-align-center history-small-text" style="height: 45%">
+                    <div class="text-align-center history-large-text" style="height: 45%">
                         <% if (bet) {
                             let triesClass = "history-wrong";
                             if(result === undefined){
@@ -27,7 +27,7 @@
                         <span class="<%=triesClass%>"> <%= bet.teamATries%></span>
                         <%}%>
                     </div>
-                    <div class="text-align-center history-small-text">
+                    <div class="text-align-center history-large-text">
                         <% if (bet) {
                             let triesClass = "history-wrong";
                             if(result === undefined){
