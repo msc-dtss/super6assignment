@@ -68,7 +68,7 @@ var select = function (gameTeam, type) {
     var blockNumber = info.getAttribute("block_number");
 
     var selector = document.querySelector("[game_block_" + blockNumber + "]").querySelector("[game_winner]");
-    if(!!selector){
+    if (!!selector) {
         selector.value = value;
     }
 
@@ -86,7 +86,7 @@ var attachVictorListeners = function () {
     var selectors = document.querySelectorAll("[team_win_selector][is_writable='true']");
     for (var i = 0; i < selectors.length; i++) {
         selectors[i].addEventListener('click', function (event) {
-            if (event.srcElement.tagName.toLowerCase() !== "input" && event.srcElement.tagName.toLowerCase()!== "label") {
+            if (event.srcElement.tagName.toLowerCase() !== "input" && event.srcElement.tagName.toLowerCase() !== "label") {
                 select(this);
             }
         });
@@ -132,7 +132,13 @@ var attachHelpListeners = function () {
 var fillSelection = function (betInfo) {
     var keys = Object.keys(betInfo)
     for (var i = 0; i < keys.length; ++i) {
-        select(document.querySelector("[game_id='"+keys[i]+"']").querySelector("[team_name='"+betInfo[keys[i]].winTeam+"']"))
+        if (betInfo[keys[i]].winTeam === "draw") {
+            select(document.querySelector("[game_id='" + keys[i] + "']")
+                .querySelector("[team_draw_selector]"));
+        } else {
+            select(document.querySelector("[game_id='" + keys[i] + "']")
+                .querySelector("[team_name='" + betInfo[keys[i]].winTeam + "']"));
+        }
     };
 };
 

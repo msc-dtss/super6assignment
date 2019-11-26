@@ -50,5 +50,7 @@
 <script src="/javascript/play.js"></script>
 <script>
     var betInformation = <%- JSON.stringify(bet) %>;
-    fillSelection(betInformation.indexedGames);
+    if(betInformation !== null){
+        fillSelection(betInformation.indexedGames);
+    }
 </script>
