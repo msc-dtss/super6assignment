@@ -2,7 +2,7 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const session = require("express-session")
 const userService = require("../services/users");
-const errors = require('../errors/super6exceptions');
+const exceptions = require('../errors/super6exceptions');
 const wrap = require('./helpers/exceptionHandler').exceptionWrapper;
 const { check, validationResult } = require("express-validator");
 
@@ -30,12 +30,22 @@ router.post('/signup', [
     const password = req.body.password;
     const firstName = req.body.firstName;
     const surname = req.body.surname;
+    try{
+        await userService.create(db, email, password, firstName, surname);
+        req.session.user = await userService.fetchUser(db, email)
+        req.session.login = true;
+        console.log(req.session.user.email)
+        res.redirect("/bets/play");
+    }catch (e) {
+        if(e instanceof exceptions.ValidationError){
+            req.session.error = e
+            console.log(e)
+            res.redirect("/");
+        }
+    }
 
-    await userService.create(db, email, password, firstName, surname);
-    req.session.user = await userService.fetchUser(db, email)
-    req.session.login = true;
-    console.log(req.session.user.email)
-    res.redirect("/bets/play");
+
+
 }));
 
 router.post("/login", wrap(async (req, res, next) => {
@@ -51,7 +61,7 @@ router.post("/login", wrap(async (req, res, next) => {
             res.redirect("/bets/play");
         }
     } catch (e) {
-        if (e instanceof errors.InvalidCredentialsError) {
+        if (e instanceof exceptions.InvalidCredentialsError || e instanceof exceptions.UserNotFoundError) {
             req.session.error = e
             console.log(e)
             res.redirect("/");
