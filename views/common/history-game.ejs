@@ -47,14 +47,14 @@
                         <% if(bet) {
                             let teamA = game.teamA.name;
                         if(result === undefined && bet.winTeam === teamA){%>
-                            <span class="iconify medium-icon" data-icon="mdi-medal"></span>
+                            <span class="iconify large-icon" data-icon="mdi-medal"></span>
                         <% }
                         else if(result && bet.winTeam === teamA && result.winTeam === teamA){%>
-                            <span class="iconify medium-icon history-correct"
+                            <span class="iconify large-icon history-correct"
                                   data-icon="mdi-medal"></span>
                         <%}
                         else if(result && bet.winTeam === teamA){%>
-                            <span class="iconify medium-icon history-wrong"
+                            <span class="iconify large-icon history-wrong"
                                   data-icon="mdi-medal"></span>
                         <%}%>
                         <%}%>
