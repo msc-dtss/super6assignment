@@ -4,6 +4,15 @@
     flex-direction: row;
 }
 
+@media only screen and (max-width: 800px) {
+
+    .page_content {
+    
+     display: flex;
+     flex-direction: column;
+}
+}
+
 /* ---------------------USER BOX------------------------ */
 
 .user_info_box {

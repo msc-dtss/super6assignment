@@ -7,6 +7,9 @@
   "directories": {
     "doc": "docs"
   },
+  "engines":{
+    "node": "13.x"
+  },
   "scripts": {
     "start": "nodemon ./bin/www",
     "test": "mocha",
