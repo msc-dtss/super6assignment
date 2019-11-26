@@ -60,16 +60,17 @@ router.post('/', wrap(async (req, res, next) => {
 
 router.put('/:betId', wrap(async (req, res, next) => {
     const db = req.app.get('super6db');
+    const betId = req.params.betId;
     try {
         const bet = betsService.resolveClientBet(req.body);
         bet.userId = req.session.user._id;
-        await betsService.create(db, bet);
+        await betsService.update(db, betId, bet, true);
         res.json(true);
     } catch (e) {
         // TODO: Need to verify why we couldn't create the bet.
         // Basically need to check if the error came from the client side (4**) or if it's an actual server error (5**)
         res.statusCode = e.httpCode || 500;
-        res.send(e.message || 'Error creating bet');
+        res.send(e.message || 'Error updating bet');
     }
 }));
 
