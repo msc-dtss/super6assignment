@@ -1,16 +1,18 @@
 <div id="loginForm" class="form-popup" login_form>
-    <form id="userLoginForm" action="/users/login" method="post" class="form-container">
+    <form id="userLoginForm" class="form-container">
         <h1 id="loginFormHeading">Login</h1>
+
         <div class="label-placeholders">
             <input id="login_email" name="email" placeholder="Enter Email" required type="email" />
             <label for="login_email">Email</label>
         </div>
+        
         <div class="label-placeholders">
             <input id="login_password" name="password" placeholder="Enter Password" required type="password" />
             <label for="login_password">Password</label>
         </div>
 
-        <button class="main full-width" type="submit" id="loginFormButton">Login</button>
-        <button class="full-width" onclick="closeUserForm()" type="button">Close</button>
+        <a class="button main full-width" onclick="submitUserInfo('loginForm', '/users/login')" id="loginFormButton">Login</a>
+        <a class="button full-width" onclick="closeUserForm()" type="button">Close</a>
     </form>
 </div>

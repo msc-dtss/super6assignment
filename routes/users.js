@@ -38,7 +38,14 @@ router.post('/signup', [
     res.redirect("/bets/play");
 }));
 
-router.post("/login", wrap(async (req, res, next) => {
+router.post("/login", [
+    check('email').isEmail(),
+    check('password').isLength({ min: 7 })
+], wrap(async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
     let email = req.body.email;
     let password = req.body.password;
     const db = req.app.get("super6db");
