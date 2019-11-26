@@ -324,6 +324,7 @@ button.centred {
     background-size: cover;
     border: 1px solid;
     border-color: #3f3f3f;
+    display: flex;
 }
 
 .team-overlay {
