@@ -92,7 +92,6 @@ const getHashedPassword = (password) => {
 const create = async (db, email, plainTextPassword, firstName, surname, isAdmin) => {
     // Save a new user to the database
     // Using email as identifier so ensure it doesn't exist before saving - to do
-
     const exists = await userExists(db, email);
     if (!exists) {
         await db.collection('users').insertOne({
@@ -106,7 +105,7 @@ const create = async (db, email, plainTextPassword, firstName, surname, isAdmin)
         });
         return true
     } else {
-        throw new errors.ValidationError("User already exists");
+        throw new errors.ValidationError("User already exists", null, null, errors.codes.UserExists);
     }
 }
 

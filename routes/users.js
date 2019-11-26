@@ -30,22 +30,18 @@ router.post('/signup', [
     const password = req.body.password;
     const firstName = req.body.firstName;
     const surname = req.body.surname;
-    try{
+    try {
         await userService.create(db, email, password, firstName, surname);
         req.session.user = await userService.fetchUser(db, email)
         req.session.login = true;
         console.log(req.session.user.email)
         res.redirect("/bets/play");
-    }catch (e) {
-        if(e instanceof exceptions.ValidationError){
-            req.session.error = e
-            console.log(e)
-            res.redirect("/");
+    } catch (e) {
+        if (e instanceof exceptions.ValidationError) {
+            console.log(e);
+            return res.status(e.httpCode).json(e.details);
         }
     }
-
-
-
 }));
 
 router.post("/login", wrap(async (req, res, next) => {
