@@ -1,6 +1,6 @@
-const betService = require('../services/bets');
-const roundService = require('../services/rounds');
-const gameService = require('../services/game');
+const betsService = require('../services/bets');
+const roundsService = require('../services/rounds');
+const gamesService = require('../services/game');
 const dateHelper = require('./helpers/date-helpers');
 const errors = require('../errors/super6exceptions');
 
@@ -27,12 +27,12 @@ const recentRoundIndex = (bets) => {
  * @returns {*} An object with the user information and the bets history
  */
 const fetchProfileBundle = async (db, user) => {
-    const bets = await betService.fetchByUser(db, userId);
+    const bets = await betsService.fetchByUser(db, user._id);
     const mostRecentRound = recentRoundIndex(bets);
-    const recentBet = await betService.betsForUserAndRoundGame(db, userId, mostRecentRound);
-    const fullBets = await betService.fetch(db, {userId: userId, roundIndex: mostRecentRound});
-    const rounds = await roundService.fetch(db, { index: mostRecentRound });
-    const games = await gameService.fetch(db, { roundIndex: mostRecentRound });
+    const recentBet = await betsService.betsForUserAndRoundGame(db, user._id, mostRecentRound);
+    const fullBets = await betsService.fetch(db, {userId: user._id, roundIndex: mostRecentRound});
+    const rounds = await roundsService.fetch(db, { index: mostRecentRound });
+    const games = await gamesService.fetch(db, { roundIndex: mostRecentRound });
 
     if(rounds.length === 0) {
         throw new errors.ResourceNotFoundError(`Unable to find any round`);

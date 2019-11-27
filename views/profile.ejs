@@ -7,7 +7,8 @@
 <div class="page_content">
     <div class="user_info_box">
         <div class="user_info_title">PROFILE INFO</div>
-        <div class="avatar_image"><img src="https://education.fsu.edu/wp-content/uploads/2016/09/staff-avatar-man.png">
+        <div class="avatar_image">
+            <img src="https://education.fsu.edu/wp-content/uploads/2016/09/staff-avatar-man.png">
         </div>
         <div>
             <div class="profile_information">
@@ -41,38 +42,28 @@
 
         <% if(Object.keys(response.gameBets).length > 0) { %>
         <div class="bet-area">
-                <% for (let i = 0; i < response.games.length; ++i) { %>
-                    <% const gameBet = response.gameBets[response.games[i]._id] %>
-                    <div game_block game_block_<%=i%> game_id="<%= response.games[i]._id %>">
+            <% for (let i = 0; i < response.games.length; ++i) { %>
+                <% const gameBet = response.gameBets[response.games[i]._id] %>
+                <div game_block game_block_<%=i%> game_id="<%= response.games[i]._id %>">
                     <div class="column"> 
                         <%- include('common/fixture.ejs', { teamA: response.games[i].teamA, teamB: response.games[i].teamB, gameBet, isBet: false, blockNumber: i }) %>
                     </div>
                     <div class="result_selection"> Winner Selection: <%= gameBet.winTeam %> </div>
                     <div class="result_bottom_border"></div>
                 </div>
-                <% } %>
+            <% } %>
         </div>
         <div class="bottom_elements">
             <h3>Golen Try Guess: <%=response.bets[0].goldenTry%></h3>
 
             <!-- Round Points to show if round end date has passed -->
             <% if (response.todaysDate > response.round.dateRange.end) { %>
-                <h3>Round Points: <%= response.bets[0].points %></h3>
-                <% }; %>
-
-                <!-- Delete Bet Alert Box -->
-                <div class="edit_bet_alert" edit_bet_alert style="display: none;">
-                    <p>Are you sure you wish to continue?</p>
-                    <strong>Danger!</strong> Clicking yes will change your current bet! 
-                    <div class="yes_no_select">
-                        <span class="closebtn" onclick='yesAlertSelect("<%=response.bets[0]._id%>");'>YES
-                        </span> <span class="back_out_btn" onclick= "noAlertSelect(event);">NO</span></div>
-                </div>
-                
+            <h3>Round Points: <%= response.bets[0].points %></h3>
+            <% }; %>                
                 <!-- Edit Bet Button  -->
-                <% if (response.todaysDate < response.round.dateRange.start) { %>
-                    <button class="edit_bet_button" onclick="displayEditBetAlert(event)">Edit Bet</a></button>
-                <% }; %> 
+            <% if (response.todaysDate < response.round.dateRange.start) { %>
+            <a href="/bets/play/<%= response.bets[0]._id %>" class="button edit_bet_button">Edit Bet</a>
+            <% }; %> 
                     
             <!-- Bet History Link -->
             <div class="show_more_bet_history">
@@ -83,7 +74,6 @@
     </div> 
 </div>
 
-<script src="/javascript/profilePage.js"></script>
 <script src="/javascript/play.js"></script>
 
 <script>
