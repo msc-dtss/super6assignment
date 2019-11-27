@@ -1,13 +1,13 @@
 {
   "name": "super6assignment",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "private": true,
   "description": "Rugby World Cup Super 6",
   "main": "app.js",
   "directories": {
     "doc": "docs"
   },
-  "engines":{
+  "engines": {
     "node": "13.x"
   },
   "scripts": {
@@ -40,6 +40,7 @@
     "express-session": "^1.17.0",
     "express-validator": "^6.3.0",
     "http-errors": "~1.6.3",
+    "jsdoc": "^3.6.3",
     "mongodb": "^3.3.2",
     "morgan": "~1.9.1",
     "passport": "^0.4.0"

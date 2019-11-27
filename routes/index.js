@@ -8,21 +8,21 @@ const router = express.Router();
 router.get("/", wrap(async (req, res, next) => {
     const db = req.app.get("super6db");
     const games = await gameService.fetchFuture(db, req.query.debugDate);
-    const token = req.session.cookie.super6token || null;
-    // Check the token validity with the user service
-
     res.render("index", {
-        title: "Super6 Rugby",
+        title: "Rugby Super 6",
         games: games,
         mainPage: true
     });
-})
-);
+}));
 
-// @Neil/@Mike this isn't needed right?
-router.get("/login", wrap(async (req, res, next) => {
-        res.render("login");
-    })
-);
+/* Load a bunch of static pages. */
+['terms', 'contact'].forEach((page)=>{
+    router.get(`/${page}`, (req, res, next) => {
+        res.render(page, {
+            title: `${page.charAt(0).toUpperCase()}${page.slice(1)} - Rugby Super 6`
+        });
+    });
+});
+
 
 module.exports = router;

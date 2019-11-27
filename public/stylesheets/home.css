@@ -210,11 +210,12 @@ body {
 }
 
 .footer-text {
-    /*background-color: royalblue; */
-    background-image: linear-gradient(to right, rgba(28, 96, 173, 0.4), #503580);
+    background-image: linear-gradient(to right, rgba(51, 0, 255, 0.4), #2f0082);
     padding: 10px;
     color: white;
     font-weight: bold;
+    display: flex;
+    justify-content: space-around;
 }
 
 .footer-text a {
@@ -224,9 +225,6 @@ body {
     padding: 12px;
     text-decoration: none;
     font-size: 18px;
-    line-height: 25px;
-    border-radius: 4px;
-    margin-left: 50px;
 }
 
 .open-button {
@@ -394,4 +392,14 @@ button.centred {
 
 .help-button::before {
     content:'?'
+}
+
+.content-full {
+    background: white;
+    width: 100%;
+    text-align: center;
+}
+
+.unstyled-list {
+    list-style-type: none;
 }

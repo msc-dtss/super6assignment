@@ -1,5 +1,4 @@
 const expect = require('chai').expect;
-const errors = require('../errors/super6exceptions');
 const authorizationLayer = require('../routes/helpers/authorisation');
 
 describe('regexIncludes', () => {

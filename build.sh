@@ -90,6 +90,13 @@ if [[ $? -ne 0 ]]; then
 fi
 success "All tests passed"
 
+info "Generating documentation"
+rm -rf out/ # In case of left-overs
+rm -rf docs/code/
+node ./node_modules/jsdoc/jsdoc.js *
+mv out/super6assignment/* docs/code/
+rm -rf out/
+
 rm -rf ${PACKAGE_NAME}
 mkdir ${PACKAGE_NAME}
 
