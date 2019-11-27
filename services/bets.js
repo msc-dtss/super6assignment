@@ -97,6 +97,19 @@ const fetch = async (db, criteria) => {
 };
 
 /**
+ * Fetch a bets by user id
+ * @param {*} db The connection to the database
+ * @param {*} userId The ID of the user
+ * @return {*} An object with the users bet information
+ */
+const fetchByUser = async (db, userId) => {
+    const bets = await fetch(db, {
+        userId: userId
+    });
+    return bets;
+};
+
+/**
  * Fetches any bet that does not have a `points` field.
  * @param {*} db The connection to the database
  */
@@ -145,6 +158,29 @@ const indexBetsByGameId = (betsList) => {
 const betsForUserByGame = async (db, userId) => {
     const dbBets = await fetch(db, { userId: userId });
     return indexBetsByGameId(dbBets);
+}
+
+/**
+ * Fetches all bets, for the given user, indexed by game id
+ * @param {*} db The connection to the database
+ * @param {String} userId The ID of the user
+ * @return {*} A map with all the game bets created by a user with the game ID as each bet's key
+ */
+const betsForUserAndRoundGame = async (db, userId, roundId) => { // TODO need to update the docstring
+    const dbBets = await fetch(db, { userId: userId, roundIndex: roundId });
+    return indexBetsByGameId(dbBets);
+}
+
+/**
+ * Fetches all bets, for the given user, indexed by game id
+ * @param {*} db The connection to the database
+ * @param {String} userId The ID of the user
+ * * @param {String} betId The Bet ID
+ * @return {*} A map with all the game bets created by a user with the game ID as each bet's key
+ */
+const betOfUserAndBetId = async (db, userId, betId) => { // TODO need to update the docstring
+    const singleBet = await fetch(db, { userId: userId, _id: betId });
+    return singleBet[0] || null;
 }
 
 /**
@@ -230,17 +266,20 @@ const scoreForUserByRound = async (db, userId) => {
 };
 
 module.exports = {
+    betsForUserAndRoundGame,
+    betOfUserAndBetId,
     resolveClientBet,
     create,
     fetch,
     madeByUser,
     forRound,
     findRoundWinners,
+    fetchByUser,
     update,
     score,
     fetchUnscoredBets,
     betsForUserByGame,
     goldenTriesForUserByRound,
     scoreForUserByRound,
-    _indexBetsByGameId: indexBetsByGameId
+    indexBetsByGameId
 };

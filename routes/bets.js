@@ -3,6 +3,7 @@ const betsService = require('../services/bets.js');
 const gameService = require('../services/game.js');
 const roundsService = require('../services/rounds.js');
 const resultsService = require('../services/results.js');
+const errors = require('../errors/super6exceptions');
 
 const wrap = require('./helpers/exceptionHandler').exceptionWrapper;
 const router = express.Router();
@@ -12,7 +13,7 @@ router.get('/play', wrap(async (req, res, next) => {
     const db = req.app.get('super6db');
     const debugDate = req.app.get('isDevelopment') ? req.query.debugDate : null;
     const games = await gameService.fetchFuture(db, debugDate);
-    console.table(games)
+
     res.render('play', {
         title: 'Play - Super6 Rugby',
         games: games
@@ -43,7 +44,6 @@ router.get('/history', wrap(async (req, res, next) => {
 }));
 
 router.post('/', wrap(async (req, res, next) => {
-
     const db = req.app.get('super6db');
     try {
         const bet = betsService.resolveClientBet(req.body);
@@ -51,8 +51,42 @@ router.post('/', wrap(async (req, res, next) => {
         await betsService.create(db, bet);
         res.json(true);
     } catch (e) {
+        // TODO: Need to verify why we couldn't create the bet.
+        // Basically need to check if the error came from the client side (4**) or if it's an actual server error (5**)
+        res.statusCode = e.httpCode || 500;
+        res.send(e.message || 'Error creating bet');
+    }
+}));
+
+router.put('/:betId', wrap(async (req, res, next) => {
+    const db = req.app.get('super6db');
+    const betId = req.params.betId;
+    try {
+        const bet = betsService.resolveClientBet(req.body);
+        bet.userId = req.session.user._id;
+        await betsService.update(db, betId, bet, true);
+        res.json(true);
+    } catch (e) {
         return res.status(e.httpCode || 500).json({ errors: [{msg:e.message || 'Error creating bet' }] });
     }
+}));
+
+router.get('/play/:betId', wrap(async(req, res, next) => {
+    const db = req.app.get('super6db');
+    const betId = req.params.betId;
+    const betInformation = await betsService.betOfUserAndBetId(db, req.session.user._id, betId);
+    betInformation.indexedGames = await betsService.indexBetsByGameId([betInformation]);
+    if (!betInformation) {
+        throw new errors.UnauthorizedException();
+    };
+
+    const games = await gameService.fetchGamesByIds(db, Object.keys(betInformation.indexedGames));
+    res.render('play', {
+        title: 'Super6 Rugby - Play',
+        games,
+        betInformation
+    });
+
 }));
 
 module.exports = router;

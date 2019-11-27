@@ -241,7 +241,7 @@ describe('resolveClientBet', () => {
     });
 });
 
-describe('betsForUserByGame', () => {
+describe('indexBetsByGameId', () => {
     [
         {
             input: [],
@@ -265,7 +265,7 @@ describe('betsForUserByGame', () => {
         },
     ].forEach((t, i) => {
         it(`[${i}] should turn a list of objects with gameBets into a map indexed by the game ID`, () => {
-            expect(betsService._indexBetsByGameId(t.input)).to.deep.equal(t.result);
+            expect(betsService.indexBetsByGameId(t.input)).to.deep.equal(t.result);
         });
     });
     [
@@ -276,7 +276,7 @@ describe('betsForUserByGame', () => {
         { input: [1, 2, 3, 4], error: TypeError }
     ].forEach((t, i) => {
         it(`[${i}] should throw an error when passing invalid input`, () => {
-            expect(() => { betsService._indexBetsByGameId(t.input) }).to.throw(t.error);
+            expect(() => { betsService.indexBetsByGameId(t.input) }).to.throw(t.error);
         });
     });
 

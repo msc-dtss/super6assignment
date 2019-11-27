@@ -45,6 +45,12 @@ var getBetValues = function (roundIndex, nrGames) {
     return bet;
 };
 
+
+/**
+ * Selects the game victor
+ * @param {*} gameTeam The element that contains the team representation (flag and such) or the "vs" element
+ * @param {*} type `draw` or `null`/`undefined`. By default this assumes you're trying to set the loser/winner. With `draw` it sets the bet to a draw
+ */
 var select = function (gameTeam, type) {
     var resetClass = type === "draw" ? "draw" : "loser";
     var resetText = type === "draw" ? "Draw" : "Loser";
@@ -62,7 +68,9 @@ var select = function (gameTeam, type) {
     var blockNumber = info.getAttribute("block_number");
 
     var selector = document.querySelector("[game_block_" + blockNumber + "]").querySelector("[game_winner]");
-    selector.value = value;
+    if (!!selector) {
+        selector.value = value;
+    }
 
     if (type !== "draw") {
         gameTeam.classList.remove(resetClass);
@@ -71,28 +79,37 @@ var select = function (gameTeam, type) {
     }
 }
 
+/**
+ * Attach the winner/loser selection event listener to each flag
+ */
 var attachVictorListeners = function () {
-    var selectors = document.querySelectorAll("[team_win_selector]");
+    var selectors = document.querySelectorAll("[is_writable='true']>[team_win_selector]");
     for (var i = 0; i < selectors.length; i++) {
         selectors[i].addEventListener('click', function (event) {
-            if (event.srcElement.tagName.toLowerCase() !== "input" && event.srcElement.tagName.toLowerCase()!== "label") {
+            if (event.srcElement.tagName.toLowerCase() !== "input" && event.srcElement.tagName.toLowerCase() !== "label") {
                 select(this);
             }
         });
     }
 }
 
+/**
+ * Attach the draw selection event listener to the vs element
+ */
 var attachTieListeners = function () {
-    var selectors = document.querySelectorAll("[team_draw_selector]");
+    var selectors = document.querySelectorAll("[is_writable='true']>[team_draw_selector]");
     for (var i = 0; i < selectors.length; i++) {
         selectors[i].addEventListener('click', function (event) {
-            if (event.srcElement.tagName.toLowerCase() !== "input" && event.srcElement.tagName.toLowerCase() !== "label") { //input
+            if (event.srcElement.tagName.toLowerCase() !== "input" && event.srcElement.tagName.toLowerCase() !== "label") {
                 select(this, "draw");
             }
         });
     }
 }
 
+/**
+ * Attach the help toggles to the help buttons
+ */
 var attachHelpListeners = function () {
     var helpBtns = document.querySelectorAll("[help_toggle]");
     for (var i = 0; i < helpBtns.length; i++) {
@@ -108,6 +125,23 @@ var attachHelpListeners = function () {
         });
     }
 }
+
+/**
+ * Fills the values with the bet information
+ */
+var fillSelection = function (betInfo) {
+    var keys = Object.keys(betInfo)
+    for (var i = 0; i < keys.length; ++i) {
+        if (betInfo[keys[i]].winTeam === "draw") {
+            select(document.querySelector("[game_id='" + keys[i] + "']")
+                .querySelector("[team_draw_selector]"), "draw");
+        } else {
+            select(document.querySelector("[game_id='" + keys[i] + "']")
+                .querySelector("[team_name='" + betInfo[keys[i]].winTeam + "']"));
+        }
+    };
+};
+
 
 attachVictorListeners();
 attachTieListeners();

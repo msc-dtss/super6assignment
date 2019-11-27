@@ -65,8 +65,14 @@ const fetchIndexedByRoundAndDate = async db => {
     return byRound;
 };
 
+//TODO Do the docstring
+const fetchGamesByIds = async (db, ids) => {
+    return await fetch(db, {_id: {$in: ids}})
+};
+
 module.exports = {
     fetch,
     fetchFuture,
-    fetchIndexedByRoundAndDate
+    fetchIndexedByRoundAndDate,
+    fetchGamesByIds
 };

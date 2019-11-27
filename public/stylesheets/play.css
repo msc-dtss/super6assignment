@@ -1,3 +1,7 @@
+.read-only * {
+    cursor: default;
+}
+
 .bet-area {
     color: black;
     background: white;
@@ -23,13 +27,13 @@
     margin: 0px auto 16px;
 }
 
-.bet-area .team:hover {
+.bet-area .writable .team:hover {
     margin-left: -2px;
     margin-top: -2px;
     box-shadow: 4px 4px 8px 2px #00000080;
 }
 
-.bet-area .team-overlay:hover {
+.bet-area .writable .team-overlay:hover {
     background: #55ac55c2;
 }
 
@@ -86,7 +90,11 @@
     cursor: pointer;
 }
 
-.bet-area .versus:hover {
+.bet-area .read-only .versus {
+    cursor: default;
+}
+
+.bet-area .writable .versus:hover {
     color: #cf9800;
     border-color: #cf9800;
 }
@@ -98,4 +106,18 @@
     background: url('/images/golden-try.png');
     border: 1px solid #3f3f3f;
     border-radius: 10px;
+}
+
+.read-only input {
+    background: #00000080;
+    border: none;
+    text-align: center;
+    color: white;
+    -moz-appearance:textfield; 
+}
+
+.read-only input::-webkit-outer-spin-button,
+.read-only input::-webkit-inner-spin-button {
+    margin: 0;
+    -webkit-appearance: none;
 }
