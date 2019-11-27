@@ -5,14 +5,14 @@ This is for the First Assignment for the 2019 MSc for Digital &amp; Technology S
 Why rugby? The day we started brainstorming our plan together, it was the start of the 2019 Rugby World Cup, so why not?
 
 ## Table of Contents
-- [Super 6 Rugby](#super-6-rugby)
-  * [Authors:](#authors)
-- [Running](#running)
+- [**Super 6 Rugby**](#super-6-rugby)
+  * [Authors](#authors)
+- [**Running**](#running)
   * [... pre-deployed app](#-pre-deployed-app)
   * [... from cloned repository](#-from-cloned-repository)
   * [... from release](#-from-release)
   * [... from Docker](#-from-docker)
-- [Contributing](#contributing)
+- [**Contributing**](#contributing)
   * [Game Format](#game-format)
   * [Technical Documentation](#technical-documentation)
   * [Using git](#using-git)
