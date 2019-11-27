@@ -57,7 +57,11 @@ const fetchIndexedByRoundAndDate = async db => {
     return byRound;
 };
 
-//TODO Do the docstring
+/**
+ * Fetches all the games given the provided IDs
+ * @param {*} db The connection to the database
+ * @param {*} ids All the IDs of the games we want to fetch
+ */
 const fetchGamesByIds = async (db, ids) => {
     return await fetch(db, {_id: {$in: ids}})
 };
