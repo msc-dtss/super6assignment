@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const errors = require('../errors/super6exceptions');
 const dbHelper = require('../services/helpers/db-helper');
+const dateHelper = require('../services/helpers/date-helpers');
 
 /**
  * Fetch users matching a given criteria
@@ -150,7 +151,15 @@ const checkLogin = async (db, email, password) => {
     } else {
         throw new errors.InvalidCredentialsError()
     }
+};
+
+const userCanMakeNewBet = (recentBet, mostRecentRound, debugDate) => {
+    if(!recentBet || !mostRecentRound){
+        return false;
+    }
+    return !!recentBet && recentBet.roundIndex <= mostRecentRound.index;
 }
+
 module.exports = {
     fetch,
     fetchUser,
@@ -159,5 +168,6 @@ module.exports = {
     list,
     create,
     userExists,
-    checkLogin
+    checkLogin,
+    userCanMakeNewBet
 };

@@ -63,8 +63,8 @@ var submitUserInfo = function (formId, endpoint) {
 
     makeRequest(endpoint,
         "POST",
-        function () {
-            location.href = "/bets/play";
+        function (text, json) {
+            location.href = !json ? text : (json.pageToRedirect || "/bets/play");
         },
         (httpStatusCode, responseText, responseJson) => {
             processErrors(formElement, responseJson)

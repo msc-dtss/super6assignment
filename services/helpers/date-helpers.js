@@ -11,10 +11,11 @@ const formatDate = (date) => {
 }
 /**
  * Grabs todays date as "yyyy/mm/dd"
- * @returns {String} Today's date string in the format "yyyy/mm/dd"
+ * @returns {String} Today's date string in the format "yyyy/mm/dd" (for now we're returning `2019-09-01` as we've now passed end of tournament :(
  */
 const getToday = () => {
-    return formatDate(new Date());
+    // Should actually be `return formatDate(new Date());`
+    return formatDate(new Date('2019-09-01'));
 };
 
 module.exports = {

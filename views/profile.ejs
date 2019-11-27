@@ -32,7 +32,9 @@
 
     <!-- Start of the Recent Bet Box -->
     <div class="user_bet_box">        
-        <div class="user_info_title"><%= Object.keys(response.gameBets).length > 0 ? "Most Recent Bet" : "No bets yet placed" %></div>
+        <div class="user_info_title">
+            <%= Object.keys(response.gameBets).length > 0 ? "Most Recent Bet" : "No bets yet placed" %>
+        </div>
 
         <% if (response.todaysDate < response.round.dateRange.start) { %> 
             <div class="round_starts">Round starts: <%= response.round.dateRange.start %></div>
@@ -54,15 +56,15 @@
             <% } %>
         </div>
         <div class="bottom_elements">
-            <h3>Golen Try Guess: <%=response.bets[0].goldenTry%></h3>
+            <h3>Golen Try Guess: <%= response.recentBet.goldenTry%></h3>
 
             <!-- Round Points to show if round end date has passed -->
             <% if (response.todaysDate > response.round.dateRange.end) { %>
-            <h3>Round Points: <%= response.bets[0].points %></h3>
+            <h3>Round Points: <%= response.recentBet.points %></h3>
             <% }; %>                
                 <!-- Edit Bet Button  -->
             <% if (response.todaysDate < response.round.dateRange.start) { %>
-            <a href="/bets/play/<%= response.bets[0]._id %>" class="button edit_bet_button">Edit Bet</a>
+            <a href="/bets/play/<%= response.recentBet._id %>" class="button edit_bet_button">Edit Bet</a>
             <% }; %> 
                     
             <!-- Bet History Link -->

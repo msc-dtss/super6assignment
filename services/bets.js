@@ -275,6 +275,21 @@ const addUpBetPoints = (bets) => {
     }, 0);
 }
 
+/**
+ * Get the most recent round Index of bets placed
+ * @param {Array} bets A collection of bets
+ * @returns {Number} The index of the most recent round in the collection of bets
+ */
+const recentRoundIndex = (bets) => {
+    let recentRound = 0
+    for (let i = 0; i < bets.length; i++) {
+        if (recentRound < bets[i].roundIndex) {
+            recentRound = bets[i].roundIndex;
+        };
+    };
+    return recentRound;
+};
+
 module.exports = {
     betsForUserAndRoundGame,
     betOfUserAndBetId,
@@ -292,5 +307,6 @@ module.exports = {
     goldenTriesForUserByRound,
     scoreForUserByRound,
     indexBetsByGameId,
-    addUpBetPoints
+    addUpBetPoints,
+    recentRoundIndex
 };

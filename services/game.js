@@ -1,3 +1,4 @@
+const roundsService = require('./rounds');
 const dateHelper = require('./helpers/date-helpers');
 
 /**
@@ -20,15 +21,8 @@ const fetch = async (db, criteria) => {
  * @return {Array} An array of games
  */
 const fetchFuture = async (db, debugDate) => {
-    // Default to 1st September if no debug date since we have now passed end of tournament :()
-    const formattedDate = dateHelper.formatDate(debugDate ? new Date(debugDate) : new Date('2019-09-01'));
-
-    const currentRoundInfo = await db.collection("rounds").find({
-        "dateRange.start": { $lte: formattedDate },
-        "dateRange.end": { $gte: formattedDate }
-    }).sort({
-        "dateRange.start": 1
-    }).toArray();
+    const formattedDate = !debugDate ? dateHelper.getToday() : dateHelper.formatDate(new Date(debugDate));
+    const currentRoundInfo = roundsService.fetchFutureSorted(db, formattedDate);
 
     let nextRoundIndex = 0;
     if (currentRoundInfo.length > 0) {

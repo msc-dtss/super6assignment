@@ -13,7 +13,7 @@
                 <a href="/" id="home">Home</a>
                 <% } %>
                 <% if(isLoggedIn){ %>
-                <a href="/bets/play" id="play">Play Super 6</a>
+                <a href="/bets/play/<%= recentBetId %>" id="play">Play Super 6</a>
                 <a href="/profile"><%= `${user.firstName} ${user.surname}` %></a>
                 <a href="/users/logout">Logout</a>
                 <%} else {%>
