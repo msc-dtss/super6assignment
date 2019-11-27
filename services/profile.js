@@ -1,7 +1,24 @@
 const userService = require('../services/users');
 const betService = require('../services/bets');
-const roundService = require('../services/rounds')
-const gameService = require('../services/game')
+const roundService = require('../services/rounds');
+const gameService = require('../services/game');
+const dateHelper = require('./helpers/date-helpers');
+
+
+/**
+ * Get the most recent round Index of bets placed
+ * @param {Array} bets A collection of bets
+ * @returns {Number} The index of the most recent round in the collection of bets
+ */
+const recentRoundIndex = (bets) => {
+    let recentRound = 0
+    for (let i = 0; i < bets.length; i++) {
+        if (recentRound < bets[i].roundIndex) {
+            recentRound = bets[i].roundIndex;
+        };
+    };
+    return recentRound;
+};
 
 /**
  * Grabs the user profile page. This includes the user information as well as the bets history.
@@ -10,56 +27,24 @@ const gameService = require('../services/game')
  * @returns {*} An object with the user information and the bets history
  */
 const fetchProfileBundle = async (db, userId) => {
-    const users = await userService.fetchById(db, userId); // TODO do we need this becuase of session info?
+    const users = await userService.fetchById(db, userId); // TODO do we need this because of session info?
     const bets = await betService.fetchByUser(db, userId);
-
-    // Get the most recent round Index of bets placed
-    const recentRoundIndex = () => {
-        var recentRound = 0
-        for (let i = 0; i < bets.length; i++) {
-            if (recentRound < bets[i].roundIndex) {
-                recentRound = bets[i].roundIndex;
-            };
-        };
-        return recentRound;
-    };
-    const mostRecentRound = recentRoundIndex();
-
+    const mostRecentRound = recentRoundIndex(bets);
     const recentBet = await betService.betsForUserAndRoundGame(db, userId, mostRecentRound);
-    const fullBet = await betService.fetch(db, {userId: userId, roundIndex: mostRecentRound})
-
-    // Gets the total points from all placed bets
-    let totalPoints = 0;
-    for (i = 0; i < bets.length; i++) {
-        totalPoints = totalPoints + bets[i].points; //TODO Bet in Db has no points key.
-    };
-
-    // Gets the number of times the user has bet on rounds previously
-    const totalBets = bets.length;
-
+    const fullBet = await betService.fetch(db, {userId: userId, roundIndex: mostRecentRound});
     const rounds = await roundService.fetch(db, { index: mostRecentRound });
     const games = await gameService.fetch(db, { roundIndex: mostRecentRound });
 
-    // Grabs todays date & formats to "yyyy/mm/dd"
-    const todaysDateGetter = () => {
-        var today = new Date();
-        var dd = String(today.getDate()).padStart(2, '0');
-        var mm = String(today.getMonth() + 1).padStart(2, '0');
-        var yyyy = today.getFullYear();
-        today = yyyy + '/' + mm + '/' + dd;
-        return today;
-    };
-    const todaysDate = todaysDateGetter();
     return {
         user: users[0],
-        bets: fullBet,
-        gameBets: recentBet,
-        round: rounds,
-        games: games,
-        totalPoints: totalPoints,
-        totalBets: totalBets,
+        bets: fullBet, //Why is bets plural if we're passing fullBet? Plural usually means a collection?
+        gameBets: recentBet, //Same thing with plural/singular
+        round: rounds, //Same thing with plural/singular
+        games,
+        totalPoints: addUpBetPoints(bets),
+        totalBets: bets.length,
         roundIndex: mostRecentRound,
-        todaysDate: todaysDate
+        todaysDate: dateHelper.getToday()
     };
 };
 

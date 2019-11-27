@@ -1,3 +1,5 @@
+const dateHelper = require('./helpers/date-helpers');
+
 /**
  * Fetch games matching a given criteria
  * @param {*} db The connection to the database
@@ -17,13 +19,9 @@ const fetch = async (db, criteria) => {
  * @param {String} debugDate An optional date to pass in to ease debugging (unavailable in production mode)
  * @return {Array} An array of games
  */
-const fetchFuture = async (db, debugDate) => { //TODO HANDLE WHEN THE REQUEST DATE IS ABOVE ANY GAMES IN THE DATABASE
-    // Default to 1st September if no debug date since we have now passed end of tournament
-    const now = debugDate ? new Date(debugDate) : new Date('2019-09-01');
-    const oneIndexMonth = now.getMonth() + 1;
-    const paddedMonth = oneIndexMonth > 9 ? `${oneIndexMonth}` : `0${oneIndexMonth}`;
-    const paddedDay = now.getDate() > 9 ? `${now.getDate()}` : `0${now.getDate()}`;
-    const formattedDate = `${now.getFullYear()}/${paddedMonth}/${paddedDay}`;
+const fetchFuture = async (db, debugDate) => {
+    // Default to 1st September if no debug date since we have now passed end of tournament :()
+    const formattedDate = dateHelper.formatDate(debugDate ? new Date(debugDate) : new Date('2019-09-01'));
 
     const currentRoundInfo = await db.collection("rounds").find({
         "dateRange.start": { $lte: formattedDate },

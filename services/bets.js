@@ -265,6 +265,16 @@ const scoreForUserByRound = async (db, userId) => {
     return byRound;
 };
 
+/**
+ * Adds up all the points scored in the bets
+ * @param {Array} bets Array of bets
+ */
+const addUpBetPoints = (bets) => {
+    return bets.reduce((total, bet) => {
+        return total + (bet.points || 0);
+    }, 0);
+}
+
 module.exports = {
     betsForUserAndRoundGame,
     betOfUserAndBetId,
@@ -281,5 +291,6 @@ module.exports = {
     betsForUserByGame,
     goldenTriesForUserByRound,
     scoreForUserByRound,
-    indexBetsByGameId
+    indexBetsByGameId,
+    addUpBetPoints
 };
