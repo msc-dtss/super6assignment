@@ -72,3 +72,14 @@ var submitUserInfo = function (formId, endpoint) {
         formValues
     );
 };
+
+/**
+ * Triggers submit if Enter was pressed
+ * @param {*} formId The ID of the form (or container element of the input fields)
+ * @param {*} endpoint The endpoint to submit the information to
+ */
+var submitIfEnter = function (formId, endpoint) {
+    if(event instanceof KeyboardEvent && event.code.toLowerCase() === "enter"){
+        submitUserInfo(formId, endpoint);
+    }
+}

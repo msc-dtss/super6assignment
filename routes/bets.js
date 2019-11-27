@@ -14,7 +14,7 @@ router.get('/play', wrap(async (req, res, next) => {
     const games = await gameService.fetchFuture(db, debugDate);
     console.table(games)
     res.render('play', {
-        title: 'Super6 Rugby - Play',
+        title: 'Play - Super6 Rugby',
         games: games
     });
 }));
@@ -29,7 +29,7 @@ router.get('/history', wrap(async (req, res, next) => {
     const goldenTryResults = await resultsService.getGoldenTryResults();
     const scores = await betsService.scoreForUserByRound(db, req.session.user._id);
     res.render('history', {
-        title: 'Super6 Rugby - Your History',
+        title: 'Your History - Super6 Rugby',
         loggedIn: !!req.session.user,
         user: req.session.user || null,
         rounds: rounds,

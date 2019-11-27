@@ -399,3 +399,7 @@ button.centred {
     width: 100%;
     text-align: center;
 }
+
+.unstyled-list {
+    list-style-type: none;
+}

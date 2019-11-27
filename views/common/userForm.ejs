@@ -3,19 +3,22 @@
         <h1 id="userFormHeading">Register</h1>
 
         <div class="label-placeholders">
-            <input id="register_firstName" name="firstName" placeholder="Enter First Name" value="" required type="text" />
+            <input id="register_firstName" name="firstName" placeholder="Enter First Name" value="" required type="text"
+                onkeypress="submitIfEnter('registerForm', '/users/signup')"/>
             <label for="register_firstName">First Name</label>
             <div reason></div>
         </div>
 
         <div class="label-placeholders">
-            <input id="register_surname" name="surname" placeholder="Enter Surname" value="" required type="text" />
+            <input id="register_surname" name="surname" placeholder="Enter Surname" value="" required type="text"
+                onkeypress="submitIfEnter('registerForm', '/users/signup')"/>
             <label for="register_surname">Surname</label>
             <div reason></div>
         </div>
 
         <div class="label-placeholders">
-            <input id="register_email" name="email" placeholder="Enter Email" value="" required type="email" />
+            <input id="register_email" name="email" placeholder="Enter Email" value="" required type="email"
+                onkeypress="submitIfEnter('registerForm', '/users/signup')"/>
             <label for="register_email">Email</label>
             <div reason></div>
         </div>
@@ -23,7 +26,8 @@
         <div class="label-placeholders">
             <input id="register_password" name="password" placeholder="Enter Password" value="" required type="password"
                 pattern="(?=.*[a-z])(?=.*[A-Z]).{7,}"
-                title="Minimum 7 characters, and atleast 1 lowercase and uppercase letter" />
+                title="Minimum 7 characters, and atleast 1 lowercase and uppercase letter"
+                onkeypress="submitIfEnter('registerForm', '/users/signup')"/>
             <label for="register_password">Password</label>
             <div reason></div>
         </div>

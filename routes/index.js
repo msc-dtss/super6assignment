@@ -9,7 +9,7 @@ router.get("/", wrap(async (req, res, next) => {
     const db = req.app.get("super6db");
     const games = await gameService.fetchFuture(db, req.query.debugDate);
     res.render("index", {
-        title: "Super6 Rugby",
+        title: "Rugby Super 6",
         games: games,
         mainPage: true
     });
@@ -19,7 +19,7 @@ router.get("/", wrap(async (req, res, next) => {
 ['terms', 'contact'].forEach((page)=>{
     router.get(`/${page}`, (req, res, next) => {
         res.render(page, {
-            title: `${page.charAt(0).toUpperCase()}${page.slice(1)}`
+            title: `${page.charAt(0).toUpperCase()}${page.slice(1)} - Rugby Super 6`
         });
     });
 });
