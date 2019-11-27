@@ -1,7 +1,7 @@
 <div class="team" team_win_selector team_name="<%= team.name %>" style="background-image: url('/images/flags/<%= team.flag %>')">
     <div class="team-overlay">
         
-            <div class="description" bet_winner_selection>Victor</div>
+        <div class="description" bet_winner_selection>Victor</div>
        
         <div class="name"><%= team.name %></div>
         <% if(isBet || teamTries){ %>
@@ -11,6 +11,7 @@
                 <%= blockNumber %>Team
                 <%= teamSide %>Tries" type="number" min="0">
                 <label for="block_<%= blockNumber %>_team_<%= teamSide %>_tries"><%= team.name %> Tries</label>
+                <div reason></div>
             </div>
         <% } %>
     </div>

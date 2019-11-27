@@ -67,10 +67,7 @@ router.put('/:betId', wrap(async (req, res, next) => {
         await betsService.update(db, betId, bet, true);
         res.json(true);
     } catch (e) {
-        // TODO: Need to verify why we couldn't create the bet.
-        // Basically need to check if the error came from the client side (4**) or if it's an actual server error (5**)
-        res.statusCode = e.httpCode || 500;
-        res.send(e.message || 'Error updating bet');
+        return res.status(e.httpCode || 500).json({ errors: [{msg:e.message || 'Error creating bet' }] });
     }
 }));
 
