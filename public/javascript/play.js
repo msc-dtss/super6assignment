@@ -3,10 +3,10 @@
  * @param {*} roundIndex The round index which the user is betting on.
  * @param {*} nrGames The number of Games which the user is betting on (should always be 6).
  */
-var placeBet = function (roundIndex, nrGames) {
+var placeBet = function (roundIndex, nrGames, betId) {
     var bet = getBetValues(roundIndex, nrGames);
-    makeRequest("/bets",
-        "POST",
+    makeRequest("/bets/" + (betId || ""),
+        !betId ? "POST" : "PUT",
         function () {
             window.location.href = '/profile';
         },
@@ -129,7 +129,7 @@ var attachHelpListeners = function () {
 /**
  * Fills the values with the bet information
  */
-var fillSelection = function (betInfo) {
+var fillSelection = function (betInfo, goldenTry) {
     var keys = Object.keys(betInfo)
     for (var i = 0; i < keys.length; ++i) {
         if (betInfo[keys[i]].winTeam === "draw") {
@@ -139,6 +139,10 @@ var fillSelection = function (betInfo) {
             select(document.querySelector("[game_id='" + keys[i] + "']")
                 .querySelector("[team_name='" + betInfo[keys[i]].winTeam + "']"));
         }
+    };
+    var goldTryGrab = document.getElementById("golden_try");
+    if (goldTryGrab) {
+    document.getElementById("golden_try").value = goldenTry;
     };
 };
 

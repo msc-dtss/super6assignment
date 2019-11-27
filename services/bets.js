@@ -76,12 +76,9 @@ const create = async (db, bet) => {
  * @param {*} db The connection to the database
  * @param {String} betId The id of the bet
  * @param {*} updateObject The object containing the updates to the fields
- * @param {Boolean} replace Whether or not to replace the document completely
  */
-const update = async (db, betId, updateObject, replace) => {
-    const replaceAllContent = replace || false;
-    const updates = replaceAllContent ? updateObject : { $set: updateObject }
-    db.collection('bets').updateOne({ _id: betId }, updates);
+const update = async (db, betId, updateObject) => { 
+    db.collection('bets').updateOne({ _id: betId }, { $set: updateObject });
 }
 
 /**
