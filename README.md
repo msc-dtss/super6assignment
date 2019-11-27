@@ -1,5 +1,12 @@
+
+# Super 6 Rugby
+This is for the First Assignment for the 2019 MSc for Digital &amp; Technology Solutions Specialist.
+
+Why rugby? The day we started brainstorming our plan together, it was the start of the 2019 Rugby World Cup, so why not?
+
+## Table of Contents
 - [Super 6 Rugby](#super-6-rugby)
-  * [Authors:](#authors-)
+  * [Authors:](#authors)
 - [Running](#running)
   * [... pre-deployed app](#-pre-deployed-app)
   * [... from cloned repository](#-from-cloned-repository)
@@ -8,21 +15,11 @@
 - [Contributing](#contributing)
   * [Game Format](#game-format)
   * [Technical Documentation](#technical-documentation)
-    + [General](#general)
-    + [Architecture](#architecture)
   * [Using git](#using-git)
   * [Get Started](#get-started)
   * [Building](#building)
-    + [Locally](#locally)
-    + [Automatically](#automatically)
-    + [Docker](#docker)
 
-# Super 6 Rugby
-This is for the First Assignment for the 2019 MSc for Digital &amp; Technology Solutions Specialist.
-
-Why rugby? The day we started brainstorming our plan together, it was the start of the 2019 Rugby World Cup, so why not?
-
-## Authors:
+## Authors
 
 * [Chris](https://github.com/TheQuietPotato)
 * [Mike](https://github.com/MikeKeightley)
