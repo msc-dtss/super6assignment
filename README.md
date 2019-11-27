@@ -15,6 +15,10 @@ Why rugby? The day we started brainstorming our plan together, it was the start 
 # Running
 You can try the application using any of the methods below
 
+## ... pre-deployed app
+Just go to [https://rugbysuper6.herokuapp.com/](https://rugbysuper6.herokuapp.com/)
+
+
 ## ... from cloned repository
 Dependencies:
 
@@ -186,4 +190,4 @@ Once we're happy with a particular release, we should change the name to match t
 ### Docker
 Docker gets automatically built via the dockerhub automated builds.
 
-You can find it here: https://hub.docker.com/r/mscdtss/rugbysuper6
+You can find it here: [https://hub.docker.com/r/mscdtss/rugbysuper6](https://hub.docker.com/r/mscdtss/rugbysuper6)
