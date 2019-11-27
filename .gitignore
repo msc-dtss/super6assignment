@@ -63,10 +63,10 @@ typings/
 # Submission products
 submission
 submission*.zip
-shu-ddsa-rugbysuper6
-shu-ddsa-rugbysuper6*.zip
+shu-ddsa-rugbysuper6*
 rugbysuper6
 rugbysuper6.zip
+docs/code
 
 # Experiments
 graph.sh

@@ -115,8 +115,15 @@ You should be able to access the application on [http://localhost:3000/](http://
 See [Game Format](docs/game_format.md)
 
 ## Technical Documentation
-* [User Interface Views](docs/ui_views.md)
+### General
 * [Code Style (vscode)](.vscode/settings.json) (ensure your personal styles don't conflict with these)
+
+### Architecture
+![Rough architecture](https://raw.githubusercontent.com/msc-dtss/super6assignment/master/docs/images/architecture.png)
+
+We try to keep our routes light by delegating the work of dealing with the database or performing any data transformation to the services layer.
+
+The services also serve as the traditional model layer since with MongoDB it didn't feel right to create objects that would represent entities in the database.
 
 ## Using git
 Use the git commands when you make changes (Visual Studio Code has a nice gui for this out of the box)
