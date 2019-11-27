@@ -4,53 +4,48 @@
 
 <script src="/javascript/utils.js"></script>
 
-<% if(hasError && error.code === "001" && !loggedIn){ %>   
-    <div class="login-failed">
-        <h1>Error: Login failed, please try again.</h1>
-    </div>
-    <% } %>
-    <div class="head-image <%= isMain ? 'main' : '' %>">
-        <div class="navbar-container">
-            <div class="logo-image mobile-only"><img src="/images/logo.svg" width="160px"></div>
-            <div class="navbar-vertical-spacing">
-                <div class="navbar">
-                    <% if(!isMain){ %>
-                    <a href="/" id="home">Home</a>
-                    <% } %>
-                    <% if(isLoggedIn){ %>
-                    <a href="/bets/play" id="play">Play Super 6</a>
-                    <a href="/profile"><%= `${user.firstName} ${user.surname}` %></a>
-                    <a href="/users/logout">Logout</a>
-                    <%} else {%>
-                    <a class="mobile-only" href="#" onclick="showUserForm('login')" id="play">Login</a>
-                    <a class="mobile-only" href="#" onclick="showUserForm('register')" id="play">Register</a>
-                    <%}%>
-                </div>
-            </div>
-            <div class="logo-image desktop-only"><img src="/images/logo.svg" width="160px"></div>
-        </div>
-        <div class="head-grad desktop-only">
-            <% if(!isLoggedIn && isMain){ %>
-                <button class="open-button" onclick="showUserForm('login')">LOGIN</button>
-                <button class="open-button button-margin-bottom" onclick="showUserForm('register')">REGISTER</button>
+<div class="head-image <%= isMain ? 'main' : '' %>">
+    <div class="navbar-container">
+        <div class="logo-image mobile-only"><img src="/images/logo.svg" width="160px"></div>
+        <div class="navbar-vertical-spacing">
+            <div class="navbar">
+                <% if(!isMain){ %>
+                <a href="/" id="home">Home</a>
+                <% } %>
+                <% if(isLoggedIn){ %>
+                <a href="/bets/play" id="play">Play Super 6</a>
+                <a href="/profile"><%= `${user.firstName} ${user.surname}` %></a>
+                <a href="/users/logout">Logout</a>
+                <%} else {%>
+                <a class="mobile-only" href="#" onclick="showUserForm('login')" id="play">Login</a>
+                <a class="mobile-only" href="#" onclick="showUserForm('register')" id="play">Register</a>
                 <%}%>
-
+            </div>
         </div>
-        <% include loginForm.ejs %>
-        <% include userForm.ejs %>
+        <div class="logo-image desktop-only"><img src="/images/logo.svg" width="160px"></div>
     </div>
-    <script src="/javascript/header.js"></script>
-    <script>
-        var showUserForm = function (type) {
-            // The code below should just decide which login form to open
-            if (type === 'login') {
-                document.querySelector("[login_form]").classList.add("show-form");
-            } else if (type === 'register') {
-                document.querySelector("[user_form]").classList.add("show-form");
-            }
-        };
+    <div class="head-grad desktop-only">
+        <% if(!isLoggedIn && isMain){ %>
+            <button class="open-button" onclick="showUserForm('login')">LOGIN</button>
+            <button class="open-button button-margin-bottom" onclick="showUserForm('register')">REGISTER</button>
+            <%}%>
 
-        var closeUserForm = function () {
-            document.querySelector("[user_form].show-form,[login_form].show-form ").classList.remove("show-form");
-        };
-    </script>
+    </div>
+    <% include loginForm.ejs %>
+    <% include userForm.ejs %>
+</div>
+<script src="/javascript/header.js"></script>
+<script>
+    var showUserForm = function (type) {
+        // The code below should just decide which login form to open
+        if (type === 'login') {
+            document.querySelector("[login_form]").classList.add("show-form");
+        } else if (type === 'register') {
+            document.querySelector("[user_form]").classList.add("show-form");
+        }
+    };
+
+    var closeUserForm = function () {
+        document.querySelector("[user_form].show-form,[login_form].show-form ").classList.remove("show-form");
+    };
+</script>

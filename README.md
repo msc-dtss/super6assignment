@@ -15,6 +15,10 @@ Why rugby? The day we started brainstorming our plan together, it was the start 
 # Running
 You can get the application via cloning this repository, getting it from the [releases](), or as a docker container.
 
+## ... pre-deployed app
+Just go to [https://rugbysuper6.herokuapp.com/](https://rugbysuper6.herokuapp.com/)
+
+
 ## ... from cloned repository
 Dependencies:
     * `git`
