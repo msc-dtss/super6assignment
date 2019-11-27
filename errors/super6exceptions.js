@@ -5,6 +5,7 @@ const internalCodes = {
     "InvalidField": "003",
     "UserExists": "004",
     "UserDoesNotExist": "005",
+    "ResourceDoesNotExist": "006",
 }
 
 class SuperSixError extends Error {
@@ -22,9 +23,15 @@ class ValidationError extends SuperSixError {
     }
 }
 
-class UserNotFoundError extends SuperSixError {
+class ResourceNotFoundError extends SuperSixError {
     constructor(message, details, httpCode) {
-        super(message || "Invalid user", details, httpCode || "404", internalCodes.UserDoesNotExist);
+        super(message || "Resource not found", details, httpCode || "404", internalCodes.ResourceDoesNotExist);
+    }
+}
+
+class UserNotFoundError extends ResourceNotFoundError {
+    constructor(message, details, httpCode) {
+        super(message || "Invalid user", details, httpCode, internalCodes.UserDoesNotExist);
     }
 }
 

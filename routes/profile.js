@@ -6,9 +6,9 @@ const router = express.Router();
 router.get('/', wrap(async (req, res, next) => {
     // Should show the user profile page
     const db = req.app.get('super6db');
-    const userInfo = await userProfileService.fetchProfileBundle(db, req.session.user._id);
+    const userInfo = await userProfileService.fetchProfileBundle(db, req.session.user);
     res.render('profile', {
-        title: req.session.user.firstName,
+        title: `${req.session.user.firstName} ${req.session.user.surname} - Super6 Rugby`,
         response: userInfo,
         loggedIn: !!req.session.user,
         user: req.session.user || null

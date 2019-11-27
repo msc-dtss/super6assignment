@@ -33,10 +33,10 @@
     <div class="user_bet_box">        
         <div class="user_info_title"><%= Object.keys(response.gameBets).length > 0 ? "Most Recent Bet" : "No bets yet placed" %></div>
 
-        <% if (response.todaysDate < response.round[0].dateRange.start) { %> 
-            <div class="round_starts">Round starts: <%= response.round[0].dateRange.start %></div>
+        <% if (response.todaysDate < response.round.dateRange.start) { %> 
+            <div class="round_starts">Round starts: <%= response.round.dateRange.start %></div>
         <% } else { %>
-            <div class="round_starts">Round already started on: <%= response.round[0].dateRange.start %></div>
+            <div class="round_starts">Round already started on: <%= response.round.dateRange.start %></div>
         <% }; %>
 
         <% if(Object.keys(response.gameBets).length > 0) { %>
@@ -56,7 +56,7 @@
             <h3>Golen Try Guess: <%=response.bets[0].goldenTry%></h3>
 
             <!-- Round Points to show if round end date has passed -->
-            <% if (response.todaysDate > response.round[0].dateRange.end) { %>
+            <% if (response.todaysDate > response.round.dateRange.end) { %>
                 <h3>Round Points: <%= response.bets[0].points %></h3>
                 <% }; %>
 
@@ -70,17 +70,16 @@
                 </div>
                 
                 <!-- Edit Bet Button  -->
-                <% if (1) { %> <!-- TODO REMOVE AND REPLACE WITH LINE BELOW - TESTING ONLY -->
-                    <!-- response.todaysDate < response.round[0].dateRange.start  -->
+                <% if (response.todaysDate < response.round.dateRange.start) { %>
                     <button class="edit_bet_button" onclick="displayEditBetAlert(event)">Edit Bet</a></button>
-                    <% }; %> 
-                    <% } %>
+                <% }; %> 
                     
             <!-- Bet History Link -->
             <div class="show_more_bet_history">
                 <h3><a href="/bets/history">Show Full History</a></h3>
             </div>
         </div>
+        <% } %>
     </div> 
 </div>
 

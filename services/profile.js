@@ -1,8 +1,8 @@
-const userService = require('../services/users');
 const betService = require('../services/bets');
 const roundService = require('../services/rounds');
 const gameService = require('../services/game');
 const dateHelper = require('./helpers/date-helpers');
+const errors = require('../errors/super6exceptions');
 
 
 /**
@@ -23,11 +23,10 @@ const recentRoundIndex = (bets) => {
 /**
  * Grabs the user profile page. This includes the user information as well as the bets history.
  * @param {*} db The connection to the database
- * @param {String} userId The ID of the user
+ * @param {*} user Object containing the user information
  * @returns {*} An object with the user information and the bets history
  */
-const fetchProfileBundle = async (db, userId) => {
-    const users = await userService.fetchById(db, userId); // TODO do we need this because of session info?
+const fetchProfileBundle = async (db, user) => {
     const bets = await betService.fetchByUser(db, userId);
     const mostRecentRound = recentRoundIndex(bets);
     const recentBet = await betService.betsForUserAndRoundGame(db, userId, mostRecentRound);
@@ -35,13 +34,17 @@ const fetchProfileBundle = async (db, userId) => {
     const rounds = await roundService.fetch(db, { index: mostRecentRound });
     const games = await gameService.fetch(db, { roundIndex: mostRecentRound });
 
+    if(rounds.length === 0) {
+        throw new errors.ResourceNotFoundError(`Unable to find any round`);
+    }
+
     return {
-        user: users[0],
+        user,
         bets: fullBets,
         gameBets: recentBet, //Same thing with plural/singular
-        round: rounds, //Same thing with plural/singular
+        round: rounds[0],
         games,
-        totalPoints: addUpBetPoints(bets),
+        totalPoints: betsService.addUpBetPoints(bets),
         totalBets: bets.length,
         roundIndex: mostRecentRound,
         todaysDate: dateHelper.getToday()
