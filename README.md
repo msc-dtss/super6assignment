@@ -13,10 +13,11 @@ Why rugby? The day we started brainstorming our plan together, it was the start 
 
 
 # Running
-You can get the application via cloning this repository, getting it from the [releases](), or as a docker container.
+You can try the application using any of the methods below
 
 ## ... from cloned repository
 Dependencies:
+
     * `git`
     * `node` and `npm`
     * `mongodb`
@@ -55,6 +56,7 @@ node bin/www
 
 ## ... from release
 Dependencies:
+
     * `node` and `npm`
     * `mongodb`
 
@@ -90,6 +92,7 @@ node bin/www
 ## ... from Docker
 
 Dependencies:
+
     * `docker`
 
 You should be able to run the commands below on Windows, Linux and MacOS:
