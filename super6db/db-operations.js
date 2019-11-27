@@ -3,16 +3,32 @@ const MongoClient = require('mongodb').MongoClient;
 const resultsService = require('../services/results');
 
 /**
+ * See `initializeWithURL` below.
+ * @param {*} app The express application to bind the database connecion to.
+ * @param {String} host IP or domain name of the database host.
+ * @param {number} port Port that MongoDB is listening on
+ * @param {String} username Username to connect to MongoDB
+ * @param {String} password Password to connect to MongoDB
+ * @param {String} database Database name to connect to MongoDB
+ * @emits db-ready (via call to `initializeWithURL`) Once the connection is established and the database has been (optionally) seeded
+ */
+const initialize = (app, host, port, username, password, database) => {
+    const url = !!username && !!password ? `mongodb://${username}:${password}@${host}:${port}/${database}` : `mongodb://${host}:${port}`;
+    initializeWithURL(app, url, database);
+};
+
+
+/**
  * Initializes a MongoDB client connection to the given host and port.
  * Available across the system with req.app.get('super6db').
  * Seeds the database in dev mode or if `SUPERSIX_FORCE_SEED` environment variable is set to `"true"`
  * @param {*} app The express application to bind the database connecion to.
- * @param {String} host IP or domain name of the database host.
- * @param {number} port Port that MongoDB is listening on
+ * @param {String} url The MongoDB connection string
+ * @param {String} database Database name to connect to MongoDB
  * @emits db-ready Once the connection is established and the database has been (optionally) seeded
  */
-const initialize = (app, host, port) => {
-    MongoClient.connect(`mongodb://${host}:${port}`,
+const initializeWithURL = (app, url, database) => {
+    MongoClient.connect(url,
         {
             useNewUrlParser: true,
             useUnifiedTopology: true
@@ -21,7 +37,7 @@ const initialize = (app, host, port) => {
             if(err) {
                 console.error(err);
             }
-            const db = client.db('super6db');
+            const db = client.db(database || 'super6db');
             app.set('super6db', db);
             if (app.get('isDevelopment') || process.env.SUPERSIX_FORCE_SEED === "true") {
                 await reSeedDatabase(db);
@@ -30,7 +46,7 @@ const initialize = (app, host, port) => {
             resultsService.refreshResults(db);
         }
     );
-}
+};
 
 /**
  * Checks if a collection exists in the database or not
@@ -101,5 +117,6 @@ const reSeedDatabase = async (db) => {
 };
 
 module.exports = {
-    initialize
+    initialize,
+    initializeWithURL
 }

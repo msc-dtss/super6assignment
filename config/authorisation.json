@@ -2,6 +2,8 @@
     "routes": {
         "public": [
             "/",
+            "/terms",
+            "/contact",
             "/users/login",
             "/users/logout",
             "/users/signup"

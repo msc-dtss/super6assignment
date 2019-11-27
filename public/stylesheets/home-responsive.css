@@ -45,6 +45,9 @@
     }
     .head-image {
         height: auto;
-    
-}
+    }
+    .footer-text {
+        padding: 0;
+        flex-direction: column;
+    }
 }
