@@ -83,7 +83,7 @@ var select = function (gameTeam, type) {
  * Attach the winner/loser selection event listener to each flag
  */
 var attachVictorListeners = function () {
-    var selectors = document.querySelectorAll("[team_win_selector][is_writable='true']");
+    var selectors = document.querySelectorAll("[is_writable='true']>[team_win_selector]");
     for (var i = 0; i < selectors.length; i++) {
         selectors[i].addEventListener('click', function (event) {
             if (event.srcElement.tagName.toLowerCase() !== "input" && event.srcElement.tagName.toLowerCase() !== "label") {
@@ -97,10 +97,10 @@ var attachVictorListeners = function () {
  * Attach the draw selection event listener to the vs element
  */
 var attachTieListeners = function () {
-    var selectors = document.querySelectorAll("[team_draw_selector][is_writable='true']");
+    var selectors = document.querySelectorAll("[is_writable='true']>[team_draw_selector]");
     for (var i = 0; i < selectors.length; i++) {
         selectors[i].addEventListener('click', function (event) {
-            if (event.srcElement.tagName.toLowerCase() !== "input" && event.srcElement.tagName.toLowerCase() !== "label") { //input
+            if (event.srcElement.tagName.toLowerCase() !== "input" && event.srcElement.tagName.toLowerCase() !== "label") {
                 select(this, "draw");
             }
         });
@@ -134,7 +134,7 @@ var fillSelection = function (betInfo) {
     for (var i = 0; i < keys.length; ++i) {
         if (betInfo[keys[i]].winTeam === "draw") {
             select(document.querySelector("[game_id='" + keys[i] + "']")
-                .querySelector("[team_draw_selector]"));
+                .querySelector("[team_draw_selector]"), "draw");
         } else {
             select(document.querySelector("[game_id='" + keys[i] + "']")
                 .querySelector("[team_name='" + betInfo[keys[i]].winTeam + "']"));
