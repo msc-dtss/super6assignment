@@ -5,7 +5,10 @@ const resultsService = require('../services/results');
 
 /**
  * Creates a worker for this file.
- */
+  * @param {Number} refreshFrequency Refresh frequency in seconds
+  * @param {Function} onsuccess Callback to run when the worker is successful (i.e. when it manages to get new results)
+  * @param {Function} onerror Callback to run when there's an error
+  */
 const setup = (refreshFrequency, onsuccess, onerror) => {
     const worker = new workers.Worker(__filename, {
         workerData: {
@@ -19,10 +22,14 @@ const setup = (refreshFrequency, onsuccess, onerror) => {
     });
 };
 
+/**
+ * Gets the latest results every `refreshFrequency` seconds (configured when instancing the Worker).
+ * Run will be executed automatically when `resultsRefresher` is started as a Worker.
+ * @emits message The results to be passed back to the main application
+ */
 const run = () => {
     const refreshFrequencySeconds = workers.workerData.refreshFrequency || 60;
     setInterval(async () => {
-        console.log("Running...")
         const results = await resultsService.getResultsFromApi();
         workers.parentPort.postMessage(results);
     }, refreshFrequencySeconds * 1000);

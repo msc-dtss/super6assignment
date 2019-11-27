@@ -73,8 +73,7 @@ if (!process.env.MONGODB_URI) {
 
 //Start a worker to refresh the results cache.
 app.on('db-ready', () => {
-    // Every 5 minutes
-    resultsRefresher.setup(60*5,
+    resultsRefresher.setup(config.results.refresh || 60,
         (results) => {
             console.log("Data is refreshed");
             resultsService.refreshCacheResults(app.get('super6db'), results);

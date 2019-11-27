@@ -1,5 +1,8 @@
 {
     "port": 3000,
+    "results": {
+        "refresh": 300
+    },
     "database": {
         "host": "localhost",
         "port": 27017,
