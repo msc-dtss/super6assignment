@@ -3,6 +3,7 @@ const betsService = require('../services/bets');
 
 /**
  * Cache to hold the results. So we don't have to fetch them all the time (and in case the API is unavailable).
+ * This works because of how Node loads modules (subsequent times the modules load, they're loaded from the node cache).
  */
 let resultsCache = [];
 
@@ -13,6 +14,16 @@ let resultsCache = [];
 const refreshResults = async (db) => {
     const unscoredBets = await betsService.fetchUnscoredBets(db);
     resultsCache = await getResults(true);
+    await betsService.score(db, unscoredBets, resultsCache);
+}
+
+/**
+ * Refreshes the results cache with the given results data and updates the scoring.
+ * @param {*} results The results to update the cache with
+ */
+const refreshCacheResults = async (db, results) => {
+    const unscoredBets = await betsService.fetchUnscoredBets(db);
+    resultsCache = results;
     await betsService.score(db, unscoredBets, resultsCache);
 }
 
@@ -192,5 +203,7 @@ const getGoldenTryResults = async (isForced) => {
 module.exports = {
     getGameResults,
     getGoldenTryResults,
-    refreshResults
+    refreshResults,
+    refreshCacheResults,
+    getResultsFromApi
 };

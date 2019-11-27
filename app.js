@@ -4,11 +4,14 @@ const path = require('path');
 const session = require('express-session');
 const expressLayouts = require('express-ejs-layouts');
 const logger = require('morgan');
+
 const config = require('./config/config.json');
 const routesAutoLoader = require('./routes/autoloader');
 const dbOps = require('./super6db/db-operations');
 const viewAutoInjectData = require('./routes/helpers/view-auto-inject');
 const authorisationLayer = require('./routes/helpers/authorisation');
+const resultsRefresher = require('./workers/resultsRefresher');
+const resultsService = require('./services/results');
 
 const app = express();
 app.set('isDevelopment', app.get('env') === 'development');
@@ -57,7 +60,7 @@ app.use((err, req, res, next) => {
     });
 });
 
-if(!process.env.MONGODB_URI) {
+if (!process.env.MONGODB_URI) {
     dbOps.initialize(app,
         config.database.host,
         config.database.port,
@@ -68,4 +71,17 @@ if(!process.env.MONGODB_URI) {
     dbOps.initializeWithURL(app, process.env.MONGODB_URI, process.env.MONGODB_DB_NAME)
 }
 
+//Start a worker to refresh the results cache.
+app.on('db-ready', () => {
+    // Every 5 minutes
+    resultsRefresher.setup(60*5,
+        (results) => {
+            console.log("Data is refreshed");
+            resultsService.refreshCacheResults(app.get('super6db'), results);
+        },
+        (error) => {
+            console.error(error);
+        }
+    );
+});
 module.exports = app;
