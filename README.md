@@ -122,6 +122,8 @@ See [Game Format](docs/game_format.md)
 ### General
 * [Code Style (vscode)](.vscode/settings.json) (ensure your personal styles don't conflict with these)
 
+Further documentation in the code as docstrings, or under `docs/code/` when obtaining [the release](https://github.com/msc-dtss/super6assignment/releases/latest).
+
 ### Architecture
 ![Rough architecture](https://raw.githubusercontent.com/msc-dtss/super6assignment/master/docs/images/architecture.png)
 
