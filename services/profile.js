@@ -31,13 +31,13 @@ const fetchProfileBundle = async (db, userId) => {
     const bets = await betService.fetchByUser(db, userId);
     const mostRecentRound = recentRoundIndex(bets);
     const recentBet = await betService.betsForUserAndRoundGame(db, userId, mostRecentRound);
-    const fullBet = await betService.fetch(db, {userId: userId, roundIndex: mostRecentRound});
+    const fullBets = await betService.fetch(db, {userId: userId, roundIndex: mostRecentRound});
     const rounds = await roundService.fetch(db, { index: mostRecentRound });
     const games = await gameService.fetch(db, { roundIndex: mostRecentRound });
 
     return {
         user: users[0],
-        bets: fullBet, //Why is bets plural if we're passing fullBet? Plural usually means a collection?
+        bets: fullBets,
         gameBets: recentBet, //Same thing with plural/singular
         round: rounds, //Same thing with plural/singular
         games,
