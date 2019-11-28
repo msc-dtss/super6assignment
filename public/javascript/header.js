@@ -66,7 +66,8 @@ var submitUserInfo = function (formId, endpoint) {
     makeRequest(endpoint,
         "POST",
         function (text, json) {
-            location.href = !json ? text : (json.pageToRedirect || "/bets/play");
+            var newPage = !json ? text : (json.pageToRedirect || "/bets/play");
+            location.href = newPage + window.location.search;
         },
         (httpStatusCode, responseText, responseJson) => {
             processErrors(formElement, responseJson, responseText)

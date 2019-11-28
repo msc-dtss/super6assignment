@@ -1,5 +1,9 @@
 /**
  * Creates and sends a request
+ * @param {String} endpoint The endpoint where to send the request
+ * @param {String} httpMethod The HTTP method to use (defaults to GET)
+ * @param {Function} successCallback The callback to execute when the request is successful
+ * @param {Function} failCallback The callback to execute when the request fails
  * @param {*} content (optional) The body of the request in json format
  */
 var makeRequest = function (endpoint, httpMethod, successCallback, failCallback, content) {
@@ -23,7 +27,8 @@ var makeRequest = function (endpoint, httpMethod, successCallback, failCallback,
                 }
             }
         };
-        httpRequest.open(httpMethod || "GET", endpoint);
+
+        httpRequest.open(httpMethod || "GET", endpoint + window.location.search);
 
         if(!!content){
             httpRequest.setRequestHeader("Content-Type", "application/json");

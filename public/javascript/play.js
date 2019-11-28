@@ -8,7 +8,7 @@ var placeBet = function (roundIndex, nrGames, betId) {
     makeRequest("/bets/" + (betId || ""),
         !betId ? "POST" : "PUT",
         function () {
-            window.location.href = '/profile';
+            location.href = '/profile' + window.location.search;
         },
         function (httpStatusCode, responseText, responseJson) {
             showError(responseJson.errors || [{ msg: responseText }]);
