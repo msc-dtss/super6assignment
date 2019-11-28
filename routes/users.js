@@ -34,7 +34,7 @@ router.post('/signup', [
         await userService.create(db, email, password, firstName, surname);
         req.session.user = await userService.fetchUser(db, email)
         console.log(req.session.user.email)
-        res.redirect("/bets/play");
+        return res.json({pageToRedirect: '/bets/play'});
     } catch (e) {
         if (e instanceof exceptions.ValidationError) {
             return res.status(e.httpCode).json(e.details);
