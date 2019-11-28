@@ -11,8 +11,7 @@ var placeBet = function (roundIndex, nrGames, betId) {
             window.location.href = '/profile';
         },
         function (httpStatusCode, responseText, responseJson) {
-            // TODO: Need to verify why we couldn't create the bet. 
-            // Basically need to check if the error came from the client side (4**) or if it's an actual server error (5**)
+            showError(responseJson.errors || [{ msg: responseText }]);
         },
         bet);
 };

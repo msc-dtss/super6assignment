@@ -17,10 +17,10 @@ var colourField = function (inputElement, error, isValid) {
 /**
  * Process errors when trying to login or register
  * @param {*} httpStatusCode The returned http status code
- * @param {*} responseText The response as text
  * @param {*} responseJson The response as json (could be null)
+ * @param {*} responseText The response as text
  */
-var processErrors = function (formElement, responseJson) {
+var processErrors = function (formElement, responseJson, responseText) {
     if (!!responseJson) {
         for (var i = 0; i < responseJson.errors.length; i++) {
             if (!!responseJson.errors[i].param) {
@@ -31,6 +31,8 @@ var processErrors = function (formElement, responseJson) {
             } else if (responseJson.errors[i].code === "002") {
                 colourField(formElement.querySelector("[name='email']"), responseJson.errors[i].message);
                 colourField(formElement.querySelector("[name='password']"), responseJson.errors[i].message);
+            } else {
+                showError(responseJson.errors || [{ msg: responseText }]);
             }
         }
     }
@@ -67,7 +69,7 @@ var submitUserInfo = function (formId, endpoint) {
             location.href = !json ? text : (json.pageToRedirect || "/bets/play");
         },
         (httpStatusCode, responseText, responseJson) => {
-            processErrors(formElement, responseJson)
+            processErrors(formElement, responseJson, responseText)
         },
         formValues
     );

@@ -33,3 +33,52 @@ var makeRequest = function (endpoint, httpMethod, successCallback, failCallback,
         }
     }
 };
+
+/**
+ * Creates a RFC4122 UUID
+ * 
+ * Using the more compatible version
+ * @see https://stackoverflow.com/a/2117523
+ */
+var uuid = function() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+}
+
+/**
+ * Creates a new error message block
+ * @param {String} content The html content to put inside the error
+ */
+var newErrorBlock = function (content) {
+    var errorBlock = document.createElement('div');
+    errorBlock.className = 'error out-of-view';
+    errorBlock.id = uuid();
+    errorBlock.innerHTML = content;
+    return errorBlock;
+}
+
+/**
+ * 
+ * @param {Array} errors An array of `{message: "Error"}`
+ * @param {Number} ttl The time in seconds until the message disappears
+ */
+var showError = function(errors, ttl) {
+    const errorElement = document.querySelector('[error_holder]');
+    if(errorElement) {
+        for(var i=0; i < errors.length; i++){ 
+            var errorBlock = newErrorBlock(errors[i].message);
+            errorElement.append(errorBlock);
+            setTimeout(function() {
+                errorBlock.classList.remove("out-of-view");
+            }, 1);
+            setTimeout(function() {
+                errorBlock.classList.add("out-of-view");
+                setTimeout(function() {
+                    errorElement.removeChild(errorBlock);
+                }, 1);
+            }, (ttl || 5) * 1000);
+        }
+    }
+};

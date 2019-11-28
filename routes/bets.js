@@ -51,8 +51,7 @@ router.post('/', wrap(async (req, res, next) => {
         await betsService.create(db, bet);
         res.json(true);
     } catch (e) {
-        res.statusCode = e.httpCode || 500;
-        res.send(e.message || 'Error creating bet');
+        return res.status(e.httpCode || 500).json({ errors: [{message:e.message || 'Error updating bet' }] });
     }
 }));
 
@@ -65,7 +64,7 @@ router.put('/:betId', wrap(async (req, res, next) => {
         await betsService.update(db, betId, bet);
         res.json(true);
     } catch (e) {
-        return res.status(e.httpCode || 500).json({ errors: [{msg:e.message || 'Error updating bet' }] });
+        return res.status(e.httpCode || 500).json({ errors: [{message:e.message || 'Error updating bet' }] });
     }
 }));
 
