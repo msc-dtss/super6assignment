@@ -22,7 +22,7 @@ const fetch = async (db, criteria) => {
  */
 const fetchFuture = async (db, debugDate) => {
     const formattedDate = !debugDate ? dateHelper.getToday() : dateHelper.formatDate(new Date(debugDate));
-    const currentRoundInfo = roundsService.fetchFutureSorted(db, formattedDate);
+    const currentRoundInfo = await roundsService.fetchFutureSorted(db, formattedDate);
 
     let nextRoundIndex = 0;
     if (currentRoundInfo.length > 0) {
