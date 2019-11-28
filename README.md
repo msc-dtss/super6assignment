@@ -37,7 +37,8 @@ npm install                                                # Install node depend
 SUPERSIX_FORCE_SEED=true                                   # Ensure the database is seeded
                                                            # (Only use this the first time you run the application.
                                                            # Otherwise it will reset your DB)
-NODE_ENV=production node ./bin/www                         # Start the application in Production Mode
+NODE_ENV=production                                        # Use production mode
+node ./bin/www                                             # Start the application
 ```
 
 ```bat
