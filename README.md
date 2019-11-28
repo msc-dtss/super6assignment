@@ -1,9 +1,25 @@
+
 # Super 6 Rugby
 This is for the First Assignment for the 2019 MSc for Digital &amp; Technology Solutions Specialist.
 
 Why rugby? The day we started brainstorming our plan together, it was the start of the 2019 Rugby World Cup, so why not?
 
-## Authors:
+## Table of Contents
+- [**Super 6 Rugby**](#super-6-rugby)
+  * [Authors](#authors)
+- [**Running**](#running)
+  * [... pre-deployed app](#-pre-deployed-app)
+  * [... from cloned repository](#-from-cloned-repository)
+  * [... from release](#-from-release)
+  * [... from Docker](#-from-docker)
+- [**Contributing**](#contributing)
+  * [Game Format](#game-format)
+  * [Technical Documentation](#technical-documentation)
+  * [Using git](#using-git)
+  * [Get Started](#get-started)
+  * [Building](#building)
+
+## Authors
 
 * [Chris](https://github.com/TheQuietPotato)
 * [Mike](https://github.com/MikeKeightley)
@@ -22,9 +38,10 @@ Just go to [https://rugbysuper6.herokuapp.com/](https://rugbysuper6.herokuapp.co
 ## ... from cloned repository
 Dependencies:
 
-    * `git`
-    * `node` and `npm`
-    * `mongodb`
+* `git`
+* `node` (12 or above)
+* `npm`
+* `mongodb`
 
 Assuming you have all dependencies installed and `mongodb` is running with the default settings, you can get the application and start it with the commands below:
 ```bash
@@ -62,8 +79,9 @@ node bin/www
 ## ... from release
 Dependencies:
 
-    * `node` and `npm`
-    * `mongodb`
+* `node` (12 or above)
+* `npm`
+* `mongodb`
 
 1. Download `rugbysuper6.zip` in the [latest release](https://github.com/msc-dtss/super6assignment/releases/latest) on the [releases page](https://github.com/msc-dtss/super6assignment/releases/)
 2. Unzip the archive using whatever method you prefer
@@ -98,7 +116,7 @@ node bin/www
 
 Dependencies:
 
-    * `docker`
+* `docker`
 
 You should be able to run the commands below on Windows, Linux and MacOS:
 

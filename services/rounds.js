@@ -23,7 +23,11 @@ const fetchByIndex = async (db, roundIndex) => {
     return await fetch(db, { index: roundIndex });
 };
 
-//todo
+/**
+ * Fetches the current round (or the first round if we don't fall within any round)
+ * @param {*} db The connecion to the database
+ * @param {String} debugDate An optional date to pass in to ease debugging (unavailable in production mode)
+ */
 const fetchCurrentRound = async(db, debugDate) => {
     const todaysDate = !debugDate ? dateHelper.getToday() : dateHelper.formatDate(new Date(debugDate));
     let currentRound = await fetch(db, {
@@ -43,7 +47,11 @@ const fetchCurrentRound = async(db, debugDate) => {
     return currentRound[0];
 }
 
-//todo
+/**
+ * Fetches the future rounds
+ * @param {*} db The connecion to the database
+ * @param {String} date The date to compare with
+ */
 const fetchFutureSorted = async(db, date) => {
     return await db.collection("rounds").find({
         "dateRange.start": { $lte: date },

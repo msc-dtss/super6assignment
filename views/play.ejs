@@ -37,8 +37,8 @@
 
 <div class='bet-area'>
     <% if (games.length > 0) { %>
-    <button class="main centred" onclick="placeBet(<%= games[0].roundIndex %>, <%= games.length %>)" type="button" id="bet_button">
-        Place Bet!
+    <button class="main centred" onclick="placeBet(<%= games[0].roundIndex %>, <%= games.length %>, '<%= !!bet ? bet._id : "" %>')" type="button" id="bet_button">
+        <%= !!bet ? "Edit" : "Place"  %> Bet!
     </button>
     <% } else { %>
     <button disabled type="button" id="bet_button">
@@ -51,6 +51,6 @@
 <script>
     var betInformation = <%- JSON.stringify(bet) %>;
     if(betInformation !== null){
-        fillSelection(betInformation.indexedGames);
+        fillSelection(betInformation.indexedGames, betInformation.goldenTry);
     }
 </script>

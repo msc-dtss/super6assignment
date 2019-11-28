@@ -76,12 +76,9 @@ const create = async (db, bet) => {
  * @param {*} db The connection to the database
  * @param {String} betId The id of the bet
  * @param {*} updateObject The object containing the updates to the fields
- * @param {Boolean} replace Whether or not to replace the document completely
  */
-const update = async (db, betId, updateObject, replace) => {
-    const replaceAllContent = replace || false;
-    const updates = replaceAllContent ? updateObject : { $set: updateObject }
-    db.collection('bets').updateOne({ _id: betId }, updates);
+const update = async (db, betId, updateObject) => { 
+    db.collection('bets').updateOne({ _id: betId }, { $set: updateObject });
 }
 
 /**
@@ -161,24 +158,25 @@ const betsForUserByGame = async (db, userId) => {
 }
 
 /**
- * Fetches all bets, for the given user, indexed by game id
+ * Fetches all bets, for the given user and round, indexed by game id
  * @param {*} db The connection to the database
  * @param {String} userId The ID of the user
+ * @param {Number} roundId The ID of the round
  * @return {*} A map with all the game bets created by a user with the game ID as each bet's key
  */
-const betsForUserAndRoundGame = async (db, userId, roundId) => { // TODO need to update the docstring
+const betsForUserAndRoundGame = async (db, userId, roundId) => {
     const dbBets = await fetch(db, { userId: userId, roundIndex: roundId });
     return indexBetsByGameId(dbBets);
 }
 
 /**
- * Fetches all bets, for the given user, indexed by game id
+ * Fetches a specific bet of a user
  * @param {*} db The connection to the database
  * @param {String} userId The ID of the user
- * * @param {String} betId The Bet ID
+ * @param {String} betId The Bet ID
  * @return {*} A map with all the game bets created by a user with the game ID as each bet's key
  */
-const betOfUserAndBetId = async (db, userId, betId) => { // TODO need to update the docstring
+const betOfUserAndBetId = async (db, userId, betId) => {
     const singleBet = await fetch(db, { userId: userId, _id: betId });
     return singleBet[0] || null;
 }

@@ -22,7 +22,7 @@ const fetch = async (db, criteria) => {
  */
 const fetchFuture = async (db, debugDate) => {
     const formattedDate = !debugDate ? dateHelper.getToday() : dateHelper.formatDate(new Date(debugDate));
-    const currentRoundInfo = roundsService.fetchFutureSorted(db, formattedDate);
+    const currentRoundInfo = await roundsService.fetchFutureSorted(db, formattedDate);
 
     let nextRoundIndex = 0;
     if (currentRoundInfo.length > 0) {
@@ -57,7 +57,11 @@ const fetchIndexedByRoundAndDate = async db => {
     return byRound;
 };
 
-//TODO Do the docstring
+/**
+ * Fetches all the games given the provided IDs
+ * @param {*} db The connection to the database
+ * @param {*} ids All the IDs of the games we want to fetch
+ */
 const fetchGamesByIds = async (db, ids) => {
     return await fetch(db, {_id: {$in: ids}})
 };
